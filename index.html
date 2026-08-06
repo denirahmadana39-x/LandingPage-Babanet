@@ -1,0 +1,1099 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Baba Solution Information Technology — Technology Solutions for Business, Education & Home. Web Hosting, WiFi & CCTV Installation, Computer Assembly, PC & Laptop Repair, dan Computer Laboratory.">
+  <meta name="keywords" content="Baba Solution, IT, Web Hosting, WiFi, CCTV, Computer Assembly, Laptop Repair, PC Repair, Computer Laboratory, Network Infrastructure">
+  <meta name="author" content="Baba Solution Information Technology">
+  <meta name="theme-color" content="#2563EB">
+  <meta property="og:title" content="Baba Solution Information Technology">
+  <meta property="og:description" content="Technology Solutions for Business, Education & Home. One Partner for All Your IT Needs">
+  <meta property="og:type" content="website">
+
+  <title>Baba Solution Information Technology | One Partner for All Your IT Needs</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+
+  <!-- Favicon (inline data URI, no extra file needed) -->
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%232563EB'/%3E%3Ctext x='16' y='22' font-family='Arial' font-size='16' font-weight='bold' fill='white' text-anchor='middle'%3EB%3C/text%3E%3C/svg%3E">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/animation.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+
+<body>
+
+  <!-- ============================================================
+       SVG SPRITE (inline icons — lightweight, no external library)
+       Referenced via <use href="#icon-..."></use>
+       ============================================================ -->
+  <svg xmlns="http://www.w3.org/2000/svg" class="svg-sprite" aria-hidden="true">
+    <symbol id="icon-server" viewBox="0 0 24 24">
+      <rect x="2" y="2" width="20" height="8" rx="2"/><rect x="2" y="14" width="20" height="8" rx="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/>
+    </symbol>
+    <symbol id="icon-cloud" viewBox="0 0 24 24">
+      <path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/>
+    </symbol>
+    <symbol id="icon-computer" viewBox="0 0 24 24">
+      <rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>
+    </symbol>
+    <symbol id="icon-laptop" viewBox="0 0 24 24">
+      <rect x="4" y="4" width="16" height="11" rx="2"/><path d="M2 19h20l-1.5-4h-17L2 19z"/>
+    </symbol>
+    <symbol id="icon-wifi" viewBox="0 0 24 24">
+      <path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" y1="20" x2="12.01" y2="20"/>
+    </symbol>
+    <symbol id="icon-router" viewBox="0 0 24 24">
+      <rect x="3" y="11" width="18" height="8" rx="2"/><line x1="7" y1="15" x2="7.01" y2="15"/><line x1="11" y1="15" x2="11.01" y2="15"/><path d="M7 11V6h10v5"/><path d="M9 6c0-1 .8-1.8 3-1.8S15 5 15 6"/>
+    </symbol>
+    <symbol id="icon-cctv" viewBox="0 0 24 24">
+      <path d="M2 8l6.5 3L11 7l7 3.5V16l-7 3.5L6 15v4"/><path d="M20 7v10"/><circle cx="20" cy="7" r="1.6"/>
+    </symbol>
+    <symbol id="icon-dashboard" viewBox="0 0 24 24">
+      <rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/>
+    </symbol>
+    <symbol id="icon-monitor-code" viewBox="0 0 24 24">
+      <rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/><polyline points="8 8 5.5 10.5 8 13"/><polyline points="16 8 18.5 10.5 16 13"/>
+    </symbol>
+    <symbol id="icon-tools" viewBox="0 0 24 24">
+      <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
+    </symbol>
+    <symbol id="icon-network" viewBox="0 0 24 24">
+      <circle cx="12" cy="4" r="2.4"/><circle cx="4" cy="19" r="2.4"/><circle cx="20" cy="19" r="2.4"/><path d="M11 6.3L5 16.8"/><path d="M13 6.3L19 16.8"/><line x1="6.4" y1="19" x2="17.6" y2="19"/>
+    </symbol>
+    <symbol id="icon-headset" viewBox="0 0 24 24">
+      <path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/>
+    </symbol>
+    <symbol id="icon-phone" viewBox="0 0 24 24">
+      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/>
+    </symbol>
+    <symbol id="icon-whatsapp" viewBox="0 0 24 24">
+      <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8z"/>
+    </symbol>
+    <symbol id="icon-check" viewBox="0 0 24 24">
+      <polyline points="20 6 9 17 4 12"/>
+    </symbol>
+    <symbol id="icon-check-circle" viewBox="0 0 24 24">
+      <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>
+    </symbol>
+    <symbol id="icon-shield" viewBox="0 0 24 24">
+      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/>
+    </symbol>
+    <symbol id="icon-users" viewBox="0 0 24 24">
+      <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+    </symbol>
+    <symbol id="icon-wallet" viewBox="0 0 24 24">
+      <path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"/><path d="M3 5v14a2 2 0 0 0 2 2h16v-5"/><path d="M18 12a2 2 0 0 0 0 4h4v-4z"/>
+    </symbol>
+    <symbol id="icon-gear" viewBox="0 0 24 24">
+      <circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+    </symbol>
+    <symbol id="icon-clock" viewBox="0 0 24 24">
+      <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+    </symbol>
+    <symbol id="icon-award" viewBox="0 0 24 24">
+      <circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/>
+    </symbol>
+    <symbol id="icon-heart" viewBox="0 0 24 24">
+      <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+    </symbol>
+    <symbol id="icon-mail" viewBox="0 0 24 24">
+      <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/>
+    </symbol>
+    <symbol id="icon-pin" viewBox="0 0 24 24">
+      <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>
+    </symbol>
+    <symbol id="icon-arrow-right" viewBox="0 0 24 24">
+      <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+    </symbol>
+    <symbol id="icon-arrow-up" viewBox="0 0 24 24">
+      <line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/>
+    </symbol>
+    <symbol id="icon-menu" viewBox="0 0 24 24">
+      <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
+    </symbol>
+    <symbol id="icon-x" viewBox="0 0 24 24">
+      <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+    </symbol>
+    <symbol id="icon-chevron-down" viewBox="0 0 24 24">
+      <polyline points="6 9 12 15 18 9"/>
+    </symbol>
+    <symbol id="icon-cpu" viewBox="0 0 24 24">
+      <rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M9 1v3M15 1v3M9 20v3M15 20v3M20 9h3M20 14h3M1 9h3M1 14h3"/>
+    </symbol>
+    <symbol id="icon-database" viewBox="0 0 24 24">
+      <ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/>
+    </symbol>
+    <symbol id="icon-lock" viewBox="0 0 24 24">
+      <rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+    </symbol>
+    <symbol id="icon-globe" viewBox="0 0 24 24">
+      <circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+    </symbol>
+    <symbol id="icon-layers" viewBox="0 0 24 24">
+      <polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/>
+    </symbol>
+    <symbol id="icon-refresh" viewBox="0 0 24 24">
+      <polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/>
+    </symbol>
+    <symbol id="icon-zap" viewBox="0 0 24 24">
+      <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+    </symbol>
+    <symbol id="icon-briefcase" viewBox="0 0 24 24">
+      <rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
+    </symbol>
+    <symbol id="icon-clipboard" viewBox="0 0 24 24">
+      <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1"/><line x1="9" y1="12" x2="15" y2="12"/><line x1="9" y1="16" x2="13" y2="16"/>
+    </symbol>
+    <symbol id="icon-search" viewBox="0 0 24 24">
+      <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+    </symbol>
+    <symbol id="icon-ruler" viewBox="0 0 24 24">
+      <rect x="2" y="9" width="20" height="6" rx="1"/><line x1="6" y1="9" x2="6" y2="12"/><line x1="10" y1="9" x2="10" y2="12"/><line x1="14" y1="9" x2="14" y2="12"/><line x1="18" y1="9" x2="18" y2="12"/>
+    </symbol>
+    <symbol id="icon-install" viewBox="0 0 24 24">
+      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
+    </symbol>
+    <symbol id="icon-activity" viewBox="0 0 24 24">
+      <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+    </symbol>
+    <symbol id="icon-sparkles" viewBox="0 0 24 24">
+      <path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9L12 3z"/><path d="M19 15l.9 2.4L22 18.3l-2.1.9L19 21.6l-.9-2.4-2.1-.9 2.1-.9L19 15z"/>
+    </symbol>
+    <symbol id="icon-home" viewBox="0 0 24 24">
+      <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>
+    </symbol>
+    <symbol id="icon-hard-drive" viewBox="0 0 24 24">
+      <rect x="2" y="3" width="20" height="10" rx="2"/><path d="M4 13v6a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-6"/><line x1="7" y1="17" x2="7.01" y2="17"/><line x1="11" y1="17" x2="11.01" y2="17"/>
+    </symbol>
+  </svg>
+
+  <!-- ============================================================
+       NAVBAR
+       ============================================================ -->
+  <header class="site-header" id="site-header">
+    <nav class="navbar container" aria-label="Main navigation" data-i18n-aria="aria.nav">
+      <a href="#home" class="brand" aria-label="Baba Solution home" data-i18n-aria="aria.brand">
+        <span class="brand-icon" aria-hidden="true">B</span>
+        <span class="brand-text">Baba<strong>STI</strong></span>
+      </a>
+
+      <ul class="nav-links" id="nav-links">
+        <li><a class="nav-link active" href="#home" data-i18n="nav.home">Home</a></li>
+        <li><a class="nav-link" href="#services" data-i18n="nav.services">Services</a></li>
+        <li><a class="nav-link" href="#hosting" data-i18n="nav.hosting">Hosting</a></li>
+        <li><a class="nav-link" href="#about" data-i18n="nav.about">About</a></li>
+        <li><a class="nav-link" href="#contact" data-i18n="nav.contact">Contact</a></li>
+        <li><a class="nav-link" href="#faq" data-i18n="nav.support">Support</a></li>
+        <li class="nav-cta-mobile">
+          <a href="#contact" class="btn btn-primary btn-sm" data-i18n="nav.getStarted" data-whatsapp>Get Started</a>
+        </li>
+        <li class="nav-lang">
+          <div class="lang-switcher" role="group" aria-label="Choose language" data-i18n-aria="aria.chooseLanguage">
+            <button type="button" class="lang-btn" data-lang="id" aria-pressed="false"><span class="lang-flag" aria-hidden="true">&#127470;&#127465;</span> ID</button>
+            <button type="button" class="lang-btn" data-lang="en" aria-pressed="false"><span class="lang-flag" aria-hidden="true">&#127482;&#127480;</span> EN</button>
+          </div>
+        </li>
+      </ul>
+
+      <a href="#contact" class="btn btn-primary btn-sm nav-cta" data-i18n="nav.getStarted" data-whatsapp>Get Started</a>
+
+      <div class="lang-switcher lang-switcher-desktop" role="group" aria-label="Choose language" data-i18n-aria="aria.chooseLanguage">
+        <button type="button" class="lang-btn" data-lang="id" aria-pressed="false"><span class="lang-flag" aria-hidden="true">&#127470;&#127465;</span> ID</button>
+        <button type="button" class="lang-btn" data-lang="en" aria-pressed="false"><span class="lang-flag" aria-hidden="true">&#127482;&#127480;</span> EN</button>
+      </div>
+
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-links" data-i18n-aria="aria.toggle">
+        <svg class="icon icon-menu"><use href="#icon-menu"/></svg>
+        <svg class="icon icon-close"><use href="#icon-x"/></svg>
+      </button>
+    </nav>
+  </header>
+
+  <main>
+
+    <!-- ============================================================
+         HERO
+         ============================================================ -->
+    <section class="hero section" id="home">
+      <div class="hero-bg" aria-hidden="true">
+        <span class="blob blob-1"></span>
+        <span class="blob blob-2"></span>
+        <span class="grid-overlay"></span>
+      </div>
+
+      <div class="container hero-inner">
+        <div class="hero-content reveal">
+          <span class="hero-badge reveal" data-i18n="hero.badge">
+            <svg class="icon"><use href="#icon-sparkles"/></svg>
+            Technology Solutions for Business, Education &amp; Home
+          </span>
+
+          <h1 class="hero-title reveal" data-i18n-html="hero.title">
+            One Partner for All Your <span class="text-gradient">IT Needs</span>
+          </h1>
+
+          <p class="hero-subtitle reveal" data-i18n="hero.subtitle">
+            Baba Solution Information Technology menyediakan layanan Web Hosting,
+            Instalasi WiFi, Pemasangan CCTV, Perakitan Komputer, Service Laptop &amp; PC, serta Perancangan
+            Infrastruktur Laboratorium Komputer untuk sekolah, perusahaan, dan UMKM.
+          </p>
+
+          <div class="hero-actions reveal">
+            <a href="#contact" class="btn btn-primary btn-lg btn-ripple" data-whatsapp><span data-i18n="hero.getStarted">Get Started</span>
+              <svg class="icon"><use href="#icon-arrow-right"/></svg>
+            </a>
+            <a href="#services" class="btn btn-outline btn-lg" data-i18n="hero.viewServices">View Services</a>
+          </div>
+
+          <!-- Animated statistics -->
+          <div class="hero-stats reveal">
+            <div class="stat">
+              <span class="stat-value" data-counter="500" data-suffix="+">0+</span>
+              <span class="stat-label" data-i18n="hero.statProjects">Projects</span>
+            </div>
+            <div class="stat-divider" aria-hidden="true"></div>
+            <div class="stat">
+              <span class="stat-value" data-counter="300" data-suffix="+">0+</span>
+              <span class="stat-label" data-i18n="hero.statClients">Clients</span>
+            </div>
+            <div class="stat-divider" aria-hidden="true"></div>
+            <div class="stat">
+              <span class="stat-value" data-counter="99.9" data-decimal="1" data-suffix="%">0%</span>
+              <span class="stat-label" data-i18n="hero.statSatisfaction">Satisfaction</span>
+            </div>
+            <div class="stat-divider" aria-hidden="true"></div>
+            <div class="stat">
+              <span class="stat-value" data-counter="24" data-suffix="/7">0/7</span>
+              <span class="stat-label" data-i18n="hero.statSupport">Support</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right side illustration: CSS dashboard mockup + floating cards -->
+        <div class="hero-visual reveal" aria-hidden="true">
+          <div class="hero-orbit"></div>
+
+          <div class="dashboard-mockup">
+            <div class="mockup-top">
+              <span class="mockup-dot"></span>
+              <span class="mockup-dot"></span>
+              <span class="mockup-dot"></span>
+              <span class="mockup-title" data-i18n="mockup.title">Baba Dashboard</span>
+              <span class="mockup-online" data-i18n="mockup.online">● Online</span>
+            </div>
+            <div class="mockup-body">
+                <div class="mockup-chart">
+                  <div class="chart-bar bar-1"></div>
+                  <div class="chart-bar bar-2"></div>
+                  <div class="chart-bar bar-3"></div>
+                  <div class="chart-bar bar-4"></div>
+                  <div class="chart-bar bar-5"></div>
+                  <div class="chart-bar bar-6"></div>
+                  <div class="chart-bar bar-7"></div>
+                </div>
+              <div class="mockup-rows">
+                <div class="mockup-row">
+                  <span class="mockup-chip chip-1"></span>
+                  <span class="mockup-line line-wide"></span>
+                  <span class="mockup-line"></span>
+                </div>
+                <div class="mockup-row">
+                  <span class="mockup-chip chip-2"></span>
+                  <span class="mockup-line line-wide"></span>
+                  <span class="mockup-line"></span>
+                </div>
+                <div class="mockup-row">
+                  <span class="mockup-chip chip-3"></span>
+                  <span class="mockup-line line-wide"></span>
+                  <span class="mockup-line"></span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Floating cards -->
+          <div class="float-card float-card-1">
+            <span class="float-icon float-icon-blue">
+              <svg class="icon"><use href="#icon-server"/></svg>
+            </span>
+            <div>
+              <strong data-i18n="float.webHosting">Web Hosting</strong>
+              <small data-i18n="float.webHostingSmall">Uptime 99.9%</small>
+            </div>
+          </div>
+
+          <div class="float-card float-card-2">
+            <span class="float-icon float-icon-indigo">
+              <svg class="icon"><use href="#icon-cloud"/></svg>
+            </span>
+            <div>
+              <strong data-i18n="float.cloudReady">Cloud Ready</strong>
+              <small data-i18n="float.cloudReadySmall">Secure &amp; Fast</small>
+            </div>
+          </div>
+
+          <div class="float-card float-card-3">
+            <span class="float-icon float-icon-cyan">
+              <svg class="icon"><use href="#icon-wifi"/></svg>
+            </span>
+            <div>
+              <strong data-i18n="float.wifi">WiFi Installed</strong>
+              <small data-i18n="float.wifiSmall">Full Coverage</small>
+            </div>
+          </div>
+
+          <div class="float-card float-card-4">
+            <span class="float-icon float-icon-violet">
+              <svg class="icon"><use href="#icon-cctv"/></svg>
+            </span>
+            <div>
+              <strong data-i18n="float.cctv">24/7 CCTV</strong>
+              <small data-i18n="float.cctvSmall">Always Watching</small>
+            </div>
+          </div>
+
+          <div class="float-card float-card-5">
+            <span class="float-icon float-icon-green">
+              <svg class="icon"><use href="#icon-laptop"/></svg>
+            </span>
+            <div>
+              <strong data-i18n="float.pcLaptop">PC &amp; Laptop</strong>
+              <small data-i18n="float.pcSmall">Repair Expert</small>
+            </div>
+          </div>
+
+          <div class="float-card float-card-6">
+            <span class="float-icon float-icon-orange">
+              <svg class="icon"><use href="#icon-router"/></svg>
+            </span>
+            <div>
+              <strong data-i18n="float.networking">Networking</strong>
+              <small data-i18n="float.networkingSmall">Infrastructure</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SERVICES
+         ============================================================ -->
+    <section class="section" id="services">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="section-tag" data-i18n="services.tag">Our Services</span>
+          <h2 class="section-title" data-i18n-html="services.title">Complete IT Solutions, <span class="text-gradient">One Provider</span></h2>
+          <p class="section-desc" data-i18n="services.desc">Dari hosting hingga infrastruktur jaringan, kami menangani seluruh kebutuhan teknologi Anda dengan standar profesional.</p>
+        </div>
+
+        <div class="services-grid">
+          <article class="service-card reveal">
+            <div class="service-icon">
+              <svg class="icon"><use href="#icon-server"/></svg>
+            </div>
+            <h3 class="service-title" data-i18n="services.webHosting.title">Web Hosting</h3>
+            <p class="service-desc" data-i18n="services.webHosting.desc">Hosting cepat, stabil, dan aman dengan dukungan SSD serta SSL gratis untuk website Anda.</p>
+            <a href="#hosting" class="service-link"><span data-i18n="services.learnMore">Learn More</span>
+              <svg class="icon"><use href="#icon-arrow-right"/></svg>
+            </a>
+          </article>
+
+          <article class="service-card reveal">
+            <div class="service-icon">
+              <svg class="icon"><use href="#icon-wifi"/></svg>
+            </div>
+            <h3 class="service-title" data-i18n="services.wifi.title">WiFi Installation</h3>
+            <p class="service-desc" data-i18n="services.wifi.desc">Instalasi WiFi &amp; Internet berkecepatan tinggi dengan jangkauan optimal di seluruh area.</p>
+            <a href="#contact" class="service-link"><span data-i18n="services.learnMore">Learn More</span>
+              <svg class="icon"><use href="#icon-arrow-right"/></svg>
+            </a>
+          </article>
+
+          <article class="service-card reveal">
+            <div class="service-icon">
+              <svg class="icon"><use href="#icon-cctv"/></svg>
+            </div>
+            <h3 class="service-title" data-i18n="services.cctv.title">CCTV Installation</h3>
+            <p class="service-desc" data-i18n="services.cctv.desc">Pemasangan CCTV HD dengan akses remote, memastikan keamanan properti Anda 24/7.</p>
+            <a href="#contact" class="service-link"><span data-i18n="services.learnMore">Learn More</span>
+              <svg class="icon"><use href="#icon-arrow-right"/></svg>
+            </a>
+          </article>
+
+          <article class="service-card reveal">
+            <div class="service-icon">
+              <svg class="icon"><use href="#icon-computer"/></svg>
+            </div>
+            <h3 class="service-title" data-i18n="services.assembly.title">Computer Assembly</h3>
+            <p class="service-desc" data-i18n="services.assembly.desc">Perakitan komputer sesuai kebutuhan, dari workstation hingga PC gaming dan rendering.</p>
+            <a href="#contact" class="service-link"><span data-i18n="services.learnMore">Learn More</span>
+              <svg class="icon"><use href="#icon-arrow-right"/></svg>
+            </a>
+          </article>
+
+          <article class="service-card reveal">
+            <div class="service-icon">
+              <svg class="icon"><use href="#icon-tools"/></svg>
+            </div>
+            <h3 class="service-title" data-i18n="services.repair.title">Laptop &amp; PC Repair</h3>
+            <p class="service-desc" data-i18n="services.repair.desc">Perbaikan laptop dan PC dengan teknisi berpengalaman dan komponen berkualitas.</p>
+            <a href="#contact" class="service-link"><span data-i18n="services.learnMore">Learn More</span>
+              <svg class="icon"><use href="#icon-arrow-right"/></svg>
+            </a>
+          </article>
+
+          <article class="service-card reveal">
+            <div class="service-icon">
+              <svg class="icon"><use href="#icon-network"/></svg>
+            </div>
+            <h3 class="service-title" data-i18n="services.lab.title">Computer Laboratory</h3>
+            <p class="service-desc" data-i18n="services.lab.desc">Perancangan dan pembangunan laboratorium komputer untuk sekolah dan instansi.</p>
+            <a href="#lab" class="service-link"><span data-i18n="services.learnMore">Learn More</span>
+              <svg class="icon"><use href="#icon-arrow-right"/></svg>
+            </a>
+          </article>
+
+          <article class="service-card reveal">
+            <div class="service-icon">
+              <svg class="icon"><use href="#icon-hard-drive"/></svg>
+            </div>
+            <h3 class="service-title" data-i18n="services.network.title">Network Infrastructure</h3>
+            <p class="service-desc" data-i18n="services.network.desc">Perancangan jaringan LAN/WAN, kabel fiber, rack server, dan manajemen jaringan.</p>
+            <a href="#lab" class="service-link"><span data-i18n="services.learnMore">Learn More</span>
+              <svg class="icon"><use href="#icon-arrow-right"/></svg>
+            </a>
+          </article>
+
+          <article class="service-card reveal">
+            <div class="service-icon">
+              <svg class="icon"><use href="#icon-briefcase"/></svg>
+            </div>
+            <h3 class="service-title" data-i18n="services.consult.title">IT Consultation</h3>
+            <p class="service-desc" data-i18n="services.consult.desc">Konsultasi teknologi untuk membantu bisnis Anda memilih solusi IT yang tepat.</p>
+            <a href="#contact" class="service-link"><span data-i18n="services.learnMore">Learn More</span>
+              <svg class="icon"><use href="#icon-arrow-right"/></svg>
+            </a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         WHY CHOOSE US / ABOUT
+         ============================================================ -->
+    <section class="section section-alt" id="about">
+      <div class="container about-grid">
+        <div class="about-visual reveal">
+          <div class="about-frame">
+            <span class="float-icon float-icon-blue about-float">
+              <svg class="icon"><use href="#icon-shield"/></svg>
+            </span>
+            <span class="float-icon float-icon-green about-float-2">
+              <svg class="icon"><use href="#icon-headset"/></svg>
+            </span>
+            <svg class="about-illustration" viewBox="0 0 520 420" role="img" aria-label="Professional IT team illustration" data-i18n-aria="about.illustrationAlt">
+              <defs>
+                <linearGradient id="gradAbout" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0" stop-color="#3B82F6"/>
+                  <stop offset="1" stop-color="#1E3A8A"/>
+                </linearGradient>
+              </defs>
+              <circle cx="260" cy="210" r="180" fill="url(#gradAbout)" opacity="0.08"/>
+              <circle cx="260" cy="210" r="130" fill="#2563EB" opacity="0.06"/>
+              <!-- Team -->
+              <g fill="#fff" stroke="#3B82F6" stroke-width="2">
+                <circle cx="170" cy="150" r="34"/>
+                <circle cx="260" cy="130" r="38"/>
+                <circle cx="350" cy="150" r="34"/>
+              </g>
+              <g fill="#fff" stroke="#3B82F6" stroke-width="2">
+                <rect x="132" y="185" width="76" height="130" rx="16"/>
+                <rect x="222" y="168" width="76" height="147" rx="16"/>
+                <rect x="312" y="185" width="76" height="130" rx="16"/>
+              </g>
+              <g fill="#3B82F6">
+                <rect x="116" y="318" width="108" height="14" rx="7"/>
+                <rect x="206" y="318" width="108" height="14" rx="7"/>
+                <rect x="296" y="318" width="108" height="14" rx="7"/>
+              </g>
+              <g fill="none" stroke="#60A5FA" stroke-width="4" stroke-linecap="round">
+                <path d="M260 380c-90 0-160 18-190 40h380c-30-22-100-40-190-40z"/>
+              </g>
+              <g stroke="#60A5FA" stroke-width="3" fill="none" stroke-linecap="round">
+                <path d="M60 210c10-30 30-50 60-55M460 210c-10-30-30-50-60-55"/>
+              </g>
+            </svg>
+            <div class="about-badge">
+              <svg class="icon"><use href="#icon-award"/></svg>
+              <div>
+                <strong data-i18n="about.badgeValue">5+ Years</strong>
+                <small data-i18n="about.badgeSmall">Of IT Experience</small>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="about-content reveal">
+          <span class="section-tag" data-i18n="about.tag">Why Choose Us</span>
+          <h2 class="section-title" data-i18n-html="about.title">We Deliver <span class="text-gradient">Quality &amp; Reliability</span></h2>
+          <p class="section-desc" data-i18n="about.desc">Tim kami berkomitmen memberikan layanan IT terbaik dengan dukungan penuh di setiap tahap pekerjaan.</p>
+
+          <ul class="feature-list">
+            <li class="feature-item">
+              <span class="feature-check"><svg class="icon"><use href="#icon-check"/></svg></span>
+              <div>
+                <strong data-i18n="about.feature1.title">Professional Team</strong>
+                <p data-i18n="about.feature1.desc">Tim profesional yang siap membantu Anda kapan saja.</p>
+              </div>
+            </li>
+            <li class="feature-item">
+              <span class="feature-check"><svg class="icon"><use href="#icon-check"/></svg></span>
+              <div>
+                <strong data-i18n="about.feature2.title">Fast Response</strong>
+                <p data-i18n="about.feature2.desc">Respons cepat untuk setiap pertanyaan dan permintaan layanan.</p>
+              </div>
+            </li>s
+            <li class="feature-item">
+              <span class="feature-check"><svg class="icon"><use href="#icon-check"/></svg></span>
+              <div>
+                <strong data-i18n="about.feature4.title">Warranty &amp; After Sales Support</strong>
+                <p data-i18n="about.feature4.desc">Garansi resmi serta dukungan purna jual yang terjamin.</p>
+              </div>
+            </li>
+            <li class="feature-item">
+              <span class="feature-check"><svg class="icon"><use href="#icon-check"/></svg></span>
+              <div>
+                <strong data-i18n="about.feature5.title">Affordable Pricing</strong>
+                <p data-i18n="about.feature5.desc">Harga terjangkau dengan kualitas yang tetap terjaga.</p>
+              </div>
+            </li>
+            <li class="feature-item">
+              <span class="feature-check"><svg class="icon"><use href="#icon-check"/></svg></span>
+              <div>
+                <strong data-i18n="about.feature6.title">Quality Equipment</strong>
+                <p data-i18n="about.feature6.desc">Menggunakan peralatan dan komponen berkualitas terbaik.</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         WORK PROCESS
+         ============================================================ -->
+    <section class="section" id="process">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="section-tag" data-i18n="process.tag">Work Process</span>
+          <h2 class="section-title" data-i18n-html="process.title">Simple, Transparent, <span class="text-gradient">Step by Step</span></h2>
+          <p class="section-desc" data-i18n="process.desc">Proses kerja kami dirancang agar Anda selalu tahu perkembangan proyek Anda.</p>
+        </div>
+
+        <ol class="process-grid">
+          <li class="process-step reveal">
+            <span class="process-num">01</span>
+            <span class="process-icon"><svg class="icon"><use href="#icon-briefcase"/></svg></span>
+            <h3 data-i18n="process.step1.title">Consultation</h3>
+            <p data-i18n="process.step1.desc">Diskusi kebutuhan dan tujuan IT Anda bersama tim kami.</p>
+          </li>
+          <li class="process-step reveal">
+            <span class="process-num">02</span>
+            <span class="process-icon"><svg class="icon"><use href="#icon-search"/></svg></span>
+            <h3 data-i18n="process.step2.title">Survey</h3>
+            <p data-i18n="process.step2.desc">Survey lokasi dan analisis kebutuhan teknis di lapangan.</p>
+          </li>
+          <li class="process-step reveal">
+            <span class="process-num">03</span>
+            <span class="process-icon"><svg class="icon"><use href="#icon-clipboard"/></svg></span>
+            <h3 data-i18n="process.step3.title">Planning</h3>
+            <p data-i18n="process.step3.desc">Perancangan solusi, estimasi biaya, dan jadwal pengerjaan.</p>
+          </li>
+          <li class="process-step reveal">
+            <span class="process-num">04</span>
+            <span class="process-icon"><svg class="icon"><use href="#icon-install"/></svg></span>
+            <h3 data-i18n="process.step4.title">Installation</h3>
+            <p data-i18n="process.step4.desc">Pelaksanaan instalasi dan konfigurasi oleh teknisi ahli.</p>
+          </li>
+          <li class="process-step reveal">
+            <span class="process-num">05</span>
+            <span class="process-icon"><svg class="icon"><use href="#icon-activity"/></svg></span>
+            <h3 data-i18n="process.step5.title">Testing</h3>
+            <p data-i18n="process.step5.desc">Pengujian menyeluruh memastikan semuanya berfungsi sempurna.</p>
+          </li>
+          <li class="process-step reveal">
+            <span class="process-num">06</span>
+            <span class="process-icon"><svg class="icon"><use href="#icon-headset"/></svg></span>
+            <h3 data-i18n="process.step6.title">Support</h3>
+            <p data-i18n="process.step6.desc">Dukungan dan pemeliharaan berkelanjutan setelah proyek selesai.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         LAB COMPUTER SECTION
+         ============================================================ -->
+    <section class="section" id="lab">
+      <div class="container lab-grid">
+        <div class="lab-visual reveal">
+          <div class="lab-frame">
+            <svg class="lab-illustration" viewBox="0 0 520 420" role="img" aria-label="Computer laboratory illustration" data-i18n-aria="lab.illustrationAlt">
+              <defs>
+                <linearGradient id="gradLab" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0" stop-color="#3B82F6"/>
+                  <stop offset="1" stop-color="#1E3A8A"/>
+                </linearGradient>
+              </defs>
+              <rect x="30" y="70" width="460" height="260" rx="20" fill="#fff" stroke="#3B82F6" stroke-width="3"/>
+              <rect x="30" y="70" width="460" height="46" rx="20" fill="#2563EB"/>
+              <rect x="30" y="94" width="460" height="22" fill="#2563EB"/>
+              <g stroke="#E2E8F0" stroke-width="2">
+                <line x1="110" y1="160" x2="110" y2="300"/>
+                <line x1="180" y1="160" x2="180" y2="300"/>
+                <line x1="250" y1="160" x2="250" y2="300"/>
+                <line x1="320" y1="160" x2="320" y2="300"/>
+                <line x1="390" y1="160" x2="390" y2="300"/>
+                <line x1="70" y1="250" x2="450" y2="250"/>
+              </g>
+              <g fill="#DBEAFE">
+                <rect x="40" y="70" width="18" height="46" rx="6"/>
+                <rect x="462" y="70" width="18" height="46" rx="6"/>
+                <rect x="40" y="284" width="18" height="46" rx="6"/>
+                <rect x="462" y="284" width="18" height="46" rx="6"/>
+              </g>
+              <g fill="none" stroke="#2563EB" stroke-width="4" stroke-linecap="round">
+                <path d="M100 155l12 20 22-16M170 155l12 20 22-16M240 155l12 20 22-16M310 155l12 20 22-16M380 155l12 20 22-16"/>
+              </g>
+              <g fill="#3B82F6">
+                <rect x="72" y="272" width="76" height="26" rx="8"/>
+                <rect x="182" y="272" width="76" height="26" rx="8"/>
+                <rect x="292" y="272" width="76" height="26" rx="8"/>
+                <rect x="402" y="272" width="76" height="26" rx="8"/>
+              </g>
+              <rect x="110" y="330" width="300" height="34" rx="17" fill="#2563EB"/>
+              <circle cx="392" cy="347" r="10" fill="#60A5FA"/>
+              <rect x="40" y="384" width="130" height="12" rx="6" fill="#93C5FD"/>
+              <rect x="350" y="384" width="130" height="12" rx="6" fill="#93C5FD"/>
+            </svg>
+            <div class="lab-badge">
+              <svg class="icon"><use href="#icon-check-circle"/></svg>
+              <div>
+                <strong data-i18n="lab.badgeValue">Lab Ready</strong>
+                <small data-i18n="lab.badgeSmall">Standar Nasional</small>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="lab-content reveal">
+          <span class="section-tag" data-i18n="lab.tag">Computer Laboratory</span>
+          <h2 class="section-title" data-i18n-html="lab.title">Complete School Lab <span class="text-gradient">Design &amp; Build</span></h2>
+          <p class="section-desc" data-i18n="lab.desc">Kami merancang dan membangun laboratorium komputer sekolah yang lengkap, rapi, dan siap pakai — dari perencanaan ruangan hingga pemeliharaan.</p>
+
+          <ul class="check-list">
+            <li class="check-item"><span class="feature-check"><svg class="icon"><use href="#icon-check"/></svg></span><span data-i18n="lab.check1">Room Planning</span></li>
+            <li class="check-item"><span class="feature-check"><svg class="icon"><use href="#icon-check"/></svg></span><span data-i18n="lab.check2">LAN Network Setup</span></li>
+            <li class="check-item"><span class="feature-check"><svg class="icon"><use href="#icon-check"/></svg></span><span data-i18n="lab.check3">Server Installation</span></li>
+            <li class="check-item"><span class="feature-check"><svg class="icon"><use href="#icon-check"/></svg></span><span data-i18n="lab.check4">Network Rack &amp; Cable Management</span></li>
+            <li class="check-item"><span class="feature-check"><svg class="icon"><use href="#icon-check"/></svg></span><span data-i18n="lab.check5">Internet Connection</span></li>
+            <li class="check-item"><span class="feature-check"><svg class="icon"><use href="#icon-check"/></svg></span><span data-i18n="lab.check6">Testing &amp; Training</span></li>
+            <li class="check-item"><span class="feature-check"><svg class="icon"><use href="#icon-check"/></svg></span><span data-i18n="lab.check7">Maintenance Contract</span></li>
+          </ul>
+
+          <a href="#contact" class="btn btn-primary btn-ripple" data-whatsapp><span data-i18n="lab.cta">Consult Our Team</span>
+            <svg class="icon"><use href="#icon-arrow-right"/></svg>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         HOSTING SECTION (dark, premium)
+         ============================================================ -->
+    <section class="section hosting-section" id="hosting">
+      <div class="hosting-bg" aria-hidden="true">
+        <span class="blob blob-3"></span>
+        <span class="blob blob-4"></span>
+      </div>
+      <div class="container hosting-grid">
+        <div class="hosting-content reveal">
+          <span class="section-tag section-tag-light" data-i18n="hosting.tag">Web Hosting</span>
+          <h2 class="section-title section-title-light" data-i18n-html="hosting.title">Hosting Cepat &amp; Aman <span class="text-gradient-light">Untuk Bisnis Anda</span></h2>
+          <p class="section-desc section-desc-light" data-i18n="hosting.desc">Dengan server berperforma tinggi dan sistem keamanan berlapis, website Anda selalu online dan cepat.</p>
+
+          <ul class="check-list check-list-light">
+            <li class="check-item"><span class="feature-check"><svg class="icon"><use href="#icon-check"/></svg></span><span data-i18n="hosting.check1">High Performance CPU &amp; RAM</span></li>
+            <li class="check-item"><span class="feature-check"><svg class="icon"><use href="#icon-check"/></svg></span><span data-i18n="hosting.check2">Large SSD Storage</span></li>
+            <li class="check-item"><span class="feature-check"><svg class="icon"><use href="#icon-check"/></svg></span><span data-i18n="hosting.check3">Free SSL Certificate</span></li>
+            <li class="check-item"><span class="feature-check"><svg class="icon"><use href="#icon-check"/></svg></span><span data-i18n="hosting.check4">Free Domain</span></li>
+            <li class="check-item"><span class="feature-check"><svg class="icon"><use href="#icon-check"/></svg></span><span data-i18n="hosting.check5">Cloudflare CDN Protection</span></li>
+            <li class="check-item"><span class="feature-check"><svg class="icon"><use href="#icon-check"/></svg></span><span data-i18n="hosting.check6">Daily Automatic Backup</span></li>
+          </ul>
+
+          <div class="hosting-stats">
+            <div class="hosting-stat">
+              <span class="hosting-stat-value" data-counter="99.9" data-decimal="1" data-suffix="%">0%</span>
+              <span class="hosting-stat-label" data-i18n="hosting.statUptime">Uptime</span>
+            </div>
+            <div class="hosting-stat">
+              <span class="hosting-stat-value" data-counter="1" data-suffix="GB">0GB</span>
+              <span class="hosting-stat-label" data-i18n="hosting.statFreeSsl">Free SSL</span>
+            </div>
+            <div class="hosting-stat">
+              <span class="hosting-stat-value" data-counter="24" data-suffix="/7">0/7</span>
+              <span class="hosting-stat-label" data-i18n="hosting.statMonitoring">Monitoring</span>
+            </div>
+          </div>
+
+          <a href="#contact" class="btn btn-light btn-ripple" data-whatsapp><span data-i18n="hosting.cta">Start Now</span>
+            <svg class="icon"><use href="#icon-arrow-right"/></svg>
+          </a>
+        </div>
+
+        <div class="hosting-visual reveal" aria-hidden="true">
+          <div class="hosting-dashboard">
+            <div class="hosting-dash-top">
+              <span class="mockup-dot"></span>
+              <span class="mockup-dot"></span>
+              <span class="mockup-dot"></span>
+              <span class="mockup-title" data-i18n="hosting.dash.title">Server Status</span>
+            </div>
+            <div class="hosting-dash-body">
+              <div class="server-row row-1">
+                <span class="server-icon"><svg class="icon"><use href="#icon-cpu"/></svg></span>
+                <div class="server-meta">
+                  <span class="server-label" data-i18n="hosting.dash.cpu">CPU Usage</span>
+                  <span class="server-value">42%</span>
+                </div>
+                <div class="meter"><span class="meter-fill"></span></div>
+              </div>
+              <div class="server-row row-2">
+                <span class="server-icon"><svg class="icon"><use href="#icon-database"/></svg></span>
+                <div class="server-meta">
+                  <span class="server-label" data-i18n="hosting.dash.ram">RAM Usage</span>
+                  <span class="server-value">68%</span>
+                </div>
+                <div class="meter"><span class="meter-fill"></span></div>
+              </div>
+              <div class="server-row row-3">
+                <span class="server-icon"><svg class="icon"><use href="#icon-hard-drive"/></svg></span>
+                <div class="server-meta">
+                  <span class="server-label" data-i18n="hosting.dash.ssd">SSD Storage</span>
+                  <span class="server-value">55%</span>
+                </div>
+                <div class="meter"><span class="meter-fill"></span></div>
+              </div>
+              <div class="server-row">
+                <span class="server-icon"><svg class="icon"><use href="#icon-lock"/></svg></span>
+                <div class="server-meta">
+                  <span class="server-label" data-i18n="hosting.dash.ssl">SSL Certificate</span>
+                  <span class="server-value" data-i18n="hosting.dash.sslValue">Active</span>
+                </div>
+                <span class="status-pill" data-i18n="hosting.dash.secure">Secure</span>
+              </div>
+              <div class="server-row">
+                <span class="server-icon"><svg class="icon"><use href="#icon-globe"/></svg></span>
+                <div class="server-meta">
+                  <span class="server-label" data-i18n="hosting.dash.domain">Domain</span>
+                  <span class="server-value" data-i18n="hosting.dash.domainValue">yourdomain.com</span>
+                </div>
+                <span class="status-pill" data-i18n="hosting.dash.online">Online</span>
+              </div>
+              <div class="server-row">
+                <span class="server-icon"><svg class="icon"><use href="#icon-refresh"/></svg></span>
+                <div class="server-meta">
+                  <span class="server-label" data-i18n="hosting.dash.backup">Daily Backup</span>
+                  <span class="server-value" data-i18n="hosting.dash.backupValue">Success</span>
+                </div>
+                <span class="status-pill" data-i18n="hosting.dash.done">Done</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="float-card float-card-7">
+            <span class="float-icon float-icon-cyan">
+              <svg class="icon"><use href="#icon-layers"/></svg>
+            </span>
+            <div>
+              <strong data-i18n="hosting.float.cloudflare">Cloudflare</strong>
+              <small data-i18n="hosting.float.cloudflareSmall">Protected &amp; Optimized</small>
+            </div>
+          </div>
+          <div class="float-card float-card-8">
+            <span class="float-icon float-icon-green">
+              <svg class="icon"><use href="#icon-zap"/></svg>
+            </span>
+            <div>
+              <strong data-i18n="hosting.float.online">Website Online</strong>
+              <small data-i18n="hosting.float.onlineSmall">Fast Response Time</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         FAQ / SUPPORT
+         ============================================================ -->
+    <section class="section section-alt" id="faq">
+      <div class="container faq-grid">
+        <div class="faq-intro reveal">
+          <span class="section-tag" data-i18n="faq.tag">Support</span>
+          <h2 class="section-title" data-i18n-html="faq.title">Frequently Asked <span class="text-gradient">Questions</span></h2>
+          <p class="section-desc" data-i18n="faq.desc">Punya pertanyaan seputar layanan kami? Temukan jawabannya di bawah ini.</p>
+
+          <div class="faq-support">
+            <span class="float-icon float-icon-blue">
+              <svg class="icon"><use href="#icon-headset"/></svg>
+            </span>
+            <div>
+              <strong data-i18n="faq.supportTitle">Still have questions?</strong>
+              <p data-i18n="faq.supportDesc">Hubungi tim support kami — siap membantu 24/7.</p>
+              <a href="#contact" class="text-link" data-whatsapp><span data-i18n="faq.contactSupport">Contact Support</span>
+                <svg class="icon"><use href="#icon-arrow-right"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-list reveal" id="faq-list">
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              <span data-i18n="faq.q1">Apakah Baba Solution melayani jasa instalasi WiFi di rumah?</span>
+              <svg class="icon"><use href="#icon-chevron-down"/></svg>
+            </button>
+            <div class="faq-answer">
+              <p data-i18n="faq.a1">Ya. Kami melayani instalasi WiFi dan internet untuk rumah, kantor, sekolah, hingga area publik dengan jaminan jangkauan sinyal yang optimal di seluruh area.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              <span data-i18n="faq.q2">Berapa lama proses pembuatan website?</span>
+              <svg class="icon"><use href="#icon-chevron-down"/></svg>
+            </button>
+            <div class="faq-answer">
+              <p data-i18n="faq.a2">Untuk website company profile umumnya selesai dalam 1–3 minggu, tergantung kompleksitas dan jumlah halaman. Kami akan memberikan timeline yang jelas sebelum proyek dimulai.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              <span data-i18n="faq.q3">Apakah ada garansi untuk jasa service laptop dan PC?</span>
+              <svg class="icon"><use href="#icon-chevron-down"/></svg>
+            </button>
+            <div class="faq-answer">
+              <p data-i18n="faq.a3">Ya, semua pekerjaan service kami dilengkapi garansi. Garansi mencakup jasa perbaikan dan komponen pengganti sesuai ketentuan yang disepakati.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              <span data-i18n="faq.q4">Apakah bisa membuat laboratorium komputer untuk sekolah?</span>
+              <svg class="icon"><use href="#icon-chevron-down"/></svg>
+            </button>
+            <div class="faq-answer">
+              <p data-i18n="faq.a4">Tentu. Kami melayani perancangan dan pembangunan laboratorium komputer sekolah secara lengkap — mulai dari tata letak ruangan, instalasi LAN, server, rack, hingga pelatihan penggunaan.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              <span data-i18n="faq.q5">Bagaimana cara memesan layanan?</span>
+              <svg class="icon"><use href="#icon-chevron-down"/></svg>
+            </button>
+            <div class="faq-answer">
+              <p data-i18n="faq.a5">Anda bisa menghubungi kami melalui formulir kontak, email, atau WhatsApp. Tim kami akan segera merespons untuk konsultasi awal dan penawaran harga.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         CONTACT
+         ============================================================ -->
+    <section class="section" id="contact">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="section-tag" data-i18n="contact.tag">Contact Us</span>
+          <h2 class="section-title" data-i18n-html="contact.title">Let's Work <span class="text-gradient">Together</span></h2>
+          <p class="section-desc" data-i18n="contact.desc">Konsultasikan kebutuhan IT Anda — kami siap membantu.</p>
+        </div>
+
+        <div class="contact-grid">
+          <div class="contact-info reveal">
+            <div class="contact-card">
+              <span class="contact-icon"><svg class="icon"><use href="#icon-pin"/></svg></span>
+              <div>
+                <strong data-i18n="contact.address">Address</strong>
+                <p data-i18n="contact.addressValue">Jalan Raya Tanjung Kait No.13 Kp.Kebon Baru, RT./RW.002/04, Marga Mulya, Kec. Mauk, Kabupaten Tangerang, Banten 15530, Indonesia</p>
+              </div>
+            </div>
+            <div class="contact-card">
+              <span class="contact-icon"><svg class="icon"><use href="#icon-mail"/></svg></span>
+              <div>
+                <strong data-i18n="contact.email">Email</strong>
+                <p data-i18n="contact.emailValue">info@babasolution.com</p>
+              </div>
+            </div>
+            <div class="contact-card">
+              <span class="contact-icon"><svg class="icon"><use href="#icon-whatsapp"/></svg></span>
+              <div>
+                <strong data-i18n="contact.whatsapp">WhatsApp</strong>
+                <p data-i18n="contact.whatsappValue">+62 812-8164-0680</p>
+              </div>
+            </div>
+            <div class="contact-card">
+              <span class="contact-icon"><svg class="icon"><use href="#icon-clock"/></svg></span>
+              <div>
+                <strong data-i18n="contact.hours">Working Hours</strong>
+                <p data-i18n="contact.hoursValue">Mon – Sat, 08.00 – 17.00 WIB</p>
+              </div>
+            </div>
+          </div>
+
+          <form class="contact-form reveal" id="contact-form" novalidate>
+            <div class="form-group">
+              <label for="name" data-i18n="contact.form.nameLabel">Full Name</label>
+              <input type="text" id="name" name="name" placeholder="Your name" required autocomplete="name" data-i18n-placeholder="contact.form.namePlaceholder">
+              <span class="form-error" data-i18n="contact.form.nameError">Please enter your name.</span>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="email" data-i18n="contact.form.emailLabel">Email</label>
+                <input type="email" id="email" name="email" placeholder="you@example.com" autocomplete="email" data-i18n-placeholder="contact.form.emailPlaceholder">
+                <span class="form-error" data-i18n="contact.form.emailError">Please enter a valid email address.</span>
+              </div>
+              <div class="form-group">
+                <label for="phone" data-i18n="contact.form.phoneLabel">Phone Number</label>
+                <input type="tel" id="phone" name="phone" placeholder="0812-3456-7890" required autocomplete="tel" data-i18n-placeholder="contact.form.phonePlaceholder">
+                <span class="form-error" data-i18n="contact.form.phoneError">Please enter a valid phone number.</span>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="service" data-i18n="contact.form.serviceLabel">Service Needed</label>
+              <select id="service" name="service" required>
+                <option value="" disabled selected data-i18n="contact.form.servicePlaceholder">Select a service</option>
+                <option value="webhosting" data-i18n="services.webHosting.title">Web Hosting</option>
+                <option value="webdev" data-i18n="contact.form.service.webDev">Website Development</option>
+                <option value="wifi" data-i18n="services.wifi.title">WiFi Installation</option>
+                <option value="cctv" data-i18n="services.cctv.title">CCTV Installation</option>
+                <option value="assembly" data-i18n="services.assembly.title">Computer Assembly</option>
+                <option value="laptop" data-i18n="contact.form.service.laptop">Laptop Repair</option>
+                <option value="pc" data-i18n="contact.form.service.pc">PC Repair</option>
+                <option value="lab" data-i18n="contact.form.service.lab">Computer Laboratory Design &amp; Construction</option>
+                <option value="network" data-i18n="services.network.title">Network Infrastructure</option>
+                <option value="consult" data-i18n="services.consult.title">IT Consultation</option>
+                <option value="other" data-i18n="contact.form.service.other">Other</option>
+              </select>
+              <span class="form-error" data-i18n="contact.form.serviceError">Please select a service.</span>
+            </div>
+            <div class="form-group school-field" id="school-group" hidden>
+              <label for="school" data-i18n="contact.form.schoolLabel">School Name</label>
+              <input type="text" id="school" name="school" placeholder="Enter school name" autocomplete="organization" data-i18n-placeholder="contact.form.schoolPlaceholder">
+              <span class="form-error" data-i18n="contact.form.schoolError">Please enter your school name.</span>
+            </div>
+            <div class="form-group">
+              <label for="message" data-i18n="contact.form.messageLabel">Message</label>
+              <textarea id="message" name="message" rows="5" placeholder="Tell us about your project..." required data-i18n-placeholder="contact.form.messagePlaceholder"></textarea>
+              <span class="form-error" data-i18n="contact.form.messageError">Please describe your needs.</span>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block btn-ripple btn-whatsapp">
+              <span data-i18n="contact.form.submit">Send via WhatsApp</span>
+              <svg class="icon"><use href="#icon-whatsapp"/></svg>
+            </button>
+          </form>
+        </div>
+
+        <div class="map reveal">
+          <iframe src="https://www.google.com/maps/embed?origin=mfe&pb=!1m3!2m1!1sJalan+Raya+Tanjung+Kait+No.13+Kp.+Kebon+Baru+Marga+Mulya+Kec.+Mauk+Kabupaten+Tangerang+Banten+15530!6i16!3m1!1sen!5m1!1sen" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============================================================
+       FOOTER
+       ============================================================ -->
+  <footer class="footer">
+    <div class="container footer-grid">
+      <div class="footer-col footer-about">
+        <a href="#home" class="brand brand-light" aria-label="Baba Solution home" data-i18n-aria="aria.brand">
+          <span class="brand-icon" aria-hidden="true">B</span>
+          <span class="brand-text">Baba<strong>Solution</strong></span>
+        </a>
+        <p data-i18n="footer.aboutText">Technology Solutions for Business, Education &amp; Home. Partner terpercaya untuk seluruh kebutuhan IT Anda.</p>
+        <div class="social-links">
+          <a href="#" class="social-link" aria-label="Facebook"><svg class="icon"><use href="#icon-globe"/></svg></a>
+          <a href="#" class="social-link" aria-label="Instagram"><svg class="icon"><use href="#icon-sparkles"/></svg></a>
+          <a href="#" class="social-link" aria-label="LinkedIn"><svg class="icon"><use href="#icon-users"/></svg></a>
+          <a href="https://wa.me/6281281640680" class="social-link" aria-label="WhatsApp" data-whatsapp><svg class="icon"><use href="#icon-whatsapp"/></svg></a>
+        </div>
+      </div>
+
+      <nav class="footer-col" aria-label="Footer company links" data-i18n-aria="aria.navFooterCompany">
+        <h4 data-i18n="footer.company">Company</h4>
+        <ul>
+          <li><a href="#about" data-i18n="footer.companyAbout">About Us</a></li>
+          <li><a href="#process" data-i18n="footer.companyProcess">Work Process</a></li>
+          <li><a href="#contact" data-i18n="footer.companyContact">Contact</a></li>
+        </ul>
+      </nav>
+
+      <nav class="footer-col" aria-label="Footer services links" data-i18n-aria="aria.navFooterServices">
+        <h4 data-i18n="footer.services">Services</h4>
+        <ul>
+          <li><a href="#services" data-i18n="services.webHosting.title">Web Hosting</a></li>
+          <li><a href="#services" data-i18n="services.wifi.title">WiFi Installation</a></li>
+          <li><a href="#services" data-i18n="services.cctv.title">CCTV Installation</a></li>
+          <li><a href="#services" data-i18n="services.lab.title">Computer Laboratory</a></li>
+        </ul>
+      </nav>
+
+      <nav class="footer-col" aria-label="Footer support links" data-i18n-aria="aria.navFooterSupport">
+        <h4 data-i18n="footer.support">Support</h4>
+        <ul>
+          <li><a href="#faq" data-i18n="footer.supportFaq">FAQ</a></li>
+          <li><a href="#faq" data-i18n="footer.supportHelp">Help Center</a></li>
+          <li><a href="#contact" data-i18n="footer.supportQuote" data-whatsapp>Get a Quote</a></li>
+          <li><a href="#contact" data-i18n="footer.supportReport">Report an Issue</a></li>
+          <li><a href="#contact" data-i18n="footer.supportWhatsapp" data-whatsapp>WhatsApp Support</a></li>
+        </ul>
+      </nav>
+    </div>
+
+    <div class="footer-bottom container">
+      <p>&copy; <span id="year">2026</span> Baba Solution Information Technology. <span data-i18n="footer.rights">All rights reserved.</span></p>
+      <p data-i18n="footer.tagline">Technology Solutions for Business, Education &amp; Home.</p>
+    </div>
+  </footer>
+
+  <!-- Floating WhatsApp button -->
+  <a href="https://wa.me/6281281640680" class="wa-float" aria-label="WhatsApp" data-whatsapp target="_blank" rel="noopener">
+    <svg class="icon"><use href="#icon-whatsapp"/></svg>
+  </a>
+
+  <!-- Back to top -->
+  <button class="back-to-top" id="back-to-top" aria-label="Back to top" data-i18n-aria="aria.backToTop">
+    <svg class="icon"><use href="#icon-arrow-up"/></svg>
+  </button>
+
+  <!-- Scripts -->
+  <script src="js/translations.js"></script>
+  <script src="js/language.js"></script>
+  <script src="js/navbar.js"></script>
+  <script src="js/animation.js"></script>
+  <script src="js/counter.js"></script>
+  <script src="js/faq.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

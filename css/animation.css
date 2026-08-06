@@ -1,0 +1,134 @@
+/* ==========================================================================
+   Baba Solution Information Technology — keyframe animations
+   ========================================================================== */
+
+/* Floating card / blob motion */
+@keyframes float-y {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-14px);
+  }
+}
+
+/* Chart bar growth */
+@keyframes grow-bar {
+  from {
+    transform: scaleY(0);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+
+/* Button ripple */
+@keyframes ripple-effect {
+  to {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+
+/* Spinner (WhatsApp submit loading state) */
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Soft pulse for online indicators */
+@keyframes pulse-dot {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(52, 211, 153, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 0 6px rgba(52, 211, 153, 0);
+  }
+}
+
+.mockup-online {
+  animation: pulse-dot 2.4s ease-in-out infinite;
+}
+
+/* Reveal transitions (staggering handled inline via --delay in animation.js) */
+.reveal {
+  opacity: 0;
+  transform: translateY(34px);
+  transition: opacity 0.75s var(--transition-slow), transform 0.75s var(--transition-slow);
+  transition-delay: var(--reveal-delay, 0s);
+  will-change: opacity, transform;
+}
+
+.reveal.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Directional reveal modifiers */
+.reveal-left {
+  transform: translateX(-40px);
+}
+
+.reveal-right {
+  transform: translateX(40px);
+}
+
+.reveal-zoom {
+  transform: scale(0.92);
+}
+
+.reveal-left.revealed,
+.reveal-right.revealed,
+.reveal-zoom.revealed {
+  transform: none;
+}
+
+/* Logo subtle bounce on hover */
+.brand:hover .brand-icon {
+  animation: logo-bounce 0.5s var(--transition-base);
+}
+
+@keyframes logo-bounce {
+  0%   { transform: scale(1); }
+  40%  { transform: scale(1.12) rotate(-6deg); }
+  70%  { transform: scale(0.96) rotate(3deg); }
+  100% { transform: scale(1) rotate(0); }
+}
+
+/* Hero chart bars stagger entrance */
+.chart-bar {
+  transform-origin: bottom;
+}
+
+/* Blob drift */
+.blob-1 {
+  animation: blob-drift 14s ease-in-out infinite;
+}
+
+.blob-2 {
+  animation: blob-drift 18s ease-in-out infinite reverse;
+}
+
+@keyframes blob-drift {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(40px, 30px) scale(1.08);
+  }
+}
+
+/* Grid overlay subtle fade for hero entrance handled by reveal classes */
+
+/* Marquee-free scroll hint arrow (used on hero if needed) */
+@keyframes scroll-hint {
+  0%, 100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  50% {
+    transform: translateY(8px);
+    opacity: 0.4;
+  }
+}
