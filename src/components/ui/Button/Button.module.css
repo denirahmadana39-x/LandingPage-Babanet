@@ -1,0 +1,170 @@
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  padding: 0.78rem 1.5rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid transparent;
+  font-weight: 600;
+  font-size: 0.95rem;
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  transition:
+    transform var(--transition-base),
+    box-shadow var(--transition-base),
+    background-color var(--transition-base),
+    color var(--transition-base),
+    border-color var(--transition-base);
+}
+
+.btn .icon {
+  width: 1.05em;
+  height: 1.05em;
+}
+
+.primary {
+  background: var(--signal);
+  color: var(--paper);
+  border-color: var(--signal);
+  box-shadow: 0 8px 22px rgba(36, 85, 230, 0.28);
+}
+
+.primary:hover {
+  background: var(--signal-deep);
+  border-color: var(--signal-deep);
+  transform: translateY(-2px);
+  box-shadow: 0 14px 30px rgba(36, 85, 230, 0.32);
+}
+
+.outline {
+  background: var(--paper);
+  color: var(--ink);
+  border-color: var(--line-strong);
+}
+
+.outline:hover {
+  border-color: var(--ink);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+}
+
+.light {
+  background: var(--paper);
+  color: var(--ink);
+  border-color: var(--paper);
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.3);
+}
+
+.light:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.4);
+}
+
+.whatsapp {
+  background: var(--ok);
+  color: var(--paper);
+  border-color: var(--ok);
+  box-shadow: 0 10px 24px rgba(15, 169, 88, 0.3);
+}
+
+.whatsapp:hover {
+  background: #0d8f4c;
+  border-color: #0d8f4c;
+  transform: translateY(-2px);
+  box-shadow: 0 14px 30px rgba(15, 169, 88, 0.38);
+}
+
+.whatsapp .icon {
+  fill: currentColor;
+  stroke: none;
+}
+
+.lg {
+  padding: 1rem 2rem;
+  font-size: 1.02rem;
+}
+
+.sm {
+  padding: 0.55rem 1.15rem;
+  font-size: 0.875rem;
+}
+
+.block {
+  width: 100%;
+}
+
+/* Loading state — shared by every WhatsApp CTA */
+.loading {
+  pointer-events: none;
+  opacity: 0.85;
+}
+
+.loading .icon {
+  display: none;
+}
+
+.loading::after {
+  content: '';
+  width: 1.1rem;
+  height: 1.1rem;
+  border: 2px solid rgba(23, 27, 33, 0.25);
+  border-top-color: var(--ink);
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+.loading.whatsapp::after {
+  border-color: rgba(255, 255, 255, 0.35);
+  border-top-color: #fff;
+}
+
+.loading.primary::after {
+  border-color: rgba(255, 255, 255, 0.4);
+  border-top-color: #fff;
+}
+
+/* Hero-specific button shapes (rounded pills) */
+.hero {
+  border-radius: 999px;
+  padding: 1rem 1.7rem;
+  font-size: 1rem;
+}
+
+.heroPrimary {
+  background: linear-gradient(135deg, #2563eb 0%, #3b82f6 100%);
+  color: #fff;
+  border-color: transparent;
+  box-shadow: 0 10px 26px rgba(37, 99, 235, 0.32);
+}
+
+.heroPrimary:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 16px 34px rgba(37, 99, 235, 0.4);
+}
+
+.heroSecondary {
+  background: #fff;
+  color: #2563eb;
+  border: 1px solid rgba(37, 99, 235, 0.35);
+}
+
+.heroSecondary:hover {
+  background: #2563eb;
+  color: #fff;
+  border-color: #2563eb;
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 12px 26px rgba(37, 99, 235, 0.25);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .primary:hover,
+  .outline:hover,
+  .light:hover,
+  .whatsapp:hover,
+  .heroPrimary:hover,
+  .heroSecondary:hover {
+    transform: none;
+  }
+}

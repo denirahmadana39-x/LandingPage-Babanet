@@ -1,28 +1,57 @@
 /* ==========================================================================
    Baba Solution Information Technology — keyframe animations
+   --------------------------------------------------------------------------
+   NOTE: the .reveal base styles live here (they are referenced by the
+   reduced-motion override at the end of style.css). Because this file loads
+   AFTER style.css, its own reduced-motion block re-asserts the static state.
    ========================================================================== */
 
-/* Floating card / blob motion */
-@keyframes float-y {
-  0%, 100% {
-    transform: translateY(0);
+/* ---- LEDs powering on (hero switch ports) ---- */
+@keyframes led-on {
+  0% {
+    background: var(--amber);
+    box-shadow: 0 0 0 rgba(15, 169, 88, 0);
+    transform: translateX(-50%) scale(0.4);
   }
-  50% {
-    transform: translateY(-14px);
+  55% {
+    background: var(--ok);
+    transform: translateX(-50%) scale(1.2);
+  }
+  100% {
+    background: var(--ok);
+    box-shadow: 0 0 8px rgba(15, 169, 88, 0.8);
+    transform: translateX(-50%) scale(1);
   }
 }
 
-/* Chart bar growth */
+/* ---- Switch traffic meters (sweeping fill) ---- */
+@keyframes meter-run {
+  0% { width: 0; }
+  60% { width: 100%; }
+  100% { width: 0; }
+}
+
+/* ---- Equalizer bars on the "LINK ACTIVE" readout ---- */
+@keyframes eq-bar {
+  0%, 100% { transform: scaleY(0.35); }
+  50% { transform: scaleY(1); }
+}
+
+.status-bars i {
+  transform-origin: bottom;
+}
+
+/* ---- Server meters filling from the left ---- */
 @keyframes grow-bar {
-  from {
-    transform: scaleY(0);
-  }
-  to {
-    transform: scaleY(1);
-  }
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
 }
 
-/* Button ripple */
+.srow-meter i {
+  transform-origin: left;
+}
+
+/* ---- Button ripple ---- */
 @keyframes ripple-effect {
   to {
     transform: scale(4);
@@ -30,28 +59,16 @@
   }
 }
 
-/* Spinner (WhatsApp submit loading state) */
+/* ---- Spinner (WhatsApp submit loading state) ---- */
 @keyframes spin {
   to {
     transform: rotate(360deg);
   }
 }
 
-/* Soft pulse for online indicators */
-@keyframes pulse-dot {
-  0%, 100% {
-    box-shadow: 0 0 0 0 rgba(52, 211, 153, 0.5);
-  }
-  50% {
-    box-shadow: 0 0 0 6px rgba(52, 211, 153, 0);
-  }
-}
-
-.mockup-online {
-  animation: pulse-dot 2.4s ease-in-out infinite;
-}
-
-/* Reveal transitions (staggering handled inline via --delay in animation.js) */
+/* --------------------------------------------------------------------------
+   Scroll-reveal transitions (stagger handled via --reveal-delay in animation.js)
+   -------------------------------------------------------------------------- */
 .reveal {
   opacity: 0;
   transform: translateY(34px);
@@ -84,51 +101,16 @@
   transform: none;
 }
 
-/* Logo subtle bounce on hover */
-.brand:hover .brand-icon {
-  animation: logo-bounce 0.5s var(--transition-base);
-}
-
-@keyframes logo-bounce {
-  0%   { transform: scale(1); }
-  40%  { transform: scale(1.12) rotate(-6deg); }
-  70%  { transform: scale(0.96) rotate(3deg); }
-  100% { transform: scale(1) rotate(0); }
-}
-
-/* Hero chart bars stagger entrance */
-.chart-bar {
-  transform-origin: bottom;
-}
-
-/* Blob drift */
-.blob-1 {
-  animation: blob-drift 14s ease-in-out infinite;
-}
-
-.blob-2 {
-  animation: blob-drift 18s ease-in-out infinite reverse;
-}
-
-@keyframes blob-drift {
-  0%, 100% {
-    transform: translate(0, 0) scale(1);
-  }
-  50% {
-    transform: translate(40px, 30px) scale(1.08);
-  }
-}
-
-/* Grid overlay subtle fade for hero entrance handled by reveal classes */
-
-/* Marquee-free scroll hint arrow (used on hero if needed) */
-@keyframes scroll-hint {
-  0%, 100% {
-    transform: translateY(0);
+/* Reduced motion: static content, no LED/meter animation */
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
     opacity: 1;
+    transform: none;
+    transition: none;
   }
-  50% {
-    transform: translateY(8px);
-    opacity: 0.4;
+
+  .status-bars i,
+  .srow-meter i {
+    transform: none;
   }
 }

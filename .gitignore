@@ -1,13 +1,7 @@
-# OS / editor
+node_modules
+dist
+dist-ssr
+*.local
 .DS_Store
-Thumbs.db
-*.swp
-.idea/
-.vscode/
-
-# Logs
 *.log
-nohup.out
-
-# Local server
-__pycache__/
+.vite

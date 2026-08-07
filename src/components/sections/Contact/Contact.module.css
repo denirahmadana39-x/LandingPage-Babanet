@@ -1,0 +1,259 @@
+/* ==========================================================================
+   Contact — the service request form (ports section 12 of the original)
+   ========================================================================== */
+.section {
+  background: var(--bench);
+  padding-block: var(--section-pad);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+  gap: clamp(2rem, 5vw, 3.25rem);
+  align-items: start;
+  margin-bottom: 3rem;
+}
+
+/* ---- Left column: info cards ---- */
+.info {
+  display: grid;
+  gap: 0.85rem;
+}
+
+.card {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1.15rem 1.25rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  background: var(--paper);
+  transition:
+    transform var(--transition-base),
+    box-shadow var(--transition-base),
+    border-color var(--transition-base);
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  border-color: var(--line-strong);
+  box-shadow: 0 12px 28px rgba(23, 27, 33, 0.08);
+}
+
+.iconBox {
+  display: grid;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: var(--radius-sm);
+  background: var(--bench);
+  color: var(--brand);
+  flex: none;
+}
+
+.iconBox .icon {
+  width: 1.15rem;
+  height: 1.15rem;
+}
+
+.iconBox .iconFilled {
+  fill: currentColor;
+  stroke: none;
+}
+
+.card strong {
+  display: block;
+  font-size: 0.92rem;
+  font-weight: 600;
+  margin-bottom: 0.15rem;
+}
+
+.card p {
+  font-size: 0.85rem;
+  color: var(--grey);
+}
+
+/* ---- Right column: form ---- */
+.form {
+  padding: clamp(1.4rem, 3vw, 2.1rem);
+  border: 1px solid var(--line-strong);
+  border-radius: 10px;
+  background: var(--paper);
+  box-shadow: 0 18px 44px rgba(23, 27, 33, 0.1);
+  display: grid;
+  gap: 1.1rem;
+}
+
+.formHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.formCode {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.16em;
+  color: var(--grey);
+}
+
+.formLed {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-family: var(--font-mono);
+  font-size: 0.56rem;
+  letter-spacing: 0.1em;
+  color: var(--ok);
+}
+
+.formLed i {
+  width: 0.42rem;
+  height: 0.42rem;
+  border-radius: 50%;
+  background: var(--ok);
+  box-shadow: 0 0 6px rgba(15, 169, 88, 0.6);
+}
+
+.row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.1rem;
+}
+
+.group {
+  display: grid;
+  gap: 0.4rem;
+}
+
+.group label {
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+
+.group input,
+.group select,
+.group textarea {
+  width: 100%;
+  padding: 0.8rem 0.95rem;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-sm);
+  background: var(--bench);
+  color: var(--ink);
+  font-size: 0.92rem;
+  transition:
+    border-color var(--transition-fast),
+    box-shadow var(--transition-fast),
+    background-color var(--transition-fast);
+}
+
+.group input::placeholder,
+.group textarea::placeholder {
+  color: #9aa3ae;
+}
+
+.group input:focus,
+.group select:focus,
+.group textarea:focus {
+  outline: none;
+  border-color: var(--brand);
+  background: var(--paper);
+  box-shadow: var(--glow-brand);
+}
+
+.group select {
+  appearance: none;
+  background-image:
+    linear-gradient(45deg, transparent 50%, var(--grey) 50%),
+    linear-gradient(135deg, var(--grey) 50%, transparent 50%);
+  background-position:
+    calc(100% - 18px) 55%,
+    calc(100% - 13px) 55%;
+  background-size: 5px 5px;
+  background-repeat: no-repeat;
+}
+
+.group.invalid input,
+.group.invalid select,
+.group.invalid textarea {
+  border-color: var(--danger);
+  box-shadow: 0 0 0 3px rgba(229, 72, 77, 0.12);
+}
+
+.error {
+  display: none;
+  font-size: 0.78rem;
+  color: #c83b40;
+}
+
+.group.invalid .error {
+  display: block;
+}
+
+/* Conditional School Name field — fades/slides in & out when the
+   laboratory service is (de)selected. The [hidden] attribute removes
+   it from layout once the fade-out finishes. */
+.schoolField {
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  transform: translateY(-0.5rem);
+  visibility: hidden;
+  transition:
+    max-height 0.35s ease,
+    opacity 0.3s ease,
+    transform 0.3s ease,
+    visibility 0s linear 0.35s;
+}
+
+.schoolField.visible {
+  max-height: 220px;
+  opacity: 1;
+  transform: translateY(0);
+  visibility: visible;
+  transition:
+    max-height 0.35s ease,
+    opacity 0.3s ease,
+    transform 0.3s ease,
+    visibility 0s;
+}
+
+.schoolField[hidden] {
+  display: none;
+}
+
+.submit {
+  border-radius: var(--radius-sm);
+}
+
+.submitIcon {
+  fill: currentColor;
+  stroke: none;
+}
+
+/* ---- Map ---- */
+.map {
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--line);
+  line-height: 0;
+}
+
+.map iframe {
+  width: 100%;
+  filter: saturate(0.85) contrast(1.02);
+}
+
+@media (max-width: 767px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .row {
+    grid-template-columns: 1fr;
+  }
+}

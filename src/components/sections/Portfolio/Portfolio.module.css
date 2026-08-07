@@ -1,0 +1,146 @@
+/* ==========================================================================
+   Portfolio — filterable project grid
+   ========================================================================== */
+.section {
+  position: relative;
+  background: var(--paper);
+  padding-block: var(--section-pad);
+  overflow: hidden;
+}
+
+.head {
+  max-width: 640px;
+  margin-bottom: 2.4rem;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.42rem 1rem;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  background: var(--paper);
+  color: var(--signal);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.badge::before {
+  content: '';
+  width: 0.4rem;
+  height: 0.4rem;
+  border-radius: 50%;
+  background: var(--signal);
+}
+
+.title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(1.9rem, 3.2vw, 2.85rem);
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  margin: 1.2rem 0 1rem;
+  text-wrap: balance;
+  text-wrap-style: balance;
+}
+
+.desc {
+  color: var(--grey);
+  font-size: clamp(0.98rem, 1.1vw, 1.08rem);
+  line-height: 1.7;
+}
+
+/* ---- Filter tabs ---- */
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+  margin-bottom: 2.2rem;
+  list-style: none;
+}
+
+.tab {
+  appearance: none;
+  cursor: pointer;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--grey);
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 0.55rem 1.1rem;
+  transition:
+    color var(--transition-fast),
+    border-color var(--transition-fast),
+    background-color var(--transition-fast),
+    transform var(--transition-fast);
+}
+
+.tab:hover {
+  border-color: var(--line-strong);
+  color: var(--ink);
+  transform: translateY(-1px);
+}
+
+.tabActive {
+  background: var(--signal);
+  border-color: var(--signal);
+  color: var(--paper);
+}
+
+.tab:focus-visible {
+  outline: 2px solid var(--signal);
+  outline-offset: 2px;
+}
+
+/* ---- Grid ---- */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.3rem;
+  list-style: none;
+}
+
+.cardWrap {
+  transition:
+    opacity 0.4s ease,
+    transform 0.4s ease;
+}
+
+/* ---- CTA ---- */
+.ctaRow {
+  display: flex;
+  justify-content: center;
+  margin-top: 2.6rem;
+}
+
+.cta {
+  border-radius: var(--radius-sm);
+}
+
+.ctaIcon,
+.cta .icon {
+  width: 1.05em;
+  height: 1.05em;
+  stroke-width: 2.25;
+}
+
+@media (max-width: 991px) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 767px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}

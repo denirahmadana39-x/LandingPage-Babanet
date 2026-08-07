@@ -1,0 +1,467 @@
+/* ==========================================================================
+   ComputerLab — the project showcase (ports section 09 of the original)
+   ========================================================================== */
+.section {
+  --lab-blue: #2563eb;
+  --lab-ink: #0f172a;
+  --lab-muted: #64748b;
+  --lab-border: #e5e7eb;
+  --lab-soft: #eff4ff;
+
+  position: relative;
+  background: #ffffff;
+  overflow: hidden;
+  padding-block: var(--section-pad);
+}
+
+/* Soft blue radial washes — keep the section white and airy */
+.section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(42rem 32rem at 10% 6%, rgba(37, 99, 235, 0.08) 0%, transparent 65%),
+    radial-gradient(38rem 30rem at 90% 94%, rgba(59, 130, 246, 0.07) 0%, transparent 65%);
+}
+
+.section::after {
+  content: '';
+  position: absolute;
+  top: -180px;
+  right: -160px;
+  width: 520px;
+  height: 520px;
+  background: radial-gradient(circle, rgba(37, 99, 235, 0.1) 0%, transparent 70%);
+  filter: blur(28px);
+  pointer-events: none;
+}
+
+.grid {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+  gap: clamp(3rem, 5.5vw, 5.5rem);
+  align-items: center;
+}
+
+/* ---- Left column: illustration ---- */
+.visual {
+  min-width: 0;
+}
+
+.frame {
+  background: #ffffff;
+  border: 1px solid var(--lab-border);
+  border-radius: 20px;
+  padding: 1.4rem;
+  box-shadow: 0 14px 40px rgba(15, 23, 42, 0.07);
+  transition:
+    transform 0.4s ease,
+    box-shadow 0.4s ease,
+    border-color 0.4s ease;
+}
+
+.visual:hover .frame {
+  transform: translateY(-6px);
+  border-color: rgba(37, 99, 235, 0.35);
+  box-shadow: 0 22px 52px rgba(15, 23, 42, 0.1);
+}
+
+.sceneSvg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* ---- Interactive 3D scene (React Three Fiber) ---- */
+.scene {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  width: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+  background: radial-gradient(
+    120% 90% at 50% 0%,
+    rgba(37, 99, 235, 0.05) 0%,
+    rgba(248, 250, 252, 0) 62%
+  );
+  isolation: isolate;
+}
+
+.scene canvas {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+  touch-action: none;
+}
+
+/* ---- Controls bar below the 3D viewer ---- */
+.controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-top: 0.9rem;
+  padding: 0.7rem 0.9rem;
+  border: 1px solid var(--lab-border);
+  border-radius: 14px;
+  background: #f8fafc;
+}
+
+.hintText {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--lab-muted);
+}
+
+.hintText svg {
+  width: 0.9em;
+  height: 0.9em;
+  color: var(--lab-blue);
+}
+
+.controlsActions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.controlBtn {
+  white-space: nowrap;
+  border-radius: 10px;
+}
+
+/* Loading placeholder shown while the 3D chunk streams in */
+.loading {
+  aspect-ratio: 4 / 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+}
+
+.loadingBar {
+  width: 76px;
+  height: 3px;
+  border-radius: 3px;
+  background: linear-gradient(90deg, var(--lab-soft), var(--lab-blue), var(--lab-soft));
+  background-size: 200% 100%;
+  animation: loading-slide 1.1s linear infinite;
+}
+
+.loadingText {
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--lab-muted);
+}
+
+@keyframes loading-slide {
+  from {
+    background-position: 200% 0;
+  }
+  to {
+    background-position: -200% 0;
+  }
+}
+
+/* Hover tooltip rendered by drei <Html> (plain class, scoped globally) */
+:global(.lab-tooltip) {
+  display: flex;
+  flex-direction: column;
+  gap: 0.18rem;
+  min-width: 150px;
+  padding: 0.55rem 0.85rem;
+  background: #0f172a;
+  color: #ffffff;
+  border: 1px solid rgba(96, 165, 250, 0.35);
+  border-radius: 10px;
+  box-shadow: 0 12px 32px rgba(15, 23, 42, 0.3);
+  pointer-events: none;
+  text-align: left;
+}
+
+:global(.lab-tooltip strong) {
+  font-family: var(--font-display);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  color: #ffffff;
+  white-space: nowrap;
+}
+
+:global(.lab-tooltip span) {
+  font-size: 0.72rem;
+  color: #a5b4fc;
+  white-space: nowrap;
+}
+
+/* ---- Right column: copy, features, CTA ---- */
+.content {
+  min-width: 0;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.42rem 1rem;
+  border: 1px solid var(--lab-border);
+  border-radius: 999px;
+  background: #ffffff;
+  color: var(--lab-blue);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.badge::before {
+  content: '';
+  width: 0.4rem;
+  height: 0.4rem;
+  border-radius: 50%;
+  background: var(--lab-blue);
+}
+
+.title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(1.9rem, 3.2vw, 2.85rem);
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  color: var(--lab-ink);
+  margin: 1.2rem 0 1rem;
+  text-wrap: balance;
+  text-wrap-style: balance;
+}
+
+.desc {
+  color: var(--lab-muted);
+  font-size: clamp(0.98rem, 1.1vw, 1.08rem);
+  line-height: 1.7;
+  max-width: 46ch;
+}
+
+/* Premium 8-item checklist */
+.features {
+  display: flex;
+  flex-direction: column;
+  margin: 1.75rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.feature {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 0.62rem 0.25rem;
+  border-bottom: 1px solid rgba(15, 23, 42, 0.06);
+  font-size: 0.98rem;
+  font-weight: 500;
+  color: var(--lab-ink);
+}
+
+.feature:last-child {
+  border-bottom: none;
+}
+
+.featureIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.6rem;
+  height: 1.6rem;
+  border-radius: 10px;
+  background: var(--lab-soft);
+  color: var(--lab-blue);
+  flex: none;
+}
+
+.featureIcon svg {
+  width: 0.95em;
+  height: 0.95em;
+  stroke-width: 2.2;
+}
+
+.ctaRow {
+  margin-top: 1.9rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  align-items: center;
+}
+
+.cta {
+  border-radius: 12px;
+}
+
+.ctaOutline {
+  border-radius: 12px;
+}
+
+.ctaIcon,
+.cta .icon {
+  width: 1.05em;
+  height: 1.05em;
+  stroke-width: 2.25;
+}
+
+.cta .ctaIcon {
+  transition: transform 0.25s ease;
+}
+
+.cta:hover .ctaIcon {
+  transform: translateX(3px);
+}
+
+/* ---- Fullscreen preview modal ---- */
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2.5vh 2.5vw;
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(8px);
+  animation: modal-overlay-in 0.25s ease;
+}
+
+.modalBox {
+  position: relative;
+  width: min(95vw, 1500px);
+  height: min(92vh, 900px);
+  background: #ffffff;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 30px 80px rgba(15, 23, 42, 0.4);
+  animation: modal-box-in 0.28s ease;
+}
+
+.modalBox canvas {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+  touch-action: none;
+}
+
+.modalBar {
+  position: absolute;
+  top: 1.1rem;
+  right: 1.1rem;
+  display: flex;
+  gap: 0.5rem;
+  z-index: 10;
+}
+
+.modalBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: rgba(15, 23, 42, 0.65);
+  color: #ffffff;
+  cursor: pointer;
+  backdrop-filter: blur(4px);
+  transition:
+    background-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.modalBtn:hover {
+  background: rgba(37, 99, 235, 0.85);
+  transform: translateY(-1px);
+}
+
+.modalBtn svg {
+  width: 1.15rem;
+  height: 1.15rem;
+}
+
+.modalBtnClose {
+  background: rgba(220, 38, 38, 0.7);
+}
+
+.modalBtnClose:hover {
+  background: rgba(220, 38, 38, 0.95);
+}
+
+@keyframes modal-overlay-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes modal-box-in {
+  from {
+    opacity: 0;
+    transform: scale(0.96) translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Snap reveal — beats the 750ms global .reveal */
+.section .reveal {
+  transition-duration: 0.5s;
+  transition-timing-function: ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cta .ctaIcon {
+    transition: none;
+  }
+
+  .modalOverlay,
+  .modalBox {
+    animation: none;
+  }
+}
+
+@media (max-width: 991px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 767px) {
+  .frame {
+    padding: 0.85rem;
+  }
+
+  .controls {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .controlsActions {
+    width: 100%;
+  }
+
+  .controlBtn {
+    flex: 1;
+  }
+}

@@ -1,0 +1,141 @@
+/* ==========================================================================
+   Services — minimal premium grid (ports section 06 of the original)
+   ========================================================================== */
+.section {
+  --svc-blue: #2563eb;
+  --svc-bg: #f8fafc;
+  --svc-card: #ffffff;
+  --svc-border: #e5e7eb;
+  --svc-ink: #0f172a;
+  --svc-muted: #64748b;
+
+  position: relative;
+  background: var(--svc-bg);
+  padding-block: clamp(5rem, 9vw, 8.5rem);
+}
+
+/* ---- Section header ---- */
+.head {
+  max-width: 650px;
+  margin-inline: auto;
+  text-align: center;
+  margin-bottom: clamp(2.8rem, 5vw, 4rem);
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.42rem 1rem;
+  border: 1px solid var(--svc-border);
+  border-radius: 999px;
+  background: var(--svc-card);
+  color: var(--svc-blue);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+.badge::before {
+  content: '';
+  width: 0.4rem;
+  height: 0.4rem;
+  border-radius: 50%;
+  background: var(--svc-blue);
+}
+
+.title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(1.9rem, 3.4vw, 2.85rem);
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  color: var(--svc-ink);
+  margin: 1.15rem 0 1rem;
+  text-wrap: balance;
+  text-wrap-style: balance;
+}
+
+.desc {
+  color: var(--svc-muted);
+  font-size: clamp(0.98rem, 1.15vw, 1.08rem);
+  line-height: 1.65;
+  max-width: 650px;
+  margin-inline: auto;
+}
+
+/* ---- Grid ---- */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1.4rem;
+}
+
+/* ---- Card reveal wrapper (ports .services-card) ---- */
+.cardWrap {
+  display: flex;
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 0.5s ease,
+    transform 0.5s ease;
+  transition-delay: var(--svc-delay, 0s);
+  will-change: opacity, transform;
+}
+
+.cardWrap.inView {
+  opacity: 1;
+  transform: none;
+}
+
+/* ---- View all services ---- */
+.more {
+  display: flex;
+  justify-content: center;
+  margin-top: clamp(2.5rem, 5vw, 3.5rem);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  padding: 0.8rem 2rem;
+  border-radius: 10px;
+  border: 1.5px solid var(--svc-blue);
+  background: transparent;
+  color: var(--svc-blue);
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
+}
+
+.btn:hover {
+  background: var(--svc-blue);
+  color: #ffffff;
+}
+
+.btn:focus-visible {
+  outline: 2px solid var(--svc-blue);
+  outline-offset: 3px;
+}
+
+.btn .icon {
+  width: 1.05em;
+  height: 1.05em;
+}
+
+@media (max-width: 991px) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}

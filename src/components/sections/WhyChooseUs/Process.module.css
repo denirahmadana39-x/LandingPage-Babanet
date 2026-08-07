@@ -1,0 +1,113 @@
+/* ==========================================================================
+   Process — the cable run (ports section 08 of the original)
+   ========================================================================== */
+.section {
+  background: var(--paper);
+  padding-block: var(--section-pad);
+}
+
+.grid {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: clamp(0.9rem, 1.8vw, 1.35rem);
+  list-style: none;
+}
+
+.grid::before {
+  content: '';
+  position: absolute;
+  top: 3.8rem;
+  left: 4%;
+  right: 4%;
+  height: 2px;
+  background-image: repeating-linear-gradient(
+    90deg,
+    var(--line-strong) 0 8px,
+    transparent 8px 14px
+  );
+}
+
+.step {
+  position: relative;
+  text-align: center;
+  padding: 2.1rem 1.1rem 1.5rem;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  transition:
+    transform var(--transition-base),
+    box-shadow var(--transition-base),
+    border-color var(--transition-base);
+}
+
+.step:hover {
+  transform: translateY(-4px);
+  border-color: var(--line-strong);
+  box-shadow: 0 16px 34px rgba(23, 27, 33, 0.1);
+}
+
+.num {
+  position: absolute;
+  top: 0.85rem;
+  left: 1rem;
+  font-family: var(--font-mono);
+  font-size: 0.56rem;
+  letter-spacing: 0.1em;
+  color: var(--grey-soft);
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  padding: 0.12rem 0.35rem;
+}
+
+.icon {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 3.4rem;
+  height: 3.4rem;
+  margin: 0 auto 1.05rem;
+  border-radius: var(--radius-md);
+  background: var(--brand);
+  color: var(--paper);
+  box-shadow: 0 8px 20px rgba(36, 85, 230, 0.24);
+}
+
+.icon .ico {
+  width: 1.4rem;
+  height: 1.4rem;
+}
+
+.ico {
+  width: 1.4rem;
+  height: 1.4rem;
+}
+
+.step h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.45rem;
+}
+
+.step p {
+  font-size: 0.8rem;
+  color: var(--grey);
+  line-height: 1.5;
+}
+
+@media (max-width: 767px) {
+  .grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .grid::before {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}

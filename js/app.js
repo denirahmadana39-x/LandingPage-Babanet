@@ -3,9 +3,11 @@
  *   • Smooth scroll for same-page anchors
  *   • Back to top button
  *   • Button ripple effect
+ *   • Services bento filter + card tilt
+ *   • Hero NOC live clock
+ *   • Hero dashboard mouse parallax
  *   • Image lazy loading (native + fallback)
- *   • Portfolio filter
- *   • Contact form validation
+ *   • WhatsApp CTAs + contact form validation
  *   • Dynamic footer year
  * ========================================================================== */
 (() => {
@@ -70,7 +72,91 @@
   });
 
   /* ------------------------------------------------------------------
-   * 4. Image lazy loading — native `loading=lazy` is preferred;
+   * 4. Services grid — scoped fade-up reveal (0.5s, 100ms stagger)
+   * ---------------------------------------------------------------- */
+  const svcCards = Array.from(document.querySelectorAll('.services-card'));
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (svcCards.length) {
+    if (reduceMotion || !('IntersectionObserver' in window)) {
+      svcCards.forEach((card) => card.classList.add('is-in-view'));
+    } else {
+      svcCards.forEach((card, i) => {
+        card.style.setProperty('--svc-delay', `${i * 0.1}s`);
+      });
+
+      const svcObserver = new IntersectionObserver(
+        (entries, obs) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('is-in-view');
+              obs.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.15, rootMargin: '0px 0px -8% 0px' }
+      );
+
+      svcCards.forEach((card) => svcObserver.observe(card));
+    }
+  }
+
+  /* ------------------------------------------------------------------
+   * 5. Hero NOC live clock — the dashboard header reads the current time
+   * ---------------------------------------------------------------- */
+  const dashClock = document.getElementById('dash-clock');
+
+  if (dashClock) {
+    const pad = (n) => String(n).padStart(2, '0');
+    const tickClock = () => {
+      const now = new Date();
+      dashClock.textContent = `${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}`;
+    };
+    tickClock();
+    window.setInterval(tickClock, 1000);
+  }
+
+  /* ------------------------------------------------------------------
+   * 6. Hero dashboard parallax — cards drift gently with the mouse
+   * ---------------------------------------------------------------- */
+  const heroDash = document.querySelector('.hero-dash');
+
+  if (heroDash) {
+    const dashCards = heroDash.querySelectorAll('.dash-card');
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const finePointer = window.matchMedia('(pointer: fine)').matches;
+
+    if (dashCards.length > 0 && !reduced && finePointer) {
+      const resetParallax = () => {
+        dashCards.forEach((card) => {
+          card.style.setProperty('--mx', '0px');
+          card.style.setProperty('--my', '0px');
+        });
+      };
+
+      let rafId = null;
+      heroDash.addEventListener('mousemove', (e) => {
+        if (rafId) return;
+        rafId = requestAnimationFrame(() => {
+          const rect = heroDash.getBoundingClientRect();
+          const cx = (e.clientX - rect.left) / rect.width - 0.5;
+          const cy = (e.clientY - rect.top) / rect.height - 0.5;
+
+          dashCards.forEach((card) => {
+            const depth = parseFloat(card.dataset.depth || '0');
+            card.style.setProperty('--mx', `${(-cx * depth * 120).toFixed(2)}px`);
+            card.style.setProperty('--my', `${(-cy * depth * 90).toFixed(2)}px`);
+          });
+          rafId = null;
+        });
+      });
+
+      heroDash.addEventListener('mouseleave', resetParallax);
+    }
+  }
+
+  /* ------------------------------------------------------------------
+   * 7. Image lazy loading — native `loading=lazy` is preferred;
    *    this JS toggles a fade-in class once an image is ready
    * ---------------------------------------------------------------- */
   const images = document.querySelectorAll('img[data-src]');
@@ -100,7 +186,7 @@
   }
 
   /* ------------------------------------------------------------------
-   * 5. WhatsApp — one shared helper + every WhatsApp CTA on the page
+   * 8. WhatsApp — one shared helper + every WhatsApp CTA on the page
    *    No backend: any trigger with a data-whatsapp attribute (plus the
    *    contact form) opens WhatsApp with a pre-filled message.
    *    Change the number below to update the recipient.
@@ -315,7 +401,7 @@
   }
 
   /* ------------------------------------------------------------------
-   * 6. Dynamic footer year
+   * 9. Dynamic footer year
    * ---------------------------------------------------------------- */
   const yearEl = document.getElementById('year');
   if (yearEl) yearEl.textContent = String(new Date().getFullYear());

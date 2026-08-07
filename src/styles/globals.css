@@ -1,0 +1,451 @@
+@import 'tailwindcss';
+
+/* ==========================================================================
+   Baba Solution Information Technology — global styles
+   Design language: "the network room / field bench."
+   Tokens, base, and shared utilities are ported verbatim from the original
+   style.css + animation.css. Section-specific styling lives in scoped CSS
+   modules next to each component; Tailwind handles layout utilities.
+   ========================================================================== */
+
+:root {
+  /* Core palette (cable & hardware grounded) */
+  --ink: #171b21; /* graphite — primary text */
+  --bench: #eef0f2; /* cool technical base */
+  --bench-2: #e3e7ea; /* slightly deeper wells */
+  --paper: #ffffff;
+  --line: #d8dde3; /* hairline */
+  --line-strong: #c2c9d1; /* hardware edge */
+  --brand: #2455e6; /* cable blue */
+  --brand-deep: #1a3fad;
+  --brand-soft: #e5ebfb;
+  --signal: #2455e6; /* cable blue — the CTA */
+  --signal-deep: #1a3fad;
+  --signal-soft: #e5ebfb;
+  --cable: #f05a22; /* ethernet orange — bright accent */
+  --cable-deep: #c84a1b;
+  --cable-soft: #fdeadd;
+  --ok: #0fa958; /* link-active green — status only */
+  --ok-soft: #dff4e9;
+  --amber: #f2a93b; /* LED transition colour */
+  --grey: #5a6370; /* muted body text */
+  --grey-soft: #8a93a0; /* faint labels */
+  --danger: #e5484d;
+
+  /* Type roles */
+  --font-display: 'Chakra Petch', 'IBM Plex Sans', system-ui, sans-serif;
+  --font-body: 'IBM Plex Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+
+  --font-size-base: clamp(1rem, 0.95rem + 0.25vw, 1.0625rem);
+
+  /* Layout */
+  --container-max: 1180px;
+  --header-height: 72px;
+  --section-pad: clamp(4.5rem, 8vw, 7rem);
+
+  /* Shadows (cool, hardware-feel) */
+  --shadow-sm: 0 2px 10px rgba(23, 27, 33, 0.06);
+  --shadow-md: 0 14px 32px rgba(23, 27, 33, 0.12);
+  --shadow-lg: 0 30px 64px rgba(23, 27, 33, 0.2);
+  --glow-brand: 0 0 0 3px rgba(36, 85, 230, 0.16);
+
+  /* Radii (technical, not pill) */
+  --radius-sm: 5px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+
+  /* Motion */
+  --transition-fast: 0.2s ease;
+  --transition-base: 0.3s ease;
+  --transition-slow: 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Reset */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--header-height) + 1rem);
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: var(--font-size-base);
+  line-height: 1.6;
+  color: var(--ink);
+  background-color: var(--bench);
+  overflow-x: hidden;
+  transition: opacity 0.15s ease-in-out;
+}
+
+body.lang-switching {
+  opacity: 0.25;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body {
+    transition: none;
+  }
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font-family: inherit;
+  font-size: inherit;
+  border: none;
+  background: none;
+  cursor: pointer;
+  color: inherit;
+}
+
+input,
+select,
+textarea {
+  font-family: inherit;
+  font-size: inherit;
+}
+
+iframe {
+  border: 0;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  line-height: 1.15;
+  font-weight: 700;
+}
+
+::selection {
+  background: var(--signal);
+  color: var(--paper);
+}
+
+:focus-visible {
+  outline: 3px solid var(--signal);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+/* --------------------------------------------------------------------------
+   Utilities
+   -------------------------------------------------------------------------- */
+.container {
+  width: min(100% - 2rem, var(--container-max));
+  margin-inline: auto;
+}
+
+.section {
+  position: relative;
+  padding-block: var(--section-pad);
+}
+
+.section-paper {
+  background: var(--paper);
+}
+
+/* ---- Section code rule (spec-sheet tag on a hairline) ---- */
+.head-rule {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  margin-bottom: 1.15rem;
+}
+
+.head-rule span {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  color: var(--grey);
+  padding: 0.2rem 0.55rem;
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  background: var(--paper);
+  white-space: nowrap;
+}
+
+.head-rule::before,
+.head-rule::after {
+  content: '';
+  height: 1px;
+}
+
+.head-rule::before {
+  background: var(--line-strong);
+  flex: 1;
+}
+
+.head-rule::after {
+  background: var(--line);
+  flex: 1;
+}
+
+.head-rule-left::before {
+  flex: 0 0 2.4rem;
+}
+
+/* ---- Label tape (mono eyebrow) ---- */
+.tape {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.34rem 0.9rem 0.34rem 0.85rem;
+  background: linear-gradient(180deg, #ffffff 0%, #f1f3f5 100%);
+  border: 1px solid var(--line-strong);
+  clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 50%, calc(100% - 8px) 100%, 0 100%);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink);
+  white-space: nowrap;
+  box-shadow: 0 1px 2px rgba(23, 27, 33, 0.05);
+}
+
+.tape::before {
+  content: '';
+  width: 0.5rem;
+  height: 0.5rem;
+  flex: none;
+  background: var(--ok);
+  box-shadow: inset 0 0 0 1px rgba(23, 27, 33, 0.18);
+}
+
+/* ---- Section headings ---- */
+.section-head {
+  max-width: 780px;
+  margin-inline: auto;
+  text-align: center;
+  margin-bottom: clamp(2.6rem, 5vw, 3.75rem);
+}
+
+.section-head .tape,
+.section-head .section-title,
+.section-head .section-desc {
+  margin-inline: auto;
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(1.85rem, 3.4vw, 2.75rem);
+  line-height: 1.1;
+  letter-spacing: -0.015em;
+  margin: 1.1rem 0 1rem;
+  text-wrap: balance;
+  text-wrap-style: balance;
+}
+
+.section-desc {
+  color: var(--grey);
+  font-size: clamp(0.98rem, 1.15vw, 1.1rem);
+  max-width: 640px;
+}
+
+.em {
+  color: var(--signal);
+}
+
+/* ---- Text link ---- */
+.text-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  color: var(--signal-deep);
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition:
+    gap var(--transition-base),
+    color var(--transition-base);
+}
+
+.text-link:hover {
+  gap: 0.7rem;
+  color: var(--signal);
+}
+
+/* ---- Icon helper (matches original .icon on inline SVGs; react-icons use
+        currentColor, so this normalises sizing) ---- */
+.icon {
+  width: 1.25rem;
+  height: 1.25rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  flex-shrink: 0;
+}
+
+/* ---- Ripple ---- */
+.ripple {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(23, 27, 33, 0.16);
+  transform: scale(0);
+  animation: ripple-effect 0.6s ease-out forwards;
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* --------------------------------------------------------------------------
+   Keyframes (ported from animation.css)
+   -------------------------------------------------------------------------- */
+@keyframes led-on {
+  0% {
+    background: var(--amber);
+    box-shadow: 0 0 0 rgba(15, 169, 88, 0);
+    transform: translateX(-50%) scale(0.4);
+  }
+  55% {
+    background: var(--ok);
+    transform: translateX(-50%) scale(1.2);
+  }
+  100% {
+    background: var(--ok);
+    box-shadow: 0 0 8px rgba(15, 169, 88, 0.8);
+    transform: translateX(-50%) scale(1);
+  }
+}
+
+@keyframes meter-run {
+  0% {
+    width: 0;
+  }
+  60% {
+    width: 100%;
+  }
+  100% {
+    width: 0;
+  }
+}
+
+@keyframes eq-bar {
+  0%,
+  100% {
+    transform: scaleY(0.35);
+  }
+  50% {
+    transform: scaleY(1);
+  }
+}
+
+.status-bars i {
+  transform-origin: bottom;
+}
+
+@keyframes grow-bar {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+.srow-meter i {
+  transform-origin: left;
+}
+
+@keyframes ripple-effect {
+  to {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Scroll-reveal system (ported from animation.css)
+   -------------------------------------------------------------------------- */
+.reveal {
+  opacity: 0;
+  transform: translateY(34px);
+  transition:
+    opacity 0.75s var(--transition-slow),
+    transform 0.75s var(--transition-slow);
+  transition-delay: var(--reveal-delay, 0s);
+  will-change: opacity, transform;
+}
+
+.reveal.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Directional reveal modifiers */
+.reveal-left {
+  transform: translateX(-40px);
+}
+
+.reveal-right {
+  transform: translateX(40px);
+}
+
+.reveal-zoom {
+  transform: scale(0.92);
+}
+
+.reveal-left.revealed,
+.reveal-right.revealed,
+.reveal-zoom.revealed {
+  transform: none;
+}
+
+/* Reduced motion: static content, no LED/meter animation */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .status-bars i,
+  .srow-meter i {
+    transform: none;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
