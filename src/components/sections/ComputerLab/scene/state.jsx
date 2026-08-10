@@ -28,8 +28,11 @@ export function useIntroRef(active, reduced, duration = 2) {
   return intro
 }
 
-export function LabSceneProvider({ intro, hover, setHover, children }) {
-  const value = useMemo(() => ({ intro, hover, setHover }), [intro, hover, setHover])
+export function LabSceneProvider({ intro, hover, setHover, markInteracted, children }) {
+  const value = useMemo(
+    () => ({ intro, hover, setHover, markInteracted }),
+    [intro, hover, setHover, markInteracted]
+  )
   return <LabSceneContext.Provider value={value}>{children}</LabSceneContext.Provider>
 }
 

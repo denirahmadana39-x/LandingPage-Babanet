@@ -3,143 +3,118 @@
 > Technology Solutions for Business, Education & Home.
 > One Partner for All Your IT Needs
 
-A premium, modern, fully responsive company profile website built with **only HTML5, CSS3, and Vanilla JavaScript (ES6+)** — no frameworks, no libraries, no build tools.
-
----
+A premium, modern, fully responsive company profile website built with **React 19 + Vite + Tailwind CSS**. React Three Fiber powers an interactive 3D computer-lab showcase that degrades gracefully to an SVG fallback.
 
 ## ✨ Features
 
-- **Sticky navbar** with blur/glassmorphism on scroll
-- **Mobile drawer menu** with keyboard & accessibility support
-- **Hero section** with animated statistics, CSS dashboard mockup and floating cards
-- **Services** — 8 responsive cards with hover animations
-- **Why Choose Us** with feature checklist
-- **Work Process** — 6-step visual timeline
-- **Computer Laboratory** section with checklist
-- **Dark Hosting section** with server-status dashboard mockup
-- **FAQ accordion** — pure vanilla JS
-- **Contact** — Google Maps embed, info cards, validated form that opens WhatsApp
-- **WhatsApp CTAs** — every call-to-action (nav, hero, lab, hosting, FAQ, footer) plus a floating WhatsApp button opens a pre-filled chat
-- **Extras**: scroll-reveal animations (Intersection Observer), counter animations, smooth scroll, active nav highlighting, button ripple effect, lazy loading, back-to-top button, footer year auto-update
-- **Accessible**: semantic HTML, ARIA attributes, focus states, `prefers-reduced-motion` support
-- **Bilingual (i18n)**: 🇮🇩 Bahasa Indonesia (default) & 🇺🇸 English — no page reload, persisted choice, auto-detect, SEO/meta updates
+- **Multi-page SPA** — Home, About, Services, Hosting, Portfolio, Contact (React Router, lazy-loaded route chunks)
+- **Sticky navbar** with blur/glassmorphism, active-link highlighting, and a keyboard-accessible mobile drawer
+- **Hero section** with animated statistics and dashboard mockup
+- **Services** — responsive cards with hover animations
+- **Why Choose Us** with feature checklist and a 6-step work process timeline
+- **Computer Laboratory** — interactive 3D miniature classroom (React Three Fiber) with soft shadows, entrance choreography, and an SVG fallback when WebGL is unavailable
+- **Hosting** section with a server-status dashboard mockup and support log
+- **FAQ accordion**
+- **Portfolio** — filterable project grid
+- **Contact** — Google Maps embed, info cards, and a validated form that opens WhatsApp
+- **WhatsApp CTAs** — every call-to-action plus a floating WhatsApp button opens a pre-filled chat
+- **Bilingual (i18n)** — 🇮🇩 Bahasa Indonesia (default) & 🇺🇸 English via i18next; persisted choice, auto-detect, and SEO/meta updates with no page reload
+- **Extras** — scroll-reveal animations (Intersection Observer), animated counters, smooth scroll, back-to-top, lazy loading
+- **Accessible** — semantic HTML, ARIA attributes, focus states, `prefers-reduced-motion` support
+- **Performance** — route-level code-splitting; the three.js 3D scene is lazy-loaded only when scrolled into view
 
 ## 🧰 Tech Stack
 
-| Layer        | Technology              |
-|--------------|-------------------------|
-| Markup       | Semantic HTML5          |
-| Styling      | CSS3 (CSS Variables, Flexbox, Grid, `clamp()`, REM, backdrop-filter) |
-| Interactivity| Vanilla JavaScript ES6+ |
-| Icons        | Inline SVG sprite (`<use href="#icon-...">`) |
-| Illustrations| Inline SVG + optional files in `assets/illustrations/` |
-| Fonts        | Roboto (Google Fonts)   |
+| Layer            | Technology                                        |
+|------------------|---------------------------------------------------|
+| Framework        | React 19                                          |
+| Build tool       | Vite 8                                            |
+| Styling          | Tailwind CSS 4 + scoped CSS Modules (design tokens in `src/styles/globals.css`) |
+| Routing          | React Router 7 (lazy routes)                      |
+| 3D scene         | @react-three/fiber + drei + three (lazy-loaded)   |
+| Animation        | framer-motion                                     |
+| i18n             | i18next + react-i18next (`src/locales/{id,en}`)   |
+| Icons            | react-icons (Feather set)                         |
+| SEO              | react-helmet-async (`<SEO />` component)          |
 
 ## 📁 Project Structure
 
 ```
-.
-├── index.html
-├── css/
-│   ├── style.css          # Base design: variables, sections, components
-│   ├── responsive.css     # Media queries (laptop / tablet / mobile)
-│   └── animation.css      # Keyframes + scroll-reveal transitions
-├── js/
-│   ├── translations.js     # All UI strings for every language (id, en)
-│   ├── language.js         # i18n core: detect, persist, translate, SEO
-│   ├── app.js             # Smooth scroll, back-to-top, ripple, lazy-load, form
-│   ├── navbar.js          # Sticky header, mobile menu, active nav
-│   ├── animation.js       # Scroll reveal (Intersection Observer)
-│   ├── counter.js         # Animated statistics
-│   └── faq.js             # FAQ accordion
-├── assets/
-│   ├── images/            # Put your real photos here (empty)
-│   ├── icons/logo.svg     # Brand logo mark
-│   └── illustrations/     # Reusable SVG illustrations
-└── README.md
+src/
+├── main.jsx                  # Entry: providers (i18n, Helmet, Language, Router)
+├── App.jsx                   # Layout + lazy route table
+├── i18n.js                   # i18next init
+├── contexts/
+│   └── LanguageContext.jsx   # Language switching + persistence
+├── pages/                    # Home, About, Services, Hosting, Portfolio, Contact
+├── components/
+│   ├── layout/               # Navbar, Footer, FloatingWhatsapp, LanguageSwitcher, ScrollToTop
+│   ├── sections/             # Hero, Services, WhyChooseUs, ComputerLab, Hosting, FAQ, Contact, Portfolio
+│   │   └── ComputerLab/      # R3F scene + scene/ internals, SVG FallbackScene, fullscreen preview
+│   ├── seo/SEO.jsx           # Title/meta/OG in the active language
+│   └── ui/                   # Button, Card, EmphasizedText, FAQItem, StatCard, ...
+├── data/                     # company, services, portfolio, faq
+├── hooks/                    # useCounter, useRevealSystem, useScrollAnimation, useNavbar, ...
+├── locales/{id,en}/          # JSON translation files
+├── styles/globals.css        # Design tokens + base styles
+└── utils/whatsapp.js         # WhatsApp deep-link helpers
 ```
 
 ## 🚀 Getting Started
 
-No build step required. Open directly in a browser or serve statically:
-
 ```bash
-# Option A — just open it
-open index.html
-
-# Option B — local static server (Python)
-python3 -m http.server 8080
-
-# Option C — local static server (Node)
-npx serve .
+npm install
+npm run dev        # start the dev server
 ```
 
-Then visit `http://localhost:8080`.
+Then visit the URL printed by Vite (default `http://localhost:5173`).
 
-### Deploy anywhere
+### Scripts
 
-Works on any static host: **Nginx, Apache, GitHub Pages, Cloudflare Pages, Netlify, Vercel**.
-Just upload the repository root — no configuration needed.
+| Script            | Description                          |
+|-------------------|--------------------------------------|
+| `npm run dev`     | Start the Vite dev server            |
+| `npm run build`   | Production build to `dist/`          |
+| `npm run preview` | Preview the production build locally |
+| `npm run lint`    | ESLint over `src/`                   |
+| `npm run format`  | Prettier write over `src/`           |
+| `npm run format:check` | Prettier check                  |
+
+### Deploy
+
+This is a standard Vite SPA — build with `npm run build` and deploy `dist/` to any static host (Netlify, Vercel, Cloudflare Pages, GitHub Pages, Nginx). Add a SPA fallback so `history` routes (e.g. `/services`) resolve to `index.html`.
 
 ## 🎨 Customization
 
 ### Brand colors
-All colors live as CSS variables at the top of `css/style.css`:
+
+All design tokens (palette, spacing, typography) live as CSS variables at the top of `src/styles/globals.css`:
 
 ```css
 :root {
-  --color-primary: #2563EB;
-  --color-secondary: #3B82F6;
-  --color-accent: #60A5FA;
-  --color-dark: #1E3A8A;
+  --ink: #171b21;        /* graphite — primary text */
+  --bench: #eef0f2;      /* cool technical base */
+  --brand: #2455e6;      /* cable blue — the CTA */
+  --cable: #f05a22;      /* ethernet orange — bright accent */
+  --ok: #0fa958;         /* link-active green — status only */
   ...
 }
 ```
 
 ### Content
-All text is directly in `index.html` — edit the copy, services, FAQ, and contact details there. Place real project photos in `assets/images/` and reference them via `<img>` (with `loading="lazy"`).
 
-> **Note:** Because of the multilingual system, human-facing copy lives in `js/translations.js`, not in the HTML. The text inside `index.html` is only the Indonesian (default) fallback rendered before the scripts run. See [Language & Translation](#-language--translation) below.
-
-### Language & Translation
-
-The site ships with **Bahasa Indonesia (default)** and **English**.
-
-- Every translatable element in `index.html` is marked with a `data-i18n` attribute, e.g. `<h1 data-i18n="hero.title">`. Elements that must keep an inline highlight use `data-i18n-html`; inputs use `data-i18n-placeholder`; ARIA labels use `data-i18n-aria`.
-- All strings live in one object in `js/translations.js`:
-  ```js
-  const translations = {
-    id: { 'nav.home': 'Beranda', ... },
-    en: { 'nav.home': 'Home', ... }
-  };
-  ```
-- **Language detection** (`js/language.js`): `localStorage['language']` first; otherwise the browser language — starts with `id` → Indonesian, anything else → English.
-- **No page reload** — switching applies a smooth fade and re-translates instantly.
-- **SEO** — switching updates `<html lang>`, `<title>`, meta description, and Open Graph tags.
-- **Adding a new language** (e.g. Japanese): copy the `id` object in `translations.js`, translate every value, keep the same keys, and register the code in `SUPPORTED_LANGS` in `js/language.js`. No HTML changes needed.
-
-### WhatsApp CTAs
-Every button with a `data-whatsapp` attribute (nav & hero "Get Started", lab "Consult Our Team", hosting "Start Now", FAQ "Contact Support", footer links, and the floating button) opens WhatsApp with a short pre-filled greeting in the active language. Buttons show a brief loading state while the chat is launched.
-
-### Contact form
-The form is a demo (no backend) — on submit it validates every field and opens WhatsApp (`https://wa.me/`) with a pre-filled, formatted message in the currently active language (Indonesian or English). No data is sent to any server.
-
-To change the recipient number, edit the `WHATSAPP_NUMBER` constant at the top of section 5 in `js/app.js` (use the international format without `+`, e.g. `6281281640680`). The number also appears in `translations.js` (`contact.whatsappValue`) and in the floating/footer `wa.me` hrefs.
-
-## 🧪 Scripts
-
-There is no build tooling. The project intentionally ships plain, dependency-free files.
+- **Copy / translations** — human-facing strings live in `src/locales/id/common.json` and `src/locales/en/common.json`. Add a language by adding a locale folder, translating each key, and registering it in `src/i18n.js`.
+- **Services, portfolio, FAQ** — structured data in `src/data/`.
+- **WhatsApp number** — update the number in `src/utils/whatsapp.js` and anywhere the `wa.me` href appears (floating button, footer).
 
 ## ✅ Quality Checklist
 
-- [x] Semantic HTML5 & SEO meta tags
-- [x] No inline CSS, no `!important` (except reduced-motion accessibility override)
-- [x] CSS Variables, Flexbox, Grid, `clamp()`, REM units
-- [x] Modular, non-duplicated CSS & JS
-- [x] Lazy-loaded media, `loading="lazy"` on iframe/images
+- [x] Semantic HTML5 & SEO meta tags (per-language via react-helmet-async)
+- [x] Design tokens in CSS variables; scoped CSS Modules; Tailwind for layout utilities
 - [x] Fully responsive: desktop, laptop, tablet, mobile
 - [x] Accessible: ARIA, focus-visible, keyboard navigation, reduced-motion
-- [x] Validated vanilla JS with graceful fallbacks
+- [x] Route-level code-splitting; WebGL scene lazy-loaded on scroll into view
+- [x] ESLint clean; Prettier formatted
 
 ---
 

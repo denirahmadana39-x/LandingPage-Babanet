@@ -2,19 +2,20 @@ import { useRef } from 'react'
 import { useFrame } from '@react-three/fiber'
 import { ContactShadows } from '@react-three/drei'
 import { useLabScene } from './state.jsx'
-import Room from './Room'
-import Computers from './Computers'
+import LabRoom from './LabRoom'
+import Workstation from './Workstation'
+import StudentChairs from './Chair'
 import Infrastructure from './Infrastructure'
 import HoverOutline from './HoverOutline'
 import LabTooltip from './Tooltip'
 import { easeOutCubic } from './math'
 
-/* Shared scene content for the lab — used by both the inline viewer
-   (LabCanvas) and the fullscreen modal (LabFullPreview). Everything here
-   reads the intro timeline + hover state from the nearest LabSceneProvider,
-   so each Canvas gets its own independent wake-up choreography. */
+/* Shared scene content for the lab — used by the inline viewer (LabCanvas).
+   Everything reads the intro timeline + hover state from the nearest
+   LabSceneProvider, so each Canvas gets its own independent wake-up
+   choreography. */
 
-/* Advances the shared intro timeline once the section/modal is open */
+/* Advances the shared intro timeline once the section is active */
 export function IntroDriver({ active, reduced, onDone }) {
   const { intro } = useLabScene()
   useFrame((_, delta) => {
@@ -28,9 +29,7 @@ export function IntroDriver({ active, reduced, onDone }) {
   return null
 }
 
-/* Lighting — soft studio set: ambient + key + blue rim + gentle front fill.
-   Everything fades in with the entrance, and the key light casts soft
-   shadows. */
+/* Lighting — soft studio set: ambient + key + blue rim + gentle front fill. */
 function Lights({ coarse }) {
   const { intro } = useLabScene()
   const ambient = useRef(null)
@@ -40,10 +39,10 @@ function Lights({ coarse }) {
 
   useFrame(() => {
     const et = easeOutCubic(intro.current.t)
-    if (ambient.current) ambient.current.intensity = 0.82 * et
-    if (key.current) key.current.intensity = 1.15 * et
-    if (rim.current) rim.current.intensity = 0.6 * et
-    if (fill.current) fill.current.intensity = 0.4 * et
+    if (ambient.current) ambient.current.intensity = 0.85 * et
+    if (key.current) key.current.intensity = 1.25 * et
+    if (rim.current) rim.current.intensity = 0.55 * et
+    if (fill.current) fill.current.intensity = 0.45 * et
   })
 
   const shadowSize = coarse ? 512 : 2048
@@ -76,8 +75,9 @@ function LabWorld({ coarse, introDone }) {
   return (
     <>
       <Lights coarse={coarse} />
-      <Room />
-      <Computers />
+      <LabRoom />
+      <Workstation />
+      <StudentChairs />
       <Infrastructure />
       <HoverOutline />
       <LabTooltip />

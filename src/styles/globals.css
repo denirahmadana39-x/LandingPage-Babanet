@@ -8,6 +8,25 @@
    modules next to each component; Tailwind handles layout utilities.
    ========================================================================== */
 
+/* Chakra Petch is self-hosted because the upstream Google Fonts build carries
+   a malformed maxp table (maxZones = 0) that Chrome flags as a font parse
+   error. These files are the same build with maxZones patched to 2. */
+@font-face {
+  font-family: 'Chakra Petch';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('../assets/fonts/chakra600.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Chakra Petch';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('../assets/fonts/chakra700.woff2') format('woff2');
+}
+
 :root {
   /* Core palette (cable & hardware grounded) */
   --ink: #171b21; /* graphite — primary text */

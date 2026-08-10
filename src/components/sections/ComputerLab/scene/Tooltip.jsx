@@ -13,6 +13,7 @@ const LABELS = {
   ap: 'lab.scene.ap',
   switch: 'lab.scene.switch',
   projector: 'lab.scene.projector',
+  display: 'lab.scene.display',
 }
 
 const DESCRIPTIONS = {
@@ -22,6 +23,7 @@ const DESCRIPTIONS = {
   ap: 'lab.scene.apDesc',
   switch: 'lab.scene.switchDesc',
   projector: 'lab.scene.projectorDesc',
+  display: 'lab.scene.displayDesc',
 }
 
 function LabTooltip() {

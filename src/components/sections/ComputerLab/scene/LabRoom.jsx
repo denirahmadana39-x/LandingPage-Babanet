@@ -20,17 +20,12 @@ import {
   windowGlassMat,
 } from './materials'
 import { easeOutCubic } from './math'
+import { ROOM_W, ROOM_D, WALL_H, BACK, LEFT, ROWS } from './layout.js'
 
 /* The room shell — a bright classroom (12m × 10.5m interior) with a glossy
    ceramic floor, a back teaching wall, and a left wall carrying windows, a
    door and the exit sign. Cut open on the front/right so the page background
    stays visible. */
-
-const ROOM_W = 12
-const ROOM_D = 10.5
-const WALL_H = 2.7
-const BACK = -ROOM_D / 2
-const LEFT = -ROOM_W / 2
 
 /* Floor — light ceramic tiles with subtle grout lines, gently glossy */
 function useFloorTexture() {
@@ -140,9 +135,9 @@ function Window({ x = 0, z = 0, rotY = 0, w = 2.4, h = 1.15, y = 1.575 }) {
 function Windows() {
   return (
     <group>
-      {/* back wall — flanking the whiteboard */}
-      <Window x={-3.4} z={BACK + 0.03} w={2.2} h={1.2} />
-      <Window x={3.4} z={BACK + 0.03} w={2.2} h={1.2} />
+      {/* back wall — flanking the whiteboard and main display */}
+      <Window x={-3.9} z={BACK + 0.03} w={2.0} h={1.2} />
+      <Window x={3.9} z={BACK + 0.03} w={2.0} h={1.2} />
       {/* left wall */}
       <Window x={LEFT + 0.03} z={-2.4} rotY={Math.PI / 2} />
       <Window x={LEFT + 0.03} z={0.4} rotY={Math.PI / 2} />
@@ -226,7 +221,7 @@ function Outlet({ position, rotY = 0 }) {
 
 /* LAN cable trays near the ceiling + conduit drops routing toward the rack */
 function CableTray() {
-  const crossZ = [-2.7, -0.45, 1.8, 3.95]
+  const crossZ = ROWS.map((z) => z - 0.15)
   return (
     <group>
       {/* backbone along the back wall */}
@@ -240,12 +235,12 @@ function CableTray() {
         </mesh>
       ))}
       {/* vertical drop from the backbone down to the server rack (back-right) */}
-      <mesh position={[4.5, 1.55, BACK + 0.35]} material={conduitMat}>
+      <mesh position={[4.6, 1.55, BACK + 0.38]} material={conduitMat}>
         <boxGeometry args={[0.07, 1.55, 0.07]} />
       </mesh>
       {/* horizontal conduit run along the back wall */}
-      <mesh position={[0.4, 1.0, BACK + 0.35]} material={conduitMat}>
-        <boxGeometry args={[8.8, 0.06, 0.06]} />
+      <mesh position={[2.2, 1.0, BACK + 0.38]} material={conduitMat}>
+        <boxGeometry args={[4.8, 0.06, 0.06]} />
       </mesh>
     </group>
   )
