@@ -4,7 +4,7 @@ import * as THREE from 'three'
 import { useLabScene } from './state.jsx'
 import { chairLegMat, chairSeatMat } from './materials'
 import { clamp, easeOutCubic } from './math'
-import { CHAIR_W, CHAIR_Z_OFFSET, WORKSTATION_COUNT, WORKSTATIONS } from './layout.js'
+import { CHAIR_W, CHAIR_Z, WORKSTATIONS } from './layout.js'
 
 /* Student chair — school style: four steel legs, flat seat, slim backrest.
    Rendered as instanced meshes (one draw call per part for all 24 chairs).
@@ -18,6 +18,7 @@ const SEAT_Y = 0.46
 const LEG_H = SEAT_Y - 0.02
 const BACK_H = 0.34
 const BACK_Y = SEAT_Y + BACK_H / 2 + 0.02
+const WORKSTATION_COUNT = WORKSTATIONS.length
 
 /* Local part definitions relative to the chair floor point (centred seat) */
 const PARTS = [
@@ -56,7 +57,7 @@ function StudentChairs() {
       for (let i = 0; i < WORKSTATION_COUNT; i++) {
         const s = revealScale(i, t)
         const { x, z } = WORKSTATIONS[i]
-        dummy.position.set(x + lx * s, ly * s, z + CHAIR_Z_OFFSET + lz * s)
+        dummy.position.set(x + lx * s, ly * s, z + CHAIR_Z + lz * s)
         dummy.scale.setScalar(Math.max(s, 0.0001))
         dummy.updateMatrix()
         mesh.setMatrixAt(i, dummy.matrix)
