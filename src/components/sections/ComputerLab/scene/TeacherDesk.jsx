@@ -1,7 +1,7 @@
 import { useLabScene } from './state.jsx'
 import { doorFrameMat, monitorBezelMat, rackTrimMat, screenMat, teacherDeskMat } from './materials'
 import { TEACHER_DESK_POS } from './layout.js'
-import { Chair } from './Chair'
+import { Chair } from './Chair.jsx'
 
 /* Teacher's station at the back-centre of the room: dark-wood desk with a
    larger monitor facing the rows (+z), keyboard, rollable side table and

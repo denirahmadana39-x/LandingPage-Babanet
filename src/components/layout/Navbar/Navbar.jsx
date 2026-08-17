@@ -13,7 +13,6 @@ const NAV_ITEMS = [
   { to: '/services', labelKey: 'nav.services' },
   { to: '/hosting', labelKey: 'nav.hosting' },
   { to: '/about', labelKey: 'nav.about' },
-  { to: '/portfolio', labelKey: 'nav.portfolio' },
   { to: '/contact', labelKey: 'nav.contact' },
 ]
 

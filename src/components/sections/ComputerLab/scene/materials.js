@@ -213,32 +213,6 @@ export const chairMat = new THREE.MeshStandardMaterial({
   metalness: 0.05,
 })
 
-/* Student chair — light grey seat/backrest + dark steel legs */
-export const chairSeatMat = new THREE.MeshStandardMaterial({
-  color: 0xdbe4ee,
-  roughness: 0.6,
-  metalness: 0.06,
-})
-
-export const chairLegMat = new THREE.MeshStandardMaterial({
-  color: 0x2b333d,
-  roughness: 0.4,
-  metalness: 0.55,
-})
-
-/* Keyboard + mouse — matte dark hardware */
-export const keyboardMat = new THREE.MeshStandardMaterial({
-  color: 0x232a33,
-  roughness: 0.5,
-  metalness: 0.25,
-})
-
-export const mouseMat = new THREE.MeshStandardMaterial({
-  color: 0x1d242c,
-  roughness: 0.45,
-  metalness: 0.3,
-})
-
 /* Wall-mounted main display (flat panel next to the whiteboard) */
 export const displayMat = new THREE.MeshStandardMaterial({
   color: 0x131a21,
@@ -365,15 +339,15 @@ export const chairAccentMat = new THREE.MeshStandardMaterial({
   metalness: 0.05,
 })
 
+/* Modern student chair — charcoal cantilever frame (the two side profiles)
+   and a neutral, softly plastic foam seat/back. Frame keeps a faint blue-grey
+   so it reads as Baba-neutral rather than pure black. */
 export const chairLegMat = new THREE.MeshStandardMaterial({
   color: BLUE_SLATE,
   roughness: 0.35,
   metalness: 0.6,
 })
 
-/* Modern student chair — charcoal cantilever frame (the two side profiles)
-   and a neutral, softly plastic foam seat/back. Frame keeps a faint blue-grey
-   so it reads as Baba-neutral rather than pure black. */
 export const chairFrameMat = new THREE.MeshStandardMaterial({
   color: BLUE_DARK,
   roughness: 0.55,

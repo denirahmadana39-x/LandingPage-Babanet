@@ -12,7 +12,6 @@ const Home = lazy(() => import('./pages/Home'))
 const About = lazy(() => import('./pages/About'))
 const ServicesPage = lazy(() => import('./pages/Services'))
 const HostingPage = lazy(() => import('./pages/Hosting'))
-const PortfolioPage = lazy(() => import('./pages/Portfolio'))
 const ContactPage = lazy(() => import('./pages/Contact'))
 
 /* Drives the page-level `.reveal` scroll system. Keyed by pathname so a
@@ -41,7 +40,6 @@ function App() {
               <Route path="/about" element={<About />} />
               <Route path="/services" element={<ServicesPage />} />
               <Route path="/hosting" element={<HostingPage />} />
-              <Route path="/portfolio" element={<PortfolioPage />} />
               <Route path="/contact" element={<ContactPage />} />
               <Route path="*" element={<Home />} />
             </Routes>

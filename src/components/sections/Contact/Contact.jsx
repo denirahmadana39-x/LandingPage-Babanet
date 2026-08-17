@@ -174,9 +174,7 @@ function Contact({ id }) {
     <section className={styles.section} id={id}>
       <div className="container">
         <div className="section-head reveal">
-          <div className="head-rule">
-            <span>CT-01</span>
-          </div>
+          <div className="head-rule" />
           <span className="tape">{t('contact.tag')}</span>
           <h2 className="section-title">
             <EmphasizedText text={t('contact.title')} />
@@ -204,7 +202,6 @@ function Contact({ id }) {
 
           <form className={clsx(styles.form, 'reveal')} onSubmit={handleSubmit} noValidate>
             <div className={styles.formHead}>
-              <span className={styles.formCode}>FR-01 / ESTIMASI</span>
               <span className={styles.formLed}>
                 <i />
                 <span>{t('contact.form.formNote')}</span>

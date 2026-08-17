@@ -26,9 +26,7 @@ function Process({ id }) {
     <section className={`section section-paper ${styles.section}`} id={id}>
       <div className="container">
         <div className={`section-head reveal`}>
-          <div className="head-rule">
-            <span>SEQ/06</span>
-          </div>
+          <div className="head-rule" />
           <span className="tape">{t('process.tag')}</span>
           <h2 className="section-title">
             <EmphasizedText text={t('process.title')} />

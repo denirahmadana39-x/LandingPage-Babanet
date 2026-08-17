@@ -4,6 +4,9 @@
   "version": "1.0.0",
   "description": "Baba Solution Information Technology — company profile (React + Vite + Tailwind)",
   "type": "module",
+  "engines": {
+    "node": ">=20.19.0"
+  },
   "scripts": {
     "dev": "vite",
     "build": "vite build",
