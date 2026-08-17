@@ -171,8 +171,13 @@
   .navLinks {
     position: fixed;
     inset: 0;
+    top: 0;
+    left: 0;
     width: 100%;
-    height: 100%;
+    max-width: 100vw;
+    height: 100vh;
+    height: 100dvh;
+    box-sizing: border-box;
     flex-direction: column;
     align-items: stretch;
     gap: 0.35rem;
@@ -182,15 +187,20 @@
     transform: translateX(100%);
     transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
     overflow-y: auto;
+    overflow-x: hidden;
+    pointer-events: none;
     z-index: 1;
   }
 
   .menuOpen {
     z-index: 9999;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
   }
 
   .menuOpen .navLinks {
     transform: translateX(0);
+    pointer-events: auto;
   }
 
   .menuOpen .navToggle {
