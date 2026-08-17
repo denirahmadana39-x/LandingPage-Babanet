@@ -4,9 +4,9 @@
 .section {
   --trust-blue: #2563eb;
   --trust-bg: #ffffff;
-  --trust-ink: #0f172a;
-  --trust-muted: #64748b;
-  --trust-border: #e5e7eb;
+  --trust-ink: #0b2559;
+  --trust-muted: #526b9b;
+  --trust-border: #d8e4ff;
   --trust-soft: #eff4ff;
 
   position: relative;
@@ -59,7 +59,7 @@
   gap: 0.5rem;
   padding: 0.42rem 1rem;
   border: 1px solid var(--trust-border);
-  border-radius: 999px;
+  border-radius: var(--radius-sm);
   background: #fbfcfe;
   color: var(--trust-blue);
   font-family: var(--font-mono);
@@ -75,13 +75,13 @@
   width: 0.4rem;
   height: 0.4rem;
   border-radius: 50%;
-  background: var(--trust-blue);
+  background: var(--cable);
 }
 
 .title {
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: clamp(1.9rem, 3.2vw, 2.85rem);
+  font-size: clamp(2.2rem, 3.8vw, 3.35rem);
   line-height: 1.12;
   letter-spacing: -0.02em;
   color: var(--trust-ink);
@@ -99,7 +99,7 @@
 
 .cta {
   margin-top: 2rem;
-  border-radius: 10px;
+  border-radius: var(--radius-md);
 }
 
 .ctaIcon,
@@ -130,8 +130,8 @@
   padding: 1.35rem 1.4rem;
   background: #ffffff;
   border: 1px solid var(--trust-border);
-  border-radius: 20px;
-  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.05);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 6px 20px rgba(17, 23, 34, 0.045);
   transition:
     transform 0.3s ease,
     border-color 0.3s ease,
@@ -139,7 +139,7 @@
 }
 
 .card:hover {
-  transform: translateY(-6px);
+  transform: translateY(-3px);
   border-color: var(--trust-blue);
   box-shadow: 0 16px 40px rgba(15, 23, 42, 0.08);
 }
@@ -150,7 +150,7 @@
   width: 3.2rem;
   height: 3.2rem;
   flex: none;
-  border-radius: 12px;
+  border-radius: var(--radius-md);
   background: var(--trust-soft);
   color: var(--trust-blue);
 }
@@ -212,8 +212,10 @@
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 0.9rem;
-  padding-top: 1.6rem;
-  border-top: 1px solid var(--trust-border);
+  padding: 1.25rem;
+  border: 1px solid #1748b5;
+  border-radius: var(--radius-lg);
+  background: var(--ink);
   list-style: none;
 }
 
@@ -230,13 +232,13 @@
   font-weight: 700;
   line-height: 1;
   letter-spacing: -0.02em;
-  color: var(--trust-blue);
+  color: #8eabff;
 }
 
 .stat span {
   font-size: 0.78rem;
   line-height: 1.4;
-  color: var(--trust-muted);
+  color: #aab4c2;
 }
 
 /* Snap reveal — beats the 750ms global .reveal */

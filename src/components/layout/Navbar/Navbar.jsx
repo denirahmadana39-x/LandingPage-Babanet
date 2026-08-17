@@ -41,7 +41,7 @@ function Navbar() {
           <span className={styles.brandIcon} aria-hidden="true">
             B
           </span>
-          <span className={styles.brandText}>
+          <span className={styles.brandText} translate="no">
             Baba<strong>Solution</strong>
           </span>
         </NavLink>

@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import { FiFacebook, FiInstagram, FiLinkedin } from 'react-icons/fi'
 import { FaWhatsapp } from 'react-icons/fa'
 import { buildWhatsAppMessage, openWhatsApp } from '../../../utils/whatsapp'
+import { company } from '../../../data/company'
 import styles from './Footer.module.css'
 
 function Footer() {
@@ -26,23 +26,14 @@ function Footer() {
             <span className={styles.brandIcon} aria-hidden="true">
               B
             </span>
-            <span className={styles.brandText}>
+            <span className={styles.brandText} translate="no">
               Baba<strong>Solution</strong>
             </span>
           </Link>
           <p>{t('footer.aboutText')}</p>
           <div className={styles.socials}>
-            <a href="#" className={styles.socialLink} aria-label="Facebook">
-              <FiFacebook className={styles.icon} aria-hidden="true" />
-            </a>
-            <a href="#" className={styles.socialLink} aria-label="Instagram">
-              <FiInstagram className={styles.icon} aria-hidden="true" />
-            </a>
-            <a href="#" className={styles.socialLink} aria-label="LinkedIn">
-              <FiLinkedin className={styles.icon} aria-hidden="true" />
-            </a>
             <a
-              href="https://wa.me/6281281640680"
+              href={company.whatsappUrl}
               className={styles.socialLink}
               aria-label="WhatsApp"
               onClick={handleWa}

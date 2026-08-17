@@ -1,34 +1,62 @@
-/* Physical layout of the computer laboratory — all dimensions in metres.
-   The room is 12m × 10.5m (a realistic school lab); +z is the front of the
-   room (the open cutaway side, where the page "visitor" stands), -z the back
-   wall holding the whiteboard, projector screen and teacher's area. */
+/* Shared spatial constants for the lab scene — single source of truth so the
+   room shell, workstations, infrastructure and the camera all agree on where
+   everything sits. Units are metres on a roughly 1:1 floor plan, +z is the
+   front of the room (away from the teaching wall), -z is the teaching wall.
 
-export const ROOM_W = 12
-export const ROOM_D = 10.5
-export const WALL_H = 2.7
-export const BACK = -ROOM_D / 2
-export const LEFT = -ROOM_W / 2
+   Student workstations are built from one shared description: every desk
+   column/row spawns an identical DESK + COMPUTER + CHAIR group whose chair is
+   derived from the desk origin, so alignment can never drift. */
 
-/* Student workstation — a 0.9m × 0.8m desk at 0.75m height.
-   Columns pitch 1.5m (desk 0.9 wide → 0.6m clearance, one 0.42m chair fits
-   comfortably between neighbours). Rows pitch 2.0m: 0.8m desk depth +
-   0.55m chair zone + ~0.65m walking aisle between rows. */
-export const DESK_W = 0.9
-export const DESK_D = 0.8
-export const DESK_H = 0.75
+export const ROOM_W = 12.0
+export const ROOM_D = 10.4
+export const WALL_H = 3.0
+export const BACK = -ROOM_D / 2 // teaching wall (whiteboard)
+export const LEFT = -ROOM_W / 2 // window wall
+export const DOOR_Z = -4.25
 
-/* 6 columns in two blocks of 3 with a 1.5m centre walking aisle */
-export const COLS = [-3.75, -2.25, -0.75, 0.75, 2.25, 3.75]
-/* 4 rows, front rows first for the wake-up reveal */
-export const ROWS = [3.9, 1.9, -0.1, -2.1]
+/* ------------------------------------------------------------------- desk */
+/* Training desk with a shallow light-wood top on a slim steel frame. */
+export const DESK_W = 1.12
+export const DESK_D = 0.68
+export const DESK_TOP_Y = 0.78 // top surface height
 
-export const WORKSTATIONS = ROWS.flatMap((z) => COLS.map((x) => ({ x, z })))
-export const WORKSTATION_COUNT = WORKSTATIONS.length
+/* Monitor sits near the back edge of the desk, screen facing the student. */
+export const MONITOR_W = 0.6
+export const MONITOR_H = 0.4
 
-/* Chair zone: seat sits just in front of the desk top, tucked under it */
-export const CHAIR_Z_OFFSET = 0.55
-export const CHAIR_W = 0.42
+/* ------------------------------------------------------------------ grid */
+/* 5 columns × 4 rows. The grid is shifted slightly left to create a wide
+   service lane beside the server rack, while the larger gap between columns
+   two and three reads as the main aisle. Row pitch leaves roughly 80 cm
+   between a chair frame and the next desk. */
+export const COLS = [-4.1, -2.55, -0.35, 1.2, 2.75]
+export const ROWS = [-2.05, -0.1, 1.85, 3.8]
 
-/* Teacher area / back-room positions */
-export const TEACHER_DESK_POS = [0, 0.8, -4.2]
-export const RACK_POS = [4.6, 0, -5.0]
+/* Chair derived from the desk origin: the student chairs sits on the desk's
+   +z side facing the monitor. CHAIR_Z is the offset of the seat centre from
+   the desk centre; the backrest itself extends further +z. */
+export const CHAIR_Z = 0.57
+export const CHAIR_W = 0.48
+export const CHAIR_SEAT_H = 0.46
+
+/* Server rack + service corner near the back-right wall — kept well clear of
+   the student grid (last column x = 2.8) so the cabinet reads as
+   infrastructure, not a workstation. */
+export const RACK_X = 5.1
+export const RACK_Z = -4.0
+
+/* Teacher area between the last row and the whiteboard */
+export const TEACHER_X = -0.35
+export const TEACHER_Z = -4.0
+
+/* Data-driven workstation plan. Position and orientation live together, so
+   rotating a station always rotates its desk, computer and chair as one. */
+export const WORKSTATIONS = ROWS.flatMap((z, row) =>
+  COLS.map((x, column) => ({
+    id: `student-${row + 1}-${column + 1}`,
+    row,
+    column,
+    position: [x, 0, z],
+    rotation: 0,
+  }))
+)

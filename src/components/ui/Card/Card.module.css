@@ -4,32 +4,52 @@
 .card {
   background: var(--paper);
   border: 1px solid var(--line);
-  border-radius: 20px;
+  border-radius: var(--radius-lg);
 }
 
 /* ---- ServiceCard (ports .services-card / .services-link) ---- */
 .serviceCard {
+  position: relative;
   flex: 1;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   gap: 1rem;
   padding: 1.65rem 1.5rem 1.45rem;
-  background: #ffffff;
-  border: 1px solid #e5e7eb;
-  border-radius: 20px;
-  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.05);
+  overflow: hidden;
+  background: linear-gradient(180deg, #ffffff 0%, #fbfcfe 100%);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 6px 20px rgba(17, 23, 34, 0.045);
   transition:
     transform 0.3s ease,
     border-color 0.3s ease,
     box-shadow 0.3s ease;
 }
 
+.serviceCard::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, var(--cable), var(--brand));
+  transform: scaleX(0.24);
+  transform-origin: left;
+  transition: transform var(--transition-base);
+}
+
 .serviceCard:hover,
 .serviceCard:focus-visible {
-  transform: translateY(-6px);
-  border-color: #2563eb;
-  box-shadow: 0 16px 40px rgba(15, 23, 42, 0.08);
+  transform: translateY(-4px);
+  border-color: var(--brand);
+  box-shadow: 0 16px 34px rgba(17, 23, 34, 0.09);
+}
+
+.serviceCard:hover::before,
+.serviceCard:focus-visible::before {
+  transform: scaleX(1);
 }
 
 .serviceCard:focus-visible {
@@ -42,8 +62,8 @@
   place-items: center;
   width: 3.4rem;
   height: 3.4rem;
-  border-radius: 12px;
-  background: #eff4ff;
+  border-radius: var(--radius-md);
+  background: var(--brand-soft);
   color: #2563eb;
 }
 
@@ -60,23 +80,29 @@
 
 .serviceName {
   font-family: var(--font-display);
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   font-weight: 700;
   line-height: 1.25;
   letter-spacing: -0.01em;
-  color: #0f172a;
+  color: #0b2559;
 }
 
 .serviceText {
   font-size: 0.9rem;
   line-height: 1.55;
-  color: #64748b;
+  color: #526b9b;
 }
 
 .serviceArrow {
   display: inline-flex;
   margin-top: auto;
   color: #2563eb;
+  width: 2rem;
+  height: 2rem;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--line);
+  border-radius: 50%;
   transition: transform 0.3s ease;
 }
 
@@ -97,8 +123,8 @@
   gap: 0.85rem;
   padding: 1.1rem 1.15rem;
   background: #ffffff;
-  border: 1px solid #e5e7eb;
-  border-radius: 20px;
+  border: 1px solid #d8e4ff;
+  border-radius: var(--radius-lg);
   box-shadow: 0 8px 24px rgba(15, 23, 42, 0.05);
   transition:
     transform 0.3s ease,
@@ -137,14 +163,14 @@
   font-weight: 700;
   line-height: 1.3;
   letter-spacing: -0.01em;
-  color: #0f172a;
+  color: #0b2559;
 }
 
 .featureInfo p {
   margin-top: 0.3rem;
   font-size: 0.88rem;
   line-height: 1.5;
-  color: #64748b;
+  color: #526b9b;
 }
 
 /* ---- PortfolioCard (new — same design language as the grid cards) ---- */
@@ -154,8 +180,8 @@
   gap: 0.9rem;
   padding: 1.4rem 1.4rem 1.3rem;
   background: #ffffff;
-  border: 1px solid #e5e7eb;
-  border-radius: 20px;
+  border: 1px solid #d8e4ff;
+  border-radius: var(--radius-lg);
   box-shadow: 0 10px 30px rgba(15, 23, 42, 0.05);
   transition:
     transform 0.3s ease,
@@ -196,7 +222,7 @@
   font-size: 0.58rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: #64748b;
+  color: #526b9b;
   border: 1px solid var(--line);
   background: var(--paper);
   padding: 0.22rem 0.55rem;
@@ -210,13 +236,13 @@
   font-weight: 700;
   line-height: 1.25;
   letter-spacing: -0.01em;
-  color: #0f172a;
+  color: #0b2559;
 }
 
 .portfolioCard p {
   font-size: 0.88rem;
   line-height: 1.55;
-  color: #64748b;
+  color: #526b9b;
 }
 
 .portfolioTags {
@@ -232,7 +258,7 @@
   font-size: 0.58rem;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: #475569;
+  color: #315b96;
   border: 1px solid var(--line);
   background: rgba(255, 255, 255, 0.7);
   padding: 0.28rem 0.6rem;
@@ -252,7 +278,7 @@
   font-size: clamp(2.1rem, 4vw, 3rem);
   line-height: 1;
   letter-spacing: -0.02em;
-  background: linear-gradient(120deg, #2563eb, #3b82f6);
+  background: linear-gradient(120deg, #ffffff, #87a8ff);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -266,7 +292,7 @@
   font-size: 0.68rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: #475569;
+  color: #a7b2c1;
 }
 
 /* ---- FAQ item (ports .faq-item / .faq-question / .faq-answer) ---- */

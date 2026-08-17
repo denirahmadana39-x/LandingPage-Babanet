@@ -6,37 +6,43 @@ import * as THREE from 'three'
 
 const BLUE = 0x2563eb
 const BLUE_SOFT = 0x3b82f6
+const BLUE_LIGHT = 0xbfdbfe
+const BLUE_PALE = 0xdbeafe
+const BLUE_MIST = 0xeff6ff
+const BLUE_SLATE = 0x315b96
+const BLUE_DARK = 0x123574
+const BLUE_DEEP = 0x081f4f
 
-/* Student desk top — light wood, softly matte so it reads natural without
-   harsh highlights. */
+/* White-and-blue lab palette: bright work surfaces, blue equipment and
+   blue-tinted structural finishes. */
 export const deskMat = new THREE.MeshStandardMaterial({
-  color: 0xd8b995,
+  color: 0xffffff,
   roughness: 0.55,
   metalness: 0.03,
 })
 
 /* Desk legs / frames — brushed light metal */
 export const deskPedestalMat = new THREE.MeshStandardMaterial({
-  color: 0x9aa7b4,
+  color: BLUE_LIGHT,
   roughness: 0.32,
   metalness: 0.65,
 })
 
-/* Matte black monitor bezel */
+/* Deep-blue monitor bezel */
 export const monitorBezelMat = new THREE.MeshStandardMaterial({
-  color: 0x171b1f,
+  color: BLUE_DEEP,
   roughness: 0.85,
   metalness: 0.1,
 })
 
 export const towerMat = new THREE.MeshStandardMaterial({
-  color: 0x1e293b,
+  color: BLUE_DARK,
   roughness: 0.45,
   metalness: 0.35,
 })
 
 export const screenMat = new THREE.MeshStandardMaterial({
-  color: 0x0f172a,
+  color: BLUE_DEEP,
   emissive: BLUE_SOFT,
   emissiveIntensity: 0.5,
   roughness: 0.3,
@@ -50,38 +56,37 @@ export const towerLedMat = new THREE.MeshStandardMaterial({
 })
 
 export const activityLedMat = new THREE.MeshStandardMaterial({
-  color: 0x0fa958,
-  emissive: 0x0fa958,
+  color: BLUE_SOFT,
+  emissive: BLUE_SOFT,
   emissiveIntensity: 0.6,
 })
 
 export const trayMat = new THREE.MeshStandardMaterial({
-  color: 0xcdd6e0,
+  color: BLUE_PALE,
   roughness: 0.6,
   metalness: 0.35,
 })
 
-export const lightPanelMat = new THREE.MeshStandardMaterial({
+export const lightPanelMat = new THREE.MeshBasicMaterial({
   color: 0xffffff,
-  emissive: 0xdfe7f5,
-  emissiveIntensity: 0.55,
-  roughness: 0.4,
+  toneMapped: false,
+  side: THREE.DoubleSide,
 })
 
 export const rackMat = new THREE.MeshStandardMaterial({
-  color: 0x1e293b,
+  color: BLUE_DARK,
   roughness: 0.5,
   metalness: 0.45,
 })
 
 export const rackTrimMat = new THREE.MeshStandardMaterial({
-  color: 0x0f172a,
+  color: BLUE_DEEP,
   roughness: 0.55,
   metalness: 0.3,
 })
 
 export const switchMat = new THREE.MeshStandardMaterial({
-  color: 0x475569,
+  color: BLUE_SLATE,
   roughness: 0.5,
   metalness: 0.4,
 })
@@ -93,13 +98,13 @@ export const apMat = new THREE.MeshStandardMaterial({
 })
 
 export const apLedMat = new THREE.MeshStandardMaterial({
-  color: 0x22c55e,
-  emissive: 0x22c55e,
+  color: BLUE_SOFT,
+  emissive: BLUE_SOFT,
   emissiveIntensity: 1,
 })
 
 export const teacherDeskMat = new THREE.MeshStandardMaterial({
-  color: 0x4a3626,
+  color: BLUE,
   roughness: 0.5,
   metalness: 0.02,
 })
@@ -119,7 +124,7 @@ export const wallMat = new THREE.MeshStandardMaterial({
 })
 
 export const ceilingMat = new THREE.MeshStandardMaterial({
-  color: 0xf1f5f9,
+  color: BLUE_MIST,
   roughness: 1,
   metalness: 0,
 })
@@ -141,14 +146,14 @@ export const windowGlassMat = new THREE.MeshStandardMaterial({
 })
 
 export const projectorMat = new THREE.MeshStandardMaterial({
-  color: 0x1e293b,
+  color: BLUE_DARK,
   roughness: 0.45,
   metalness: 0.4,
 })
 
 export const projectorLedMat = new THREE.MeshStandardMaterial({
-  color: 0xf87171,
-  emissive: 0xf87171,
+  color: BLUE_SOFT,
+  emissive: BLUE_SOFT,
   emissiveIntensity: 0.9,
 })
 
@@ -159,7 +164,7 @@ export const clockFaceMat = new THREE.MeshStandardMaterial({
 })
 
 export const clockHandMat = new THREE.MeshStandardMaterial({
-  color: 0x0f172a,
+  color: BLUE_DEEP,
   roughness: 0.4,
   metalness: 0.3,
 })
@@ -171,20 +176,20 @@ export const exitBodyMat = new THREE.MeshStandardMaterial({
 })
 
 export const exitSignMat = new THREE.MeshStandardMaterial({
-  color: 0x16a34a,
-  emissive: 0x22c55e,
+  color: BLUE,
+  emissive: BLUE_SOFT,
   emissiveIntensity: 0.85,
   roughness: 0.4,
 })
 
 export const outletMat = new THREE.MeshStandardMaterial({
-  color: 0xe2e8f0,
+  color: BLUE_PALE,
   roughness: 0.6,
   metalness: 0.1,
 })
 
 export const conduitMat = new THREE.MeshStandardMaterial({
-  color: 0xcbd5e1,
+  color: BLUE_LIGHT,
   roughness: 0.7,
   metalness: 0.3,
 })
@@ -196,14 +201,14 @@ export const plantPotMat = new THREE.MeshStandardMaterial({
 })
 
 export const plantLeafMat = new THREE.MeshStandardMaterial({
-  color: 0x22c55e,
+  color: BLUE_SOFT,
   roughness: 0.85,
   metalness: 0,
   side: THREE.DoubleSide,
 })
 
 export const chairMat = new THREE.MeshStandardMaterial({
-  color: 0xe2e8f0,
+  color: BLUE_PALE,
   roughness: 0.7,
   metalness: 0.05,
 })
@@ -272,7 +277,7 @@ export const whiteboardMat = new THREE.MeshStandardMaterial({
 })
 
 export const whiteboardFrameMat = new THREE.MeshStandardMaterial({
-  color: 0x64748b,
+  color: BLUE_SLATE,
   roughness: 0.35,
   metalness: 0.5,
 })
@@ -285,39 +290,112 @@ export const acMat = new THREE.MeshStandardMaterial({
 })
 
 export const acVentMat = new THREE.MeshStandardMaterial({
-  color: 0x475569,
+  color: BLUE_SLATE,
   roughness: 0.6,
   metalness: 0.2,
 })
 
 export const acLedMat = new THREE.MeshStandardMaterial({
-  color: 0x22c55e,
-  emissive: 0x22c55e,
+  color: BLUE_SOFT,
+  emissive: BLUE_SOFT,
   emissiveIntensity: 1,
 })
 
 /* Classroom door */
 export const doorMat = new THREE.MeshStandardMaterial({
-  color: 0xf1f5f9,
+  color: BLUE_MIST,
   roughness: 0.55,
   metalness: 0.02,
 })
 
 export const doorFrameMat = new THREE.MeshStandardMaterial({
-  color: 0xcbd5e1,
+  color: BLUE_LIGHT,
   roughness: 0.5,
   metalness: 0.15,
 })
 
 export const doorHandleMat = new THREE.MeshStandardMaterial({
-  color: 0x94a3b8,
+  color: BLUE_SLATE,
   roughness: 0.2,
   metalness: 0.85,
 })
 
 /* Wall skirting — slim baseboard strips */
 export const skirtingMat = new THREE.MeshStandardMaterial({
-  color: 0xe2e8f0,
+  color: BLUE_PALE,
   roughness: 0.6,
   metalness: 0.02,
+})
+
+/* Peripherals — dark desk kit: keyboard tray + mouse + monitor stand */
+export const keyboardMat = new THREE.MeshStandardMaterial({
+  color: BLUE_DARK,
+  roughness: 0.55,
+  metalness: 0.25,
+})
+
+export const keycapMat = new THREE.MeshStandardMaterial({
+  color: BLUE_DEEP,
+  roughness: 0.3,
+  metalness: 0.3,
+})
+
+export const mouseMat = new THREE.MeshStandardMaterial({
+  color: BLUE_DARK,
+  roughness: 0.48,
+  metalness: 0.2,
+})
+
+export const monitorStandMat = new THREE.MeshStandardMaterial({
+  color: BLUE_DARK,
+  roughness: 0.5,
+  metalness: 0.3,
+})
+
+/* Student chair — soft-edged light grey shell + small darker accents */
+export const chairSeatMat = new THREE.MeshStandardMaterial({
+  color: BLUE_MIST,
+  roughness: 0.6,
+  metalness: 0.02,
+})
+
+export const chairAccentMat = new THREE.MeshStandardMaterial({
+  color: BLUE_SOFT,
+  roughness: 0.55,
+  metalness: 0.05,
+})
+
+export const chairLegMat = new THREE.MeshStandardMaterial({
+  color: BLUE_SLATE,
+  roughness: 0.35,
+  metalness: 0.6,
+})
+
+/* Modern student chair — charcoal cantilever frame (the two side profiles)
+   and a neutral, softly plastic foam seat/back. Frame keeps a faint blue-grey
+   so it reads as Baba-neutral rather than pure black. */
+export const chairFrameMat = new THREE.MeshStandardMaterial({
+  color: BLUE_DARK,
+  roughness: 0.55,
+  metalness: 0.35,
+})
+
+export const chairPadMat = new THREE.MeshStandardMaterial({
+  color: BLUE_SLATE,
+  roughness: 0.82,
+  metalness: 0.03,
+})
+
+/* Slim metal side frame of the training desks */
+export const deskSideMat = new THREE.MeshStandardMaterial({
+  color: BLUE_LIGHT,
+  roughness: 0.35,
+  metalness: 0.68,
+})
+
+/* Floor trim / threshold accents */
+export const trimMat = new THREE.MeshStandardMaterial({
+  color: BLUE_PALE,
+  roughness: 0.7,
+  metalness: 0.15,
 })

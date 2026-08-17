@@ -20,12 +20,12 @@ import {
   windowGlassMat,
 } from './materials'
 import { easeOutCubic } from './math'
-import { ROOM_W, ROOM_D, WALL_H, BACK, LEFT, ROWS } from './layout.js'
+import { BACK, DOOR_Z, LEFT, RACK_X, ROOM_D, ROOM_W, WALL_H } from './layout'
 
-/* The room shell — a bright classroom (12m × 10.5m interior) with a glossy
-   ceramic floor, a back teaching wall, and a left wall carrying windows, a
-   door and the exit sign. Cut open on the front/right so the page background
-   stays visible. */
+/* The room shell — a bright, buildable computer classroom (11.4m × 9m) with a
+   ceramic floor, a teaching wall at the back (z = -4.5), a window wall on the
+   left and the viewer open on the front/right so the page background stays
+   visible. Student rows run from +z (front) toward the teacher at the back. */
 
 /* Floor — light ceramic tiles with subtle grout lines, gently glossy */
 function useFloorTexture() {
@@ -34,17 +34,15 @@ function useFloorTexture() {
     canvas.width = canvas.height = 256
     const ctx = canvas.getContext('2d')
     ctx.clearRect(0, 0, 256, 256)
-    ctx.fillStyle = '#f9fbfd'
+    ctx.fillStyle = '#f8fafc'
     ctx.fillRect(0, 0, 256, 256)
-    /* faint per-tile tint for a natural ceramic finish */
     for (let i = 0; i < 4; i++) {
       for (let j = 0; j < 4; j++) {
-        ctx.fillStyle = `rgba(59, 130, 246, ${0.01 + 0.012 * ((i * 7 + j * 13) % 5)})`
+        ctx.fillStyle = `rgba(59, 130, 246, ${0.008 + 0.01 * ((i * 7 + j * 13) % 5)})`
         ctx.fillRect(i * 64 + 2, j * 64 + 2, 60, 60)
       }
     }
-    /* grout lines */
-    ctx.strokeStyle = 'rgba(148, 163, 184, 0.6)'
+    ctx.strokeStyle = 'rgba(96, 165, 250, 0.35)'
     ctx.lineWidth = 2
     for (let i = 0; i <= 4; i++) {
       const p = i * 64
@@ -59,8 +57,7 @@ function useFloorTexture() {
     }
     const tex = new THREE.CanvasTexture(canvas)
     tex.wrapS = tex.wrapT = THREE.RepeatWrapping
-    /* ~0.6m ceramic tiles across the 12m × 10.5m floor */
-    tex.repeat.set(5, 4.375)
+    tex.repeat.set(ROOM_W / 2.4, ROOM_D / 2.4)
     tex.anisotropy = 8
     return tex
   }, [])
@@ -72,7 +69,7 @@ function Floor() {
     () =>
       new THREE.MeshStandardMaterial({
         color: 0xffffff,
-        roughness: 0.3,
+        roughness: 0.28,
         metalness: 0.08,
         map,
       }),
@@ -85,20 +82,21 @@ function Floor() {
   )
 }
 
-/* Back wall (z = -5.25) and left wall (x = -6), plus white skirting */
+/* Back (teaching) wall + left wall, with slim skirting */
 function Walls() {
   return (
     <group>
-      <mesh position={[0, WALL_H / 2, BACK - 0.075]} material={wallMat} receiveShadow castShadow>
+      <mesh position={[0, WALL_H / 2, BACK - 0.075]} material={wallMat} receiveShadow>
         <boxGeometry args={[ROOM_W + 0.15, WALL_H, 0.15]} />
       </mesh>
-      <mesh position={[LEFT - 0.075, WALL_H / 2, 0]} material={wallMat} receiveShadow castShadow>
+      <mesh position={[LEFT - 0.075, WALL_H / 2, 0]} material={wallMat} receiveShadow>
         <boxGeometry args={[0.15, WALL_H, ROOM_D + 0.15]} />
       </mesh>
-      {/* wall skirting / baseboards */}
+      {/* skirting along the back wall */}
       <mesh position={[0, 0.06, BACK + 0.015]} material={skirtingMat}>
         <boxGeometry args={[ROOM_W - 0.02, 0.12, 0.03]} />
       </mesh>
+      {/* skirting along the left wall */}
       <mesh position={[LEFT + 0.015, 0.06, 0]} material={skirtingMat}>
         <boxGeometry args={[0.03, 0.12, ROOM_D - 0.02]} />
       </mesh>
@@ -106,26 +104,26 @@ function Walls() {
   )
 }
 
-/* Large window: glass pane + white frame + center mullion */
+/* Large window: glass pane + white frame + centre mullion */
 function Window({ x = 0, z = 0, rotY = 0, w = 2.4, h = 1.15, y = 1.575 }) {
   return (
     <group position={[x, y, z]} rotation={[0, rotY, 0]}>
       <mesh material={windowGlassMat}>
         <boxGeometry args={[w * 0.94, h * 0.94, 0.02]} />
       </mesh>
-      <mesh position={[0, h / 2 + 0.02, 0]} material={windowFrameMat} castShadow>
+      <mesh position={[0, h / 2 + 0.02, 0]} material={windowFrameMat}>
         <boxGeometry args={[w, 0.05, 0.05]} />
       </mesh>
-      <mesh position={[0, -h / 2 - 0.02, 0]} material={windowFrameMat} castShadow>
+      <mesh position={[0, -h / 2 - 0.02, 0]} material={windowFrameMat}>
         <boxGeometry args={[w, 0.05, 0.05]} />
       </mesh>
-      <mesh position={[-w / 2 - 0.02, 0, 0]} material={windowFrameMat} castShadow>
+      <mesh position={[-w / 2 - 0.02, 0, 0]} material={windowFrameMat}>
         <boxGeometry args={[0.05, h, 0.05]} />
       </mesh>
-      <mesh position={[w / 2 + 0.02, 0, 0]} material={windowFrameMat} castShadow>
+      <mesh position={[w / 2 + 0.02, 0, 0]} material={windowFrameMat}>
         <boxGeometry args={[0.05, h, 0.05]} />
       </mesh>
-      <mesh material={windowFrameMat} castShadow>
+      <mesh material={windowFrameMat}>
         <boxGeometry args={[0.04, h * 0.94, 0.04]} />
       </mesh>
     </group>
@@ -135,12 +133,13 @@ function Window({ x = 0, z = 0, rotY = 0, w = 2.4, h = 1.15, y = 1.575 }) {
 function Windows() {
   return (
     <group>
-      {/* back wall — flanking the whiteboard and main display */}
-      <Window x={-3.9} z={BACK + 0.03} w={2.0} h={1.2} />
-      <Window x={3.9} z={BACK + 0.03} w={2.0} h={1.2} />
-      {/* left wall */}
-      <Window x={LEFT + 0.03} z={-2.4} rotY={Math.PI / 2} />
-      <Window x={LEFT + 0.03} z={0.4} rotY={Math.PI / 2} />
+      {/* left wall — long daylight windows */}
+      <Window x={LEFT + 0.035} z={-2.3} rotY={Math.PI / 2} w={2} />
+      <Window x={LEFT + 0.035} z={0.1} rotY={Math.PI / 2} w={2} />
+      <Window x={LEFT + 0.035} z={2.7} rotY={Math.PI / 2} w={2} />
+      {/* back wall — narrow windows flanking the whiteboard */}
+      <Window x={-5.05} z={BACK + 0.035} w={1.25} h={0.9} y={1.9} />
+      <Window x={5.05} z={BACK + 0.035} w={1.25} h={0.9} y={1.9} />
     </group>
   )
 }
@@ -148,11 +147,11 @@ function Windows() {
 /* Classroom door with frame + handle on the left wall */
 function Door() {
   return (
-    <group position={[LEFT + 0.045, 0, 2.9]}>
-      <mesh position={[0, 1.12, 0]} material={doorFrameMat} castShadow>
+    <group position={[LEFT + 0.045, 0, DOOR_Z]} rotation={[0, Math.PI / 2, 0]}>
+      <mesh position={[0, 1.12, 0]} material={doorFrameMat}>
         <boxGeometry args={[0.07, 2.25, 1.15]} />
       </mesh>
-      <mesh position={[0, 1.05, 0.03]} material={doorMat} castShadow>
+      <mesh position={[0, 1.05, 0.03]} material={doorMat}>
         <boxGeometry args={[0.03, 2.1, 0.9]} />
       </mesh>
       <mesh position={[0, 1.0, 0.05]} material={doorHandleMat}>
@@ -170,8 +169,8 @@ function Clock({ position }) {
   const minute = useRef(null)
   const hour = useRef(null)
 
-  useFrame(({ clock }) => {
-    const t = clock.getElapsedTime()
+  useFrame((state) => {
+    const t = state.elapsedTime
     if (minute.current) minute.current.rotation.z = -t * 0.052
     if (hour.current) hour.current.rotation.z = -t * 0.0043
   })
@@ -191,10 +190,10 @@ function Clock({ position }) {
   )
 }
 
-/* Emergency exit sign with a steady green glow — faces the door below */
+/* Emergency exit sign with a steady blue glow — above the door */
 function ExitSign({ position }) {
   return (
-    <group position={position} rotation={[0, -Math.PI / 2, 0]}>
+    <group position={position} rotation={[0, Math.PI / 2, 0]}>
       <mesh material={exitBodyMat}>
         <boxGeometry args={[0.6, 0.26, 0.05]} />
       </mesh>
@@ -221,26 +220,26 @@ function Outlet({ position, rotY = 0 }) {
 
 /* LAN cable trays near the ceiling + conduit drops routing toward the rack */
 function CableTray() {
-  const crossZ = ROWS.map((z) => z - 0.15)
+  const crossZ = [-3.2, -0.8, 1.6, 3.8]
   return (
     <group>
       {/* backbone along the back wall */}
-      <mesh position={[0, 2.3, BACK + 0.35]} material={trayMat} castShadow>
-        <boxGeometry args={[11.4, 0.07, 0.2]} />
+      <mesh position={[0, 2.7, BACK + 0.35]} material={trayMat}>
+        <boxGeometry args={[ROOM_W - 1, 0.07, 0.2]} />
       </mesh>
-      {/* cross runs above each row */}
+      {/* cross runs above each aisle */}
       {crossZ.map((z) => (
-        <mesh key={z} position={[0, 2.36, z]} material={trayMat} castShadow>
-          <boxGeometry args={[11.4, 0.06, 0.14]} />
+        <mesh key={z} position={[0, 2.76, z]} material={trayMat}>
+          <boxGeometry args={[ROOM_W - 1, 0.06, 0.14]} />
         </mesh>
       ))}
       {/* vertical drop from the backbone down to the server rack (back-right) */}
-      <mesh position={[4.6, 1.55, BACK + 0.38]} material={conduitMat}>
-        <boxGeometry args={[0.07, 1.55, 0.07]} />
+      <mesh position={[RACK_X, 1.8, BACK + 0.35]} material={conduitMat}>
+        <boxGeometry args={[0.07, 1.9, 0.07]} />
       </mesh>
       {/* horizontal conduit run along the back wall */}
-      <mesh position={[2.2, 1.0, BACK + 0.38]} material={conduitMat}>
-        <boxGeometry args={[4.8, 0.06, 0.06]} />
+      <mesh position={[0.4, 1.0, BACK + 0.35]} material={conduitMat}>
+        <boxGeometry args={[8.8, 0.06, 0.06]} />
       </mesh>
     </group>
   )
@@ -250,15 +249,15 @@ function CableTray() {
 function CeilingLights() {
   const { intro } = useLabScene()
 
-  useFrame(({ clock }) => {
+  useFrame(() => {
     const et = easeOutCubic(intro.current.t)
-    lightPanelMat.emissiveIntensity = 0.1 + et * 0.6 + 0.07 * Math.sin(clock.getElapsedTime() * 2.2)
+    lightPanelMat.opacity = 0.82 + et * 0.18
     windowGlassMat.emissiveIntensity = 0.05 + et * 0.28
   })
 
   const panels = []
-  for (const x of [-3, 0, 3]) {
-    for (const z of [-2.2, 2.0]) {
+  for (const x of [-3.7, 0, 3.7]) {
+    for (const z of [-3.4, -1.1, 1.2, 3.5]) {
       panels.push([x, z])
     }
   }
@@ -266,7 +265,7 @@ function CeilingLights() {
   return (
     <group>
       {panels.map(([x, z]) => (
-        <mesh key={`${x}-${z}`} position={[x, 2.58, z]} material={lightPanelMat}>
+        <mesh key={`${x}-${z}`} position={[x, 2.85, z]} material={lightPanelMat}>
           <boxGeometry args={[1.6, 0.05, 0.7]} />
         </mesh>
       ))}
@@ -282,11 +281,10 @@ function Room() {
       <Windows />
       <Door />
       <Clock position={[4.8, 2.25, BACK + 0.06]} />
-      <ExitSign position={[LEFT + 0.03, 2.35, 2.9]} />
+      <ExitSign position={[LEFT + 0.04, 2.35, DOOR_Z]} />
       <Outlet position={[-1.7, 0.4, BACK + 0.03]} />
-      <Outlet position={[0.5, 0.4, BACK + 0.03]} />
-      <Outlet position={[LEFT + 0.03, 0.4, -3.8]} rotY={Math.PI / 2} />
-      <Outlet position={[LEFT + 0.03, 0.4, 1.8]} rotY={Math.PI / 2} />
+      <Outlet position={[1.9, 0.4, BACK + 0.03]} />
+      <Outlet position={[LEFT + 0.035, 0.4, 0.2]} rotY={Math.PI / 2} />
       <CableTray />
       <CeilingLights />
     </group>

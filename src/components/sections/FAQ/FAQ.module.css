@@ -32,8 +32,9 @@
   padding: 1.2rem 1.3rem;
   border: 1px solid var(--line-strong);
   border-radius: 9px;
-  background: var(--paper);
-  box-shadow: 0 10px 26px rgba(23, 27, 33, 0.06);
+  background: var(--ink);
+  color: var(--paper);
+  box-shadow: 0 14px 30px rgba(17, 23, 34, 0.14);
 }
 
 .supportLed {
@@ -42,7 +43,7 @@
   width: 2.6rem;
   height: 2.6rem;
   border-radius: var(--radius-sm);
-  background: var(--brand);
+  background: var(--cable);
   color: var(--paper);
   flex: none;
 }
@@ -59,7 +60,7 @@
 
 .support p {
   font-size: 0.85rem;
-  color: var(--grey);
+  color: #bfd0f6;
   margin: 0.2rem 0 0.55rem;
 }
 
@@ -67,6 +68,7 @@
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
+  color: #9bb4ff;
 }
 
 .supportLink .icon {

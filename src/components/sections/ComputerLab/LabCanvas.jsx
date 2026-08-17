@@ -1,50 +1,74 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Canvas } from '@react-three/fiber'
-import { SoftShadows } from '@react-three/drei'
-import { useTranslation } from 'react-i18next'
+import { OrbitControls } from '@react-three/drei'
+import * as THREE from 'three'
 import { LabSceneProvider, useIntroRef, useHoverState } from './scene/state.jsx'
-import CameraRig from './scene/CameraRig'
 import LabWorld, { IntroDriver } from './scene/LabWorld'
+import CameraController from './scene/CameraController'
+import { ORBIT, defaultCamera } from './scene/camera'
 import { usePrefersReducedMotion } from './useReducedMotion'
-import LabControls from './LabControls'
 import styles from './ComputerLab.module.css'
 
 /* Entrance choreography duration — the room "wakes up" in ~1.2s */
 const INTRO_DURATION = 1.2
 
-/* The inline viewer. The scene runs on an always-on frameloop so orbit,
-   zoom and pan stay smooth and responsive on mouse and touch alike. */
-function LabCanvas({ active }) {
-  const { t } = useTranslation()
+/* The inline viewer: a single R3F Canvas with drei OrbitControls attached
+   directly inside it (rotate / zoom / pan / touch / damping), a shared scene
+   (see LabWorld) and a CameraController for the eased reset. Exposes
+   `apiRef.current.reset()` so the section's Reset button can re-frame from
+   outside the Canvas. */
+function LabCanvas({ active, apiRef }) {
   const reduced = usePrefersReducedMotion()
   const [introDone, setIntroDone] = useState(reduced)
-  const [resetSignal, setResetSignal] = useState(0)
   const coarse = useState(() =>
     typeof window !== 'undefined' ? window.matchMedia('(pointer: coarse)').matches : false
   )[0]
   const intro = useIntroRef(active, reduced, INTRO_DURATION)
-  const { hover, setHover, markInteracted } = useHoverState()
+  const { hover, setHover } = useHoverState()
+  const resetFuncRef = useRef(null)
+
+  useEffect(() => {
+    if (apiRef) apiRef.current = { reset: () => resetFuncRef.current?.() }
+    return () => {
+      if (apiRef) apiRef.current = null
+    }
+  }, [apiRef])
+
+  const cam = defaultCamera(typeof window !== 'undefined' ? window.innerWidth : 1440)
 
   return (
     <div className={styles.scene}>
-      <LabSceneProvider intro={intro} hover={hover} setHover={setHover} markInteracted={markInteracted}>
+      <LabSceneProvider intro={intro} hover={hover} setHover={setHover}>
         <Canvas
-          dpr={[1, coarse ? 1.5 : 2]}
           shadows
           frameloop="always"
+          dpr={[1, coarse ? 1.5 : 2]}
           gl={{ antialias: true, alpha: true, powerPreference: 'high-performance' }}
-          camera={{ position: [9, 7, 11], fov: 35, near: 0.1, far: 120 }}
+          camera={{ position: cam.position, fov: cam.fov, near: 0.1, far: 200 }}
         >
-          {!coarse && <SoftShadows size={32} samples={10} focus={0.6} />}
           <IntroDriver active={active} reduced={reduced} onDone={() => setIntroDone(true)} />
           <LabWorld coarse={coarse} introDone={introDone} />
-          <CameraRig reduced={reduced} resetSignal={resetSignal} />
+
+          <OrbitControls
+            makeDefault
+            target={cam.target}
+            enableDamping
+            dampingFactor={ORBIT.dampingFactor}
+            enableRotate
+            enableZoom
+            enablePan
+            minDistance={ORBIT.minDistance}
+            maxDistance={ORBIT.maxDistance}
+            minPolarAngle={ORBIT.minPolarAngle}
+            maxPolarAngle={ORBIT.maxPolarAngle}
+            rotateSpeed={ORBIT.rotateSpeed}
+            zoomSpeed={ORBIT.zoomSpeed}
+            panSpeed={ORBIT.panSpeed}
+            touches={{ ONE: THREE.TOUCH.ROTATE, TWO: THREE.TOUCH.DOLLY_PAN }}
+          />
+          <CameraController resetRef={resetFuncRef} home={cam.position} homeTarget={cam.target} />
         </Canvas>
       </LabSceneProvider>
-      <LabControls onReset={() => setResetSignal((s) => s + 1)} />
-      <p className={styles.viewerHint} aria-hidden="true">
-        {t('lab.scene.hint')}
-      </p>
     </div>
   )
 }

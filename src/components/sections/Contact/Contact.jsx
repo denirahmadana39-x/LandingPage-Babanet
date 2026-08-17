@@ -27,7 +27,6 @@ const FORM_FIELDS = ['name', 'email', 'phone', 'service', 'school', 'message']
 
 const OPTIONS = [
   { value: 'webhosting', labelKey: 'services.webHosting.title' },
-  { value: 'webdev', labelKey: 'contact.form.service.webDev' },
   { value: 'wifi', labelKey: 'services.wifi.title' },
   { value: 'cctv', labelKey: 'services.cctv.title' },
   { value: 'assembly', labelKey: 'services.assembly.title' },
@@ -224,8 +223,11 @@ function Contact({ id }) {
                 onChange={handleInput('name')}
                 onBlur={handleBlur('name')}
                 aria-invalid={!!errors.name}
+                aria-describedby={errors.name ? 'name-error' : undefined}
               />
-              <span className={styles.error}>{t('contact.form.nameError')}</span>
+              <span className={styles.error} id="name-error" role="alert">
+                {t('contact.form.nameError')}
+              </span>
             </div>
 
             <div className={styles.row}>
@@ -237,12 +239,17 @@ function Contact({ id }) {
                   name="email"
                   placeholder={t('contact.form.emailPlaceholder')}
                   autoComplete="email"
+                  inputMode="email"
+                  spellCheck={false}
                   value={values.email}
                   onChange={handleInput('email')}
                   onBlur={handleBlur('email')}
                   aria-invalid={!!errors.email}
+                  aria-describedby={errors.email ? 'email-error' : undefined}
                 />
-                <span className={styles.error}>{t('contact.form.emailError')}</span>
+                <span className={styles.error} id="email-error" role="alert">
+                  {t('contact.form.emailError')}
+                </span>
               </div>
               <div className={clsx(styles.group, errors.phone && styles.invalid)}>
                 <label htmlFor="phone">{t('contact.form.phoneLabel')}</label>
@@ -252,12 +259,16 @@ function Contact({ id }) {
                   name="phone"
                   placeholder={t('contact.form.phonePlaceholder')}
                   autoComplete="tel"
+                  inputMode="tel"
                   value={values.phone}
                   onChange={handleInput('phone')}
                   onBlur={handleBlur('phone')}
                   aria-invalid={!!errors.phone}
+                  aria-describedby={errors.phone ? 'phone-error' : undefined}
                 />
-                <span className={styles.error}>{t('contact.form.phoneError')}</span>
+                <span className={styles.error} id="phone-error" role="alert">
+                  {t('contact.form.phoneError')}
+                </span>
               </div>
             </div>
 
@@ -270,6 +281,7 @@ function Contact({ id }) {
                 onChange={handleInput('service')}
                 onBlur={handleBlur('service')}
                 aria-invalid={!!errors.service}
+                aria-describedby={errors.service ? 'service-error' : undefined}
               >
                 <option value="" disabled>
                   {t('contact.form.servicePlaceholder')}
@@ -280,7 +292,9 @@ function Contact({ id }) {
                   </option>
                 ))}
               </select>
-              <span className={styles.error}>{t('contact.form.serviceError')}</span>
+              <span className={styles.error} id="service-error" role="alert">
+                {t('contact.form.serviceError')}
+              </span>
             </div>
 
             <div
@@ -298,8 +312,11 @@ function Contact({ id }) {
                 onChange={handleInput('school')}
                 onBlur={handleBlur('school')}
                 aria-invalid={!!errors.school}
+                aria-describedby={errors.school ? 'school-error' : undefined}
               />
-              <span className={styles.error}>{t('contact.form.schoolError')}</span>
+              <span className={styles.error} id="school-error" role="alert">
+                {t('contact.form.schoolError')}
+              </span>
             </div>
 
             <div className={clsx(styles.group, errors.message && styles.invalid)}>
@@ -309,12 +326,16 @@ function Contact({ id }) {
                 name="message"
                 rows="5"
                 placeholder={t('contact.form.messagePlaceholder')}
+                autoComplete="off"
                 value={values.message}
                 onChange={handleInput('message')}
                 onBlur={handleBlur('message')}
                 aria-invalid={!!errors.message}
+                aria-describedby={errors.message ? 'message-error' : undefined}
               />
-              <span className={styles.error}>{t('contact.form.messageError')}</span>
+              <span className={styles.error} id="message-error" role="alert">
+                {t('contact.form.messageError')}
+              </span>
             </div>
 
             <Button

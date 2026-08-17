@@ -1,6 +1,5 @@
 import {
   FiServer,
-  FiCode,
   FiWifi,
   FiVideo,
   FiMonitor,
@@ -16,12 +15,6 @@ export const services = [
     icon: FiServer,
     titleKey: 'services.webHosting.title',
     descKey: 'services.webHosting.desc',
-  },
-  {
-    id: 'webdev',
-    icon: FiCode,
-    titleKey: 'services.webdev.title',
-    descKey: 'services.webdev.desc',
   },
   {
     id: 'wifi',

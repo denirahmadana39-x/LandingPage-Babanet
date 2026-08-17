@@ -3,8 +3,20 @@
    ========================================================================== */
 .band {
   position: relative;
-  background: linear-gradient(180deg, #edf3fe 0%, #e3ecfd 100%);
+  background: #071e4e;
   padding: clamp(2.6rem, 5vw, 3.6rem) 0 0;
+  overflow: hidden;
+}
+
+.band::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+  background-size: 44px 44px;
+  pointer-events: none;
 }
 
 .inner {
@@ -19,7 +31,7 @@
   font-size: 0.62rem;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: #64748b;
+  color: #aec3f4;
   margin-bottom: 1.6rem;
 }
 
@@ -40,7 +52,7 @@
 }
 
 .divider path {
-  fill: #ffffff;
+  fill: #f5f8ff;
 }
 
 @media (max-width: 767px) {

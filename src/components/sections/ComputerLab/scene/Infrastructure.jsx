@@ -1,117 +1,426 @@
-import { acLedMat, acMat, acVentMat, cableMat, plantLeafMat, plantPotMat, trunkingMat } from './materials'
-import ServerRack from './ServerRack'
-import AccessPoint from './AccessPoint'
-import Projector from './Projector'
-import TeacherDesk from './TeacherDesk'
-import { COLS, ROWS } from './layout.js'
+import { useMemo, useRef } from 'react'
+import { useFrame } from '@react-three/fiber'
+import * as THREE from 'three'
+import { useLabScene } from './state.jsx'
+import {
+  chairSupportGeometry,
+  CHAIR_BACK_H,
+  CHAIR_SEAT_D,
+  CHAIR_SEAT_W,
+  CHAIR_SUPPORT_X,
+} from './chair'
+import {
+  acLedMat,
+  acMat,
+  acVentMat,
+  apLedMat,
+  apMat,
+  chairFrameMat,
+  chairPadMat,
+  keyboardMat,
+  monitorBezelMat,
+  monitorStandMat,
+  mouseMat,
+  plantLeafMat,
+  plantPotMat,
+  projectorMat,
+  rackMat,
+  rackTrimMat,
+  screenMat,
+  switchMat,
+  teacherDeskMat,
+  whiteboardFrameMat,
+  whiteboardMat,
+  wifiMat,
+} from './materials'
+import { BACK, DOOR_Z, LEFT, RACK_X, RACK_Z, TEACHER_X, TEACHER_Z } from './layout'
 
-/* Assembled backroom + infrastructure: server rack, managed switch, WiFi
-   access points, projector wall, teacher station, plus the small props
-   (AC unit, plants) and the floor cable trunking that runs each row's
-   cabling back to the rack. */
+/* Small glowing LED — each has its own material so they blink on their own
+   phases. `boost` makes them blink faster/brighter on hover. */
+function Led({ position, color, size = [0.05, 0.05, 0.02], speed = 3, phase = 0, boost }) {
+  const mat = useMemo(
+    () =>
+      new THREE.MeshStandardMaterial({
+        color,
+        emissive: color,
+        emissiveIntensity: 0.35,
+      }),
+    [color]
+  )
 
-/* Floor trunking: one run per row behind the desks, a spine along the back
-   wall and a drop into the rack corner. Reads as planned network cabling. */
-function CableRuns() {
+  useFrame((state) => {
+    const t = state.elapsedTime
+    const s = speed * (boost ? 3.2 : 1)
+    const v = Math.max(0, Math.sin(t * s + phase))
+    mat.emissiveIntensity = 0.12 + (0.55 + boost * 0.9) * v
+  })
+
+  return (
+    <mesh position={position} material={mat}>
+      <boxGeometry args={size} />
+    </mesh>
+  )
+}
+
+/* Wrapper that makes a group hoverable for a labelled tooltip */
+function Interactive({ hoverKey, position, children }) {
+  const { setHover } = useLabScene()
+  return (
+    <group
+      onPointerOver={(e) => {
+        e.stopPropagation()
+        setHover(hoverKey, position)
+      }}
+      onPointerOut={() => setHover(null)}
+    >
+      {children}
+    </group>
+  )
+}
+
+/* Compact network cabinet in the back-right service lane. The inward-facing
+   front contains a patch panel and router; it stays well outside the student
+   grid and main circulation paths. */
+function ServerRack({ hovered }) {
+  const glow = useRef(null)
+
+  useFrame((_, delta) => {
+    if (glow.current) {
+      glow.current.intensity = THREE.MathUtils.damp(
+        glow.current.intensity,
+        hovered ? 0.9 : 0,
+        6,
+        delta
+      )
+    }
+  })
+
+  const ledColor = hovered ? 0x60a5fa : 0x2563eb
+
+  return (
+    <Interactive hoverKey="server" position={[RACK_X, 0.72, RACK_Z]}>
+      <group position={[RACK_X, 0, RACK_Z]}>
+        <mesh position={[0, 0.6, 0]} material={rackMat} castShadow>
+          <boxGeometry args={[0.6, 1.2, 0.46]} />
+        </mesh>
+        <mesh position={[0, 1.225, 0]} material={rackTrimMat}>
+          <boxGeometry args={[0.64, 0.05, 0.5]} />
+        </mesh>
+        <mesh position={[0, 0.025, 0]} material={rackTrimMat}>
+          <boxGeometry args={[0.64, 0.05, 0.5]} />
+        </mesh>
+        {[0.35, 0.56, 0.77].map((y, index) => (
+          <mesh key={y} position={[-0.315, y, 0]} material={index === 1 ? switchMat : rackTrimMat}>
+            <boxGeometry args={[0.03, 0.13, 0.38]} />
+          </mesh>
+        ))}
+        <mesh position={[0, 1.32, 0]} material={switchMat} castShadow>
+          <boxGeometry args={[0.38, 0.08, 0.28]} />
+        </mesh>
+        <mesh position={[0, 1.48, -0.1]} material={rackTrimMat} rotation={[0, 0, 0.08]}>
+          <boxGeometry args={[0.025, 0.28, 0.025]} />
+        </mesh>
+        <mesh position={[0, 1.48, 0.1]} material={rackTrimMat} rotation={[0, 0, -0.08]}>
+          <boxGeometry args={[0.025, 0.28, 0.025]} />
+        </mesh>
+        {/* front LEDs */}
+        <Led
+          position={[-0.335, 0.35, -0.12]}
+          color={ledColor}
+          speed={2.2}
+          phase={0}
+          boost={hovered}
+        />
+        <Led
+          position={[-0.335, 0.35, 0.12]}
+          color={ledColor}
+          speed={2.2}
+          phase={2.4}
+          boost={hovered}
+        />
+        <Led
+          position={[-0.335, 0.77, -0.12]}
+          color={ledColor}
+          speed={1.6}
+          phase={4.1}
+          boost={hovered}
+        />
+        <Led
+          position={[-0.335, 0.77, 0.12]}
+          color={ledColor}
+          speed={1.6}
+          phase={1.2}
+          boost={hovered}
+        />
+        <pointLight
+          ref={glow}
+          position={[-0.4, 0.72, 0]}
+          intensity={0}
+          color={0x60a5fa}
+          distance={3.5}
+        />
+      </group>
+    </Interactive>
+  )
+}
+
+/* Managed switch mounted inside the cabinet — blinking link LEDs. */
+function Switch({ hovered }) {
+  const leds = [
+    { z: -0.1, phase: 0, color: 0x60a5fa },
+    { z: -0.03, phase: 1.9, color: 0x3b82f6 },
+    { z: 0.03, phase: 3.1, color: 0x2563eb },
+    { z: 0.1, phase: 0.8, color: 0x93c5fd },
+  ]
+  return (
+    <Interactive hoverKey="switch" position={[RACK_X - 0.32, 0.57, RACK_Z]}>
+      <group position={[RACK_X, 0.56, RACK_Z]}>
+        <mesh material={switchMat} castShadow>
+          <boxGeometry args={[0.58, 0.08, 0.36]} />
+        </mesh>
+        <mesh position={[0, 0.05, 0]} material={rackTrimMat}>
+          <boxGeometry args={[0.6, 0.02, 0.38]} />
+        </mesh>
+        {leds.map(({ z, phase, color }) => (
+          <Led
+            key={z}
+            position={[-0.31, 0, z]}
+            color={color}
+            phase={phase}
+            speed={2.6}
+            size={[0.04, 0.02, 0.045]}
+            boost={hovered}
+          />
+        ))}
+      </group>
+    </Interactive>
+  )
+}
+
+/* WiFi access point — animated signal arcs */
+function AccessPoint({ hovered }) {
+  const arcs = useRef([])
+  const boost = hovered ? 1 : 0
+
+  useFrame((state) => {
+    const t = state.elapsedTime * (1 + boost * 1.6)
+    arcs.current.forEach((m, i) => {
+      if (!m) return
+      const phase = i * 2.1
+      const s = 0.9 + 0.28 * Math.sin(t + phase)
+      m.scale.setScalar(s)
+    })
+    apLedMat.emissiveIntensity =
+      0.4 + 0.6 * Math.max(0, Math.sin(state.elapsedTime * (2 + boost * 2)))
+  })
+
+  const arcRefs = (i) => (el) => {
+    arcs.current[i] = el
+  }
+
+  return (
+    <Interactive hoverKey="ap" position={[0, 2.4, 1.1]}>
+      <group position={[0, 0, 1.1]}>
+        {/* mount rod up to the soffit */}
+        <mesh position={[0, 2.62, 0]} material={rackTrimMat}>
+          <boxGeometry args={[0.06, 0.16, 0.06]} />
+        </mesh>
+        <mesh position={[0, 2.52, 0]} material={apMat} castShadow>
+          <cylinderGeometry args={[0.4, 0.44, 0.06, 28]} />
+        </mesh>
+        <mesh position={[0, 2.46, 0]} material={apLedMat}>
+          <boxGeometry args={[0.05, 0.02, 0.05]} />
+        </mesh>
+        <mesh
+          ref={arcRefs(0)}
+          rotation={[-Math.PI / 2, 0, 0]}
+          position={[0, 2.4, 0]}
+          material={wifiMat}
+        >
+          <ringGeometry args={[0.5, 0.6, 48, 1, 0, Math.PI * 1.5]} />
+        </mesh>
+        <mesh
+          ref={arcRefs(1)}
+          rotation={[-Math.PI / 2, 0, 0]}
+          position={[0, 2.34, 0]}
+          material={wifiMat}
+        >
+          <ringGeometry args={[0.8, 0.9, 48, 1, 0, Math.PI * 1.5]} />
+        </mesh>
+        <mesh
+          ref={arcRefs(2)}
+          rotation={[-Math.PI / 2, 0, 0]}
+          position={[0, 2.28, 0]}
+          material={wifiMat}
+        >
+          <ringGeometry args={[1.1, 1.2, 48, 1, 0, Math.PI * 1.5]} />
+        </mesh>
+      </group>
+    </Interactive>
+  )
+}
+
+/* Whiteboard, presentation display and a compact ceiling projector. */
+function Projector() {
   return (
     <group>
-      {ROWS.map((z) => (
-        <mesh
-          key={`run-${z}`}
-          position={[0.6, 0.03, z - 0.5]}
-          material={trunkingMat}
-          receiveShadow
-        >
-          <boxGeometry args={[COLS.length * 1.6, 0.05, 0.12]} />
+      <group position={[-1.9, 1.72, BACK - 0.1]}>
+        <mesh material={whiteboardFrameMat} castShadow>
+          <boxGeometry args={[3.2, 1.45, 0.07]} />
         </mesh>
-      ))}
-      {/* wall spine along the back wall, feeding the rack */}
-      <mesh position={[2.2, 0.03, -5.05]} material={trunkingMat} receiveShadow>
-        <boxGeometry args={[4.4, 0.05, 0.12]} />
+        <mesh position={[0, 0, 0.045]} material={whiteboardMat}>
+          <boxGeometry args={[3.0, 1.25, 0.02]} />
+        </mesh>
+      </group>
+
+      <group position={[2.15, 1.72, BACK - 0.08]}>
+        <mesh material={monitorBezelMat} castShadow>
+          <boxGeometry args={[2.75, 1.5, 0.09]} />
+        </mesh>
+        <mesh position={[0, 0, 0.052]} material={screenMat}>
+          <boxGeometry args={[2.58, 1.33, 0.025]} />
+        </mesh>
+      </group>
+
+      <Interactive hoverKey="projector" position={[-1.2, 2.55, -2.35]}>
+        <group position={[-1.2, 0, -2.35]}>
+          <mesh position={[0, 2.72, 0]} material={rackTrimMat}>
+            <boxGeometry args={[0.05, 0.14, 0.05]} />
+          </mesh>
+          <mesh position={[0, 2.58, 0]} rotation={[-0.1, 0, 0]} material={projectorMat} castShadow>
+            <boxGeometry args={[0.55, 0.18, 0.42]} />
+          </mesh>
+          <Led
+            position={[0.3, 2.58, 0.03]}
+            color={0x60a5fa}
+            speed={1.4}
+            size={[0.04, 0.02, 0.02]}
+          />
+        </group>
+      </Interactive>
+    </group>
+  )
+}
+
+/* Teacher chair — reuses the same cantilever chair model as the students
+   (two side frames + foam seat/back), rotated to face the room. */
+function TeacherChair({ position }) {
+  return (
+    <group position={position} rotation={[0, Math.PI, 0]}>
+      <mesh
+        geometry={chairSupportGeometry()}
+        material={chairFrameMat}
+        castShadow
+        position={[-CHAIR_SUPPORT_X, 0.002, 0]}
+      />
+      <mesh
+        geometry={chairSupportGeometry()}
+        material={chairFrameMat}
+        castShadow
+        position={[CHAIR_SUPPORT_X, 0.002, 0]}
+      />
+      <mesh material={chairPadMat} castShadow position={[0, 0.46, 0]}>
+        <boxGeometry args={[CHAIR_SEAT_W, 0.065, CHAIR_SEAT_D]} />
       </mesh>
-      {/* short patch cables under the rack corner */}
-      <mesh position={[4.6, 0.02, -4.6]} material={cableMat} rotation={[0, 0.5, 0]}>
-        <boxGeometry args={[0.6, 0.015, 0.02]} />
-      </mesh>
-      <mesh position={[4.2, 0.02, -4.9]} material={cableMat} rotation={[0, -0.6, 0]}>
-        <boxGeometry args={[0.5, 0.015, 0.02]} />
+      <mesh material={chairPadMat} position={[0, 0.77, 0.205]} rotation={[-0.07, 0, 0]}>
+        <boxGeometry args={[CHAIR_SEAT_W, CHAIR_BACK_H, 0.06]} />
       </mesh>
     </group>
   )
 }
 
-function WallsAndAccents() {
+/* Teacher station with a larger monitor, proper stand and open knee space. */
+function TeacherDesk() {
   return (
-    <group>
-      {/* air conditioner above the door (left wall) */}
-      <group position={[-5.85, 2.3, 2.9]} rotation={[0, -Math.PI / 2, 0]}>
-        <mesh material={acMat} castShadow>
-          <boxGeometry args={[1.2, 0.38, 0.28]} />
+    <Interactive hoverKey="teacher" position={[TEACHER_X, 0.8, TEACHER_Z]}>
+      <group position={[TEACHER_X, 0, TEACHER_Z]}>
+        <mesh position={[0, 0.8, 0]} material={teacherDeskMat} receiveShadow castShadow>
+          <boxGeometry args={[2.4, 0.08, 1.0]} />
         </mesh>
-        <mesh position={[0, 0, 0.15]} material={acVentMat}>
-          <boxGeometry args={[0.95, 0.16, 0.02]} />
+        {[-1.02, 1.02].map((x) => (
+          <mesh key={x} position={[x, 0.38, 0]} material={teacherDeskMat}>
+            <boxGeometry args={[0.12, 0.76, 0.78]} />
+          </mesh>
+        ))}
+        {/* monitor facing the room (+z) */}
+        <mesh position={[0, 0.85, 0.05]} material={monitorStandMat} castShadow>
+          <boxGeometry args={[0.42, 0.04, 0.22]} />
         </mesh>
-        <mesh position={[0.42, -0.14, 0.15]} material={acLedMat}>
-          <boxGeometry args={[0.04, 0.02, 0.01]} />
+        <mesh position={[0, 1.04, 0.05]} material={monitorStandMat} castShadow>
+          <boxGeometry args={[0.06, 0.34, 0.06]} />
         </mesh>
+        <mesh position={[0, 1.28, 0.16]} material={monitorBezelMat} castShadow>
+          <boxGeometry args={[1.1, 0.62, 0.05]} />
+        </mesh>
+        <mesh position={[0, 1.28, 0.187]} material={screenMat}>
+          <boxGeometry args={[1.04, 0.56, 0.02]} />
+        </mesh>
+        <mesh position={[0, 0.85, 0.3]} material={keyboardMat}>
+          <boxGeometry args={[0.58, 0.025, 0.18]} />
+        </mesh>
+        <mesh position={[0.34, 0.85, 0.29]} material={mouseMat}>
+          <boxGeometry args={[0.1, 0.025, 0.14]} />
+        </mesh>
+        <TeacherChair position={[0, 0, -0.68]} />
       </group>
+    </Interactive>
+  )
+}
 
-      {/* indoor plants */}
-      <group position={[-5.35, 0, -5.0]}>
-        <mesh position={[0, 0.11, 0]} material={plantPotMat} castShadow>
-          <cylinderGeometry args={[0.14, 0.18, 0.22, 20]} />
-        </mesh>
-        <mesh position={[0, 0.5, 0]} material={plantLeafMat}>
-          <sphereGeometry args={[0.28, 16, 12]} />
-        </mesh>
-        <mesh position={[0.18, 0.34, 0.1]} material={plantLeafMat}>
-          <sphereGeometry args={[0.14, 12, 10]} />
-        </mesh>
-        <mesh position={[-0.16, 0.36, -0.08]} material={plantLeafMat}>
-          <sphereGeometry args={[0.12, 12, 10]} />
-        </mesh>
-      </group>
-      <group position={[5.35, 0, 4.8]}>
-        <mesh position={[0, 0.11, 0]} material={plantPotMat} castShadow>
-          <cylinderGeometry args={[0.14, 0.18, 0.22, 20]} />
-        </mesh>
-        <mesh position={[0, 0.5, 0]} material={plantLeafMat}>
-          <sphereGeometry args={[0.28, 16, 12]} />
-        </mesh>
-        <mesh position={[0.18, 0.34, 0.1]} material={plantLeafMat}>
-          <sphereGeometry args={[0.14, 12, 10]} />
-        </mesh>
-        <mesh position={[-0.16, 0.36, -0.08]} material={plantLeafMat}>
-          <sphereGeometry args={[0.12, 12, 10]} />
-        </mesh>
-      </group>
-      <group position={[-5.5, 0, 4.6]}>
-        <mesh position={[0, 0.11, 0]} material={plantPotMat} castShadow>
-          <cylinderGeometry args={[0.14, 0.18, 0.22, 20]} />
-        </mesh>
-        <mesh position={[0, 0.5, 0]} material={plantLeafMat}>
-          <sphereGeometry args={[0.28, 16, 12]} />
-        </mesh>
-        <mesh position={[0.18, 0.34, 0.1]} material={plantLeafMat}>
-          <sphereGeometry args={[0.14, 12, 10]} />
-        </mesh>
-        <mesh position={[-0.16, 0.36, -0.08]} material={plantLeafMat}>
-          <sphereGeometry args={[0.12, 12, 10]} />
-        </mesh>
-      </group>
+/* Air conditioner mounted above the classroom door */
+function AirConditioner() {
+  return (
+    <group position={[LEFT + 0.15, 2.55, DOOR_Z]} rotation={[0, -Math.PI / 2, 0]}>
+      <mesh material={acMat} castShadow>
+        <boxGeometry args={[1.2, 0.38, 0.28]} />
+      </mesh>
+      <mesh position={[0, 0, 0.15]} material={acVentMat}>
+        <boxGeometry args={[0.95, 0.16, 0.02]} />
+      </mesh>
+      <mesh position={[0.42, -0.14, 0.15]} material={acLedMat}>
+        <boxGeometry args={[0.04, 0.02, 0.01]} />
+      </mesh>
+    </group>
+  )
+}
+
+/* Small indoor plant: white pot + a few leafy spheres */
+function Plant({ position }) {
+  return (
+    <group position={position}>
+      <mesh position={[0, 0.11, 0]} material={plantPotMat} castShadow>
+        <cylinderGeometry args={[0.14, 0.18, 0.22, 20]} />
+      </mesh>
+      <mesh position={[0, 0.5, 0]} material={plantLeafMat}>
+        <sphereGeometry args={[0.28, 16, 12]} />
+      </mesh>
+      <mesh position={[0.18, 0.34, 0.1]} material={plantLeafMat}>
+        <sphereGeometry args={[0.14, 12, 10]} />
+      </mesh>
+      <mesh position={[-0.16, 0.36, -0.08]} material={plantLeafMat}>
+        <sphereGeometry args={[0.12, 12, 10]} />
+      </mesh>
     </group>
   )
 }
 
 function Infrastructure() {
+  const { hover } = useLabScene()
+
+  const serverHovered = hover?.key === 'server'
+  const switchHovered = hover?.key === 'switch'
+  const apHovered = hover?.key === 'ap'
+
   return (
     <group>
-      <CableRuns />
-      <ServerRack />
-      <AccessPoint />
+      <ServerRack hovered={serverHovered} />
+      <Switch hovered={switchHovered} />
+      <AccessPoint hovered={apHovered} />
       <Projector />
       <TeacherDesk />
-      <WallsAndAccents />
+      <AirConditioner />
+      <Plant position={[LEFT + 0.55, 0, 4.65]} />
+      <Plant position={[5.45, 0, 4.65]} />
     </group>
   )
 }

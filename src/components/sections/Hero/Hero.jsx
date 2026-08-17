@@ -34,7 +34,6 @@ const TRUST_KEYS = ['hero.trust1', 'hero.trust2', 'hero.trust3', 'hero.trust4']
 
 const RAIL_KEYS = [
   'services.webHosting.title',
-  'hero.webdev',
   'services.wifi.title',
   'services.cctv.title',
   'services.lab.title',

@@ -4,6 +4,7 @@
 .section {
   background: var(--bench);
   padding-block: var(--section-pad);
+  border-top: 1px solid var(--line);
 }
 
 .grid {
@@ -77,7 +78,7 @@
 .form {
   padding: clamp(1.4rem, 3vw, 2.1rem);
   border: 1px solid var(--line-strong);
-  border-radius: 10px;
+  border-radius: var(--radius-lg);
   background: var(--paper);
   box-shadow: 0 18px 44px rgba(23, 27, 33, 0.1);
   display: grid;
@@ -115,7 +116,7 @@
   height: 0.42rem;
   border-radius: 50%;
   background: var(--ok);
-  box-shadow: 0 0 6px rgba(15, 169, 88, 0.6);
+  box-shadow: 0 0 6px rgba(47, 111, 237, 0.6);
 }
 
 .row {
@@ -152,12 +153,12 @@
 
 .group input::placeholder,
 .group textarea::placeholder {
-  color: #9aa3ae;
+  color: #7f93bb;
 }
 
-.group input:focus,
-.group select:focus,
-.group textarea:focus {
+.group input:focus-visible,
+.group select:focus-visible,
+.group textarea:focus-visible {
   outline: none;
   border-color: var(--brand);
   background: var(--paper);
@@ -180,13 +181,13 @@
 .group.invalid select,
 .group.invalid textarea {
   border-color: var(--danger);
-  box-shadow: 0 0 0 3px rgba(229, 72, 77, 0.12);
+  box-shadow: 0 0 0 3px rgba(23, 72, 181, 0.14);
 }
 
 .error {
   display: none;
   font-size: 0.78rem;
-  color: #c83b40;
+  color: #1748b5;
 }
 
 .group.invalid .error {
@@ -236,7 +237,7 @@
 
 /* ---- Map ---- */
 .map {
-  border-radius: 10px;
+  border-radius: var(--radius-lg);
   overflow: hidden;
   box-shadow: var(--shadow-sm);
   border: 1px solid var(--line);
@@ -245,6 +246,7 @@
 
 .map iframe {
   width: 100%;
+  height: 360px;
   filter: saturate(0.85) contrast(1.02);
 }
 

@@ -11,12 +11,32 @@ import styles from './ScrollToTop.module.css'
 */
 function ScrollToTop() {
   const { t } = useTranslation()
-  const { pathname } = useLocation()
+  const { pathname, hash } = useLocation()
   const [show, setShow] = useState(false)
 
   useEffect(() => {
-    window.scrollTo({ top: 0, behavior: 'auto' })
-  }, [pathname])
+    if (!hash) {
+      window.scrollTo({ top: 0, behavior: 'auto' })
+      return undefined
+    }
+
+    let attempts = 0
+    let timer
+    const scrollToHash = () => {
+      const target = document.getElementById(decodeURIComponent(hash.slice(1)))
+      if (target) {
+        target.scrollIntoView({ behavior: 'auto', block: 'start' })
+        return
+      }
+      if (attempts < 10) {
+        attempts += 1
+        timer = window.setTimeout(scrollToHash, 50)
+      }
+    }
+
+    scrollToHash()
+    return () => window.clearTimeout(timer)
+  }, [pathname, hash])
 
   useEffect(() => {
     const onScroll = () => setShow(window.scrollY > 600)

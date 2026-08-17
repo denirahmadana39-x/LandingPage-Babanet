@@ -38,6 +38,15 @@
   transform: translateY(-3px);
 }
 
+@media (max-width: 575px) {
+  .backToTop {
+    right: 0.75rem;
+    bottom: 0.75rem;
+    width: 2.65rem;
+    height: 2.65rem;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .backToTop {
     transition: none;

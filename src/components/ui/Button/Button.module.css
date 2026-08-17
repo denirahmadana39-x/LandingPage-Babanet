@@ -63,17 +63,17 @@
 }
 
 .whatsapp {
-  background: var(--ok);
+  background: var(--signal);
   color: var(--paper);
-  border-color: var(--ok);
-  box-shadow: 0 10px 24px rgba(15, 169, 88, 0.3);
+  border-color: var(--signal);
+  box-shadow: 0 10px 24px rgba(37, 99, 235, 0.3);
 }
 
 .whatsapp:hover {
-  background: #0d8f4c;
-  border-color: #0d8f4c;
+  background: var(--signal-deep);
+  border-color: var(--signal-deep);
   transform: translateY(-2px);
-  box-shadow: 0 14px 30px rgba(15, 169, 88, 0.38);
+  box-shadow: 0 14px 30px rgba(37, 99, 235, 0.38);
 }
 
 .whatsapp .icon {

@@ -3,11 +3,11 @@
    ========================================================================== */
 .section {
   --svc-blue: #2563eb;
-  --svc-bg: #f8fafc;
+  --svc-bg: #f4f7fb;
   --svc-card: #ffffff;
-  --svc-border: #e5e7eb;
-  --svc-ink: #0f172a;
-  --svc-muted: #64748b;
+  --svc-border: #d8e4ff;
+  --svc-ink: #0b2559;
+  --svc-muted: #526b9b;
 
   position: relative;
   background: var(--svc-bg);
@@ -16,9 +16,9 @@
 
 /* ---- Section header ---- */
 .head {
-  max-width: 650px;
-  margin-inline: auto;
-  text-align: center;
+  max-width: 760px;
+  margin-inline: 0;
+  text-align: left;
   margin-bottom: clamp(2.8rem, 5vw, 4rem);
 }
 
@@ -28,12 +28,14 @@
   gap: 0.5rem;
   padding: 0.42rem 1rem;
   border: 1px solid var(--svc-border);
-  border-radius: 999px;
+  border-radius: var(--radius-sm);
   background: var(--svc-card);
   color: var(--svc-blue);
-  font-size: 0.78rem;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
   font-weight: 600;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
   white-space: nowrap;
 }
 
@@ -42,13 +44,13 @@
   width: 0.4rem;
   height: 0.4rem;
   border-radius: 50%;
-  background: var(--svc-blue);
+  background: var(--cable);
 }
 
 .title {
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: clamp(1.9rem, 3.4vw, 2.85rem);
+  font-size: clamp(2.2rem, 4vw, 3.4rem);
   line-height: 1.12;
   letter-spacing: -0.02em;
   color: var(--svc-ink);
@@ -62,14 +64,14 @@
   font-size: clamp(0.98rem, 1.15vw, 1.08rem);
   line-height: 1.65;
   max-width: 650px;
-  margin-inline: auto;
+  margin-inline: 0;
 }
 
 /* ---- Grid ---- */
 .grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 1.4rem;
+  gap: 1rem;
 }
 
 /* ---- Card reveal wrapper (ports .services-card) ---- */
@@ -102,7 +104,7 @@
   justify-content: center;
   gap: 0.6rem;
   padding: 0.8rem 2rem;
-  border-radius: 10px;
+  border-radius: var(--radius-sm);
   border: 1.5px solid var(--svc-blue);
   background: transparent;
   color: var(--svc-blue);

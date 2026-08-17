@@ -85,11 +85,11 @@ function LabWorld({ coarse, introDone }) {
         <ContactShadows
           position={[0, 0.005, 0]}
           opacity={0.45}
-          scale={18}
+          scale={20}
           blur={2.4}
           far={6}
           resolution={1024}
-          color="#0f172a"
+          color="#071e4e"
           frames={introDone ? 1 : Infinity}
         />
       )}

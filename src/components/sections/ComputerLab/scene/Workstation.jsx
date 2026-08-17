@@ -1,125 +1,142 @@
-import { useMemo, useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import { useFrame } from '@react-three/fiber'
+import { Merged } from '@react-three/drei'
+import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.js'
 import * as THREE from 'three'
 import { useLabScene } from './state.jsx'
-import { clamp, easeOutCubic } from './math'
-import { WORKSTATION_COUNT, WORKSTATIONS } from './layout.js'
+import StudentWorkstation from './StudentWorkstation'
+import {
+  chairSupportGeometry,
+  CHAIR_BACK_H,
+  CHAIR_SEAT_D,
+  CHAIR_SEAT_W,
+  CHAIR_TUBE_RADIUS,
+} from './chair'
+import { CHAIR_Z, DESK_D, DESK_TOP_Y, DESK_W, WORKSTATIONS } from './layout'
 import {
   activityLedMat,
+  chairFrameMat,
+  chairPadMat,
   deskMat,
-  deskPedestalMat,
+  deskSideMat,
   keyboardMat,
   monitorBezelMat,
+  monitorStandMat,
   mouseMat,
   screenMat,
   towerLedMat,
   towerMat,
 } from './materials'
 
-/* 24 student workstations — 4 rows × 6 columns in two blocks of three with a
-   1.5m centre aisle. Each station: 0.9m wood desk, matte monitor, keyboard,
-   mouse and a floor tower. Everything is instanced and shares module-level
-   materials, so the whole block is ~12 draw calls. The entrance choreography
-   grows stations up from the floor, front rows first. */
+const makeMesh = (geometry, material) => new THREE.Mesh(geometry, material)
 
-/* Local part offsets relative to the workstation floor point */
-const PARTS = [
-  { mesh: 'deskTop', mat: deskMat, pos: [0, 0.75, 0], size: [0.9, 0.05, 0.8] },
-  { mesh: 'legL', mat: deskPedestalMat, pos: [-0.4, 0.375, 0], size: [0.05, 0.75, 0.76] },
-  { mesh: 'legR', mat: deskPedestalMat, pos: [0.4, 0.375, 0], size: [0.05, 0.75, 0.76] },
-  { mesh: 'beam', mat: deskPedestalMat, pos: [0, 0.14, 0], size: [0.72, 0.05, 0.5] },
-  { mesh: 'bezel', mat: monitorBezelMat, pos: [0, 1.21, 0.17], size: [0.62, 0.4, 0.06] },
-  { mesh: 'screen', mat: screenMat, pos: [0, 1.21, 0.185], size: [0.58, 0.36, 0.03] },
-  { mesh: 'standCol', mat: deskPedestalMat, pos: [0, 0.92, 0.1], size: [0.06, 0.26, 0.06] },
-  { mesh: 'standBase', mat: deskMat, pos: [0, 0.81, 0.08], size: [0.28, 0.03, 0.16] },
-  { mesh: 'keyboard', mat: keyboardMat, pos: [0, 0.776, 0.22], size: [0.45, 0.02, 0.14] },
-  { mesh: 'mouse', mat: mouseMat, pos: [0.15, 0.776, 0.14], size: [0.1, 0.02, 0.07] },
-  { mesh: 'tower', mat: towerMat, pos: [0, 0.42, -0.16], size: [0.32, 0.44, 0.36] },
-  { mesh: 'towerLed', mat: towerLedMat, pos: [-0.15, 0.51, 0.05], size: [0.22, 0.05, 0.02] },
-  { mesh: 'activity', mat: activityLedMat, pos: [0.22, 0.78, 0.28], size: [0.04, 0.015, 0.04] },
-]
+/* Source meshes for drei's Merged pool. Merged creates one InstancedMesh per
+   part type, while StudentWorkstation composes those instances into a single
+   reusable desk/computer/chair unit. */
+const WORKSTATION_PARTS = {
+  DeskTop: makeMesh(new RoundedBoxGeometry(DESK_W, 0.065, DESK_D, 3, 0.025), deskMat),
+  DeskSide: makeMesh(new THREE.BoxGeometry(0.065, 0.74, DESK_D - 0.1), deskSideMat),
+  DeskBeam: makeMesh(new THREE.BoxGeometry(DESK_W - 0.2, 0.045, 0.045), deskSideMat),
+  MonitorBase: makeMesh(new RoundedBoxGeometry(0.29, 0.025, 0.19, 2, 0.012), monitorStandMat),
+  MonitorPost: makeMesh(new THREE.BoxGeometry(0.055, 0.2, 0.055), monitorStandMat),
+  MonitorBezel: makeMesh(new RoundedBoxGeometry(0.64, 0.41, 0.045, 3, 0.018), monitorBezelMat),
+  MonitorScreen: makeMesh(new THREE.BoxGeometry(0.59, 0.355, 0.012), screenMat),
+  Keyboard: makeMesh(new RoundedBoxGeometry(0.48, 0.025, 0.17, 2, 0.012), keyboardMat),
+  Mouse: makeMesh(new RoundedBoxGeometry(0.08, 0.035, 0.12, 3, 0.025), mouseMat),
+  ActivityLed: makeMesh(new THREE.BoxGeometry(0.012, 0.012, 0.012), activityLedMat),
+  Cpu: makeMesh(new RoundedBoxGeometry(0.2, 0.52, 0.38, 2, 0.018), towerMat),
+  CpuLed: makeMesh(new THREE.BoxGeometry(0.04, 0.025, 0.012), towerLedMat),
+  ChairSupport: makeMesh(chairSupportGeometry(), chairFrameMat),
+  ChairSeat: makeMesh(
+    new RoundedBoxGeometry(CHAIR_SEAT_W, 0.065, CHAIR_SEAT_D, 3, 0.03),
+    chairPadMat
+  ),
+  ChairBack: makeMesh(
+    new RoundedBoxGeometry(CHAIR_SEAT_W, CHAIR_BACK_H, 0.06, 3, 0.03),
+    chairPadMat
+  ),
+}
 
-const STAGGER = 0.02
-const REVEAL_DUR = 0.5
+const COUNT = WORKSTATIONS.length
+const CHAIR_BOUNDS = {
+  zmin: CHAIR_Z - CHAIR_SEAT_D / 2,
+  zmax: CHAIR_Z + 0.22 + CHAIR_TUBE_RADIUS,
+  ymin: 0,
+  ymax: 0.77 + CHAIR_BACK_H / 2,
+}
 
-function Workstation() {
-  const { intro, setHover } = useLabScene()
-  const refs = useRef({})
-  const dummy = useMemo(() => new THREE.Object3D(), [])
+function Computers() {
+  const { setHover } = useLabScene()
   const lastHover = useRef(null)
 
-  const setMeshRef = (key) => (el) => {
-    refs.current[key] = el
+  useEffect(() => {
+    if (!import.meta.env.DEV) return
+    window.__labLayout = WORKSTATIONS.map(({ id, position: [x, , z], rotation }) => ({
+      id,
+      x,
+      z,
+      rotation,
+      supports: 2,
+      desk: {
+        xmin: x - DESK_W / 2,
+        xmax: x + DESK_W / 2,
+        zmin: z - DESK_D / 2,
+        zmax: z + DESK_D / 2,
+        top: DESK_TOP_Y,
+      },
+      monitor: { x, z: z - 0.14, facing: '-z' },
+      chair: {
+        x,
+        z: z + CHAIR_Z,
+        zmin: z + CHAIR_BOUNDS.zmin,
+        zmax: z + CHAIR_BOUNDS.zmax,
+        ymin: CHAIR_BOUNDS.ymin,
+        ymax: CHAIR_BOUNDS.ymax,
+        facing: '-z',
+      },
+    }))
+  }, [])
+
+  useFrame((state) => {
+    const t = state.elapsedTime
+    screenMat.emissiveIntensity = 0.54 + 0.08 * Math.sin(t * 1.25)
+    towerLedMat.emissiveIntensity = 0.65 + 0.3 * Math.sin(t * 2)
+    activityLedMat.emissiveIntensity = 0.35 + 0.35 * Math.max(0, Math.sin(t * 3.4))
+  })
+
+  const over = (station) => (event) => {
+    event.stopPropagation()
+    if (lastHover.current === station.id) return
+    lastHover.current = station.id
+    const [x, , z] = station.position
+    setHover('computer', [x, 0.86, z + CHAIR_Z * 0.45])
   }
 
-  const revealScale = (i, t) => easeOutCubic(clamp((t - i * STAGGER) / REVEAL_DUR, 0, 1))
-
-  /* Hover lives on the wrapping group: pointer events bubble up from whichever
-     part is hit; the instance guard avoids re-rendering on every move. */
-  const handleOver = (e) => {
-    if (e.instanceId === undefined) return
-    if (lastHover.current === e.instanceId) return
-    lastHover.current = e.instanceId
-    const { x, z } = WORKSTATIONS[e.instanceId]
-    setHover('computer', [x, 0.8, z])
-  }
-
-  const handleOut = () => {
+  const out = (event) => {
+    event.stopPropagation()
     lastHover.current = null
     setHover(null)
   }
 
-  useFrame(({ clock }) => {
-    const t = intro.current.t
-    const done = intro.current.done
-
-    if (!done) {
-      for (const part of PARTS) {
-        const mesh = refs.current[part.mesh]
-        if (!mesh) continue
-        const [lx, ly, lz] = part.pos
-        for (let i = 0; i < WORKSTATION_COUNT; i++) {
-          const s = revealScale(i, t)
-          const { x, z } = WORKSTATIONS[i]
-          dummy.position.set(x + lx * s, ly * s, z + lz * s)
-          dummy.scale.setScalar(Math.max(s, 0.0001))
-          dummy.updateMatrix()
-          mesh.setMatrixAt(i, dummy.matrix)
-        }
-        mesh.instanceMatrix.needsUpdate = true
-      }
-    }
-
-    /* Live effects — subtle, always on */
-    const time = clock.getElapsedTime()
-    screenMat.emissiveIntensity = 0.48 + 0.13 * Math.sin(time * 1.7)
-    towerLedMat.emissiveIntensity = 0.75 + 0.5 * Math.sin(time * 2.4)
-    activityLedMat.emissiveIntensity =
-      0.15 + 0.85 * Math.max(0, Math.sin(time * 5 + Math.floor(time * 2)))
-  })
-
-  const hoverProps = {
-    onPointerOver: handleOver,
-    onPointerMove: handleOver,
-    onPointerOut: handleOut,
-  }
-
   return (
-    <group {...hoverProps}>
-      {PARTS.map((part) => (
-        <instancedMesh
-          key={part.mesh}
-          ref={setMeshRef(part.mesh)}
-          args={[undefined, undefined, WORKSTATION_COUNT]}
-          castShadow
-          receiveShadow
-        >
-          <boxGeometry args={part.size} />
-          <primitive object={part.mat} attach="material" />
-        </instancedMesh>
-      ))}
-    </group>
+    <Merged meshes={WORKSTATION_PARTS} limit={COUNT * 2} frames={2} castShadow receiveShadow>
+      {(parts) => (
+        <group>
+          {WORKSTATIONS.map((station) => (
+            <StudentWorkstation
+              key={station.id}
+              parts={parts}
+              position={station.position}
+              rotation={station.rotation}
+              onPointerOver={over(station)}
+              onPointerOut={out}
+            />
+          ))}
+        </group>
+      )}
+    </Merged>
   )
 }
 
-export default Workstation
+export { WORKSTATION_PARTS }
+export default Computers

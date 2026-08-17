@@ -2,7 +2,7 @@
 
 /* ==========================================================================
    Baba Solution Information Technology — global styles
-   Design language: "the network room / field bench."
+   Design language: "the blue network room."
    Tokens, base, and shared utilities are ported verbatim from the original
    style.css + animation.css. Section-specific styling lives in scoped CSS
    modules next to each component; Tailwind handles layout utilities.
@@ -28,52 +28,52 @@
 }
 
 :root {
-  /* Core palette (cable & hardware grounded) */
-  --ink: #171b21; /* graphite — primary text */
-  --bench: #eef0f2; /* cool technical base */
-  --bench-2: #e3e7ea; /* slightly deeper wells */
+  /* Core palette: white surfaces with a single blue colour family. */
+  --ink: #0b2559;
+  --bench: #f5f8ff;
+  --bench-2: #eaf1ff;
   --paper: #ffffff;
-  --line: #d8dde3; /* hairline */
-  --line-strong: #c2c9d1; /* hardware edge */
+  --line: #d8e4ff;
+  --line-strong: #afc5f5;
   --brand: #2455e6; /* cable blue */
   --brand-deep: #1a3fad;
-  --brand-soft: #e5ebfb;
+  --brand-soft: #e8eeff;
   --signal: #2455e6; /* cable blue — the CTA */
   --signal-deep: #1a3fad;
   --signal-soft: #e5ebfb;
-  --cable: #f05a22; /* ethernet orange — bright accent */
-  --cable-deep: #c84a1b;
-  --cable-soft: #fdeadd;
-  --ok: #0fa958; /* link-active green — status only */
-  --ok-soft: #dff4e9;
-  --amber: #f2a93b; /* LED transition colour */
-  --grey: #5a6370; /* muted body text */
-  --grey-soft: #8a93a0; /* faint labels */
-  --danger: #e5484d;
+  --cable: #4f7cff;
+  --cable-deep: #315bd6;
+  --cable-soft: #e8efff;
+  --ok: #2f6fed;
+  --ok-soft: #eaf1ff;
+  --amber: #7ea2ff;
+  --grey: #526b9b;
+  --grey-soft: #7f93bb;
+  --danger: #1748b5;
 
   /* Type roles */
-  --font-display: 'Chakra Petch', 'IBM Plex Sans', system-ui, sans-serif;
+  --font-display: 'Rajdhani', 'IBM Plex Sans', system-ui, sans-serif;
   --font-body: 'IBM Plex Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
   --font-mono: 'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, monospace;
 
   --font-size-base: clamp(1rem, 0.95rem + 0.25vw, 1.0625rem);
 
   /* Layout */
-  --container-max: 1180px;
-  --header-height: 72px;
+  --container-max: 1220px;
+  --header-height: 76px;
   --section-pad: clamp(4.5rem, 8vw, 7rem);
 
   /* Shadows (cool, hardware-feel) */
-  --shadow-sm: 0 2px 10px rgba(23, 27, 33, 0.06);
-  --shadow-md: 0 14px 32px rgba(23, 27, 33, 0.12);
-  --shadow-lg: 0 30px 64px rgba(23, 27, 33, 0.2);
+  --shadow-sm: 0 2px 10px rgba(11, 37, 89, 0.07);
+  --shadow-md: 0 14px 32px rgba(11, 37, 89, 0.13);
+  --shadow-lg: 0 30px 64px rgba(11, 37, 89, 0.2);
   --glow-brand: 0 0 0 3px rgba(36, 85, 230, 0.16);
 
   /* Radii (technical, not pill) */
-  --radius-sm: 5px;
-  --radius-md: 8px;
-  --radius-lg: 12px;
-  --radius-xl: 16px;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-xl: 18px;
 
   /* Motion */
   --transition-fast: 0.2s ease;
@@ -104,6 +104,8 @@ body {
   background-color: var(--bench);
   overflow-x: hidden;
   transition: opacity 0.15s ease-in-out;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 
 body.lang-switching {
@@ -130,6 +132,8 @@ ol {
 a {
   color: inherit;
   text-decoration: none;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: rgba(36, 85, 230, 0.12);
 }
 
 button {
@@ -139,6 +143,8 @@ button {
   background: none;
   cursor: pointer;
   color: inherit;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: rgba(36, 85, 230, 0.12);
 }
 
 input,
@@ -158,6 +164,7 @@ h3,
 h4 {
   line-height: 1.15;
   font-weight: 700;
+  text-wrap: balance;
 }
 
 ::selection {
@@ -169,6 +176,54 @@ h4 {
   outline: 3px solid var(--signal);
   outline-offset: 2px;
   border-radius: var(--radius-sm);
+}
+
+.skip-link {
+  position: fixed;
+  top: 0.75rem;
+  left: 0.75rem;
+  z-index: 3000;
+  padding: 0.7rem 1rem;
+  border-radius: var(--radius-sm);
+  color: var(--paper);
+  background: var(--ink);
+  font-weight: 600;
+  transform: translateY(calc(-100% - 1rem));
+  transition: transform var(--transition-fast);
+}
+
+.skip-link:focus-visible {
+  transform: translateY(0);
+}
+
+.page-loading {
+  min-height: 55vh;
+  display: grid;
+  place-content: center;
+  gap: 0.8rem;
+  padding-top: var(--header-height);
+  color: var(--grey);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.page-loading__bar {
+  width: 4rem;
+  height: 3px;
+  margin-inline: auto;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--brand) 0 45%, var(--brand-soft) 45% 100%);
+  animation: page-loading-pulse 0.9s ease-in-out infinite alternate;
+}
+
+@keyframes page-loading-pulse {
+  to {
+    transform: scaleX(0.62);
+    opacity: 0.6;
+  }
 }
 
 /* --------------------------------------------------------------------------
@@ -235,17 +290,17 @@ h4 {
   align-items: center;
   gap: 0.55rem;
   padding: 0.34rem 0.9rem 0.34rem 0.85rem;
-  background: linear-gradient(180deg, #ffffff 0%, #f1f3f5 100%);
-  border: 1px solid var(--line-strong);
+  background: var(--ink);
+  border: 1px solid var(--ink);
   clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 50%, calc(100% - 8px) 100%, 0 100%);
   font-family: var(--font-mono);
   font-size: 0.7rem;
   font-weight: 600;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--ink);
+  color: var(--paper);
   white-space: nowrap;
-  box-shadow: 0 1px 2px rgba(23, 27, 33, 0.05);
+  box-shadow: 0 1px 2px rgba(11, 37, 89, 0.06);
 }
 
 .tape::before {
@@ -253,8 +308,8 @@ h4 {
   width: 0.5rem;
   height: 0.5rem;
   flex: none;
-  background: var(--ok);
-  box-shadow: inset 0 0 0 1px rgba(23, 27, 33, 0.18);
+  background: var(--cable);
+  box-shadow: inset 0 0 0 1px rgba(11, 37, 89, 0.18);
 }
 
 /* ---- Section headings ---- */
@@ -274,7 +329,7 @@ h4 {
 .section-title {
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: clamp(1.85rem, 3.4vw, 2.75rem);
+  font-size: clamp(2.1rem, 4vw, 3.35rem);
   line-height: 1.1;
   letter-spacing: -0.015em;
   margin: 1.1rem 0 1rem;
@@ -327,7 +382,7 @@ h4 {
 .ripple {
   position: absolute;
   border-radius: 50%;
-  background: rgba(23, 27, 33, 0.16);
+  background: rgba(11, 37, 89, 0.16);
   transform: scale(0);
   animation: ripple-effect 0.6s ease-out forwards;
   pointer-events: none;
@@ -340,7 +395,7 @@ h4 {
 @keyframes led-on {
   0% {
     background: var(--amber);
-    box-shadow: 0 0 0 rgba(15, 169, 88, 0);
+    box-shadow: 0 0 0 rgba(47, 111, 237, 0);
     transform: translateX(-50%) scale(0.4);
   }
   55% {
@@ -349,7 +404,7 @@ h4 {
   }
   100% {
     background: var(--ok);
-    box-shadow: 0 0 8px rgba(15, 169, 88, 0.8);
+    box-shadow: 0 0 8px rgba(47, 111, 237, 0.8);
     transform: translateX(-50%) scale(1);
   }
 }

@@ -121,8 +121,8 @@ function FallbackScene({ className }) {
         <path d="M -304,-228 -324,-218 -324,-140 -304,-150 Z" fill="#0F172A" />
         <path d="M -328,-240 -304,-228 -324,-218 -348,-230 Z" fill="#334155" />
         <line x1="-304" y1="-228" x2="-324" y2="-218" stroke="#1E293B" strokeWidth="2" />
-        <rect x="-330.5" y="-170.0" width="3" height="3" rx="1" fill="#22C55E" opacity="0.95" />
-        <rect x="-324.5" y="-167.0" width="3" height="3" rx="1" fill="#22C55E" opacity="0.95" />
+        <rect x="-330.5" y="-170.0" width="3" height="3" rx="1" fill="#60A5FA" opacity="0.95" />
+        <rect x="-324.5" y="-167.0" width="3" height="3" rx="1" fill="#60A5FA" opacity="0.95" />
         <rect x="-330.5" y="-186.0" width="3" height="3" rx="1" fill="#2563EB" opacity="0.95" />
         <rect x="-324.5" y="-183.0" width="3" height="3" rx="1" fill="#2563EB" opacity="0.95" />
         <rect x="-330.5" y="-202.0" width="3" height="3" rx="1" fill="#2563EB" opacity="0.95" />
