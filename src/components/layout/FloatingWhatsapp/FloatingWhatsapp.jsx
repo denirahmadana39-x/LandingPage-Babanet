@@ -1,5 +1,6 @@
 import { FaWhatsapp } from 'react-icons/fa'
 import { useTranslation } from 'react-i18next'
+import { company } from '../../../data/company'
 import { buildWhatsAppMessage, openWhatsApp } from '../../../utils/whatsapp'
 import styles from './FloatingWhatsapp.module.css'
 
@@ -10,7 +11,7 @@ function FloatingWhatsapp() {
 
   return (
     <a
-      href="https://wa.me/6281281640680"
+      href={company.whatsappUrl}
       className={styles.float}
       aria-label="WhatsApp"
       onClick={(e) => {

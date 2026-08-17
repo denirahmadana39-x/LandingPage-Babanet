@@ -24,7 +24,7 @@ function Footer() {
         <div className={styles.about}>
           <Link to="/" className={styles.brand}>
             <span className={styles.brandIcon} aria-hidden="true">
-              B
+              <img className={styles.brandLogo} src="/images/babasolution-logo.jpg" alt="" />
             </span>
             <span className={styles.brandText} translate="no">
               Baba<strong>Solution</strong>
@@ -71,7 +71,7 @@ function Footer() {
               <Link to="/contact">{t('footer.supportReport')}</Link>
             </li>
             <li>
-              <a href="https://wa.me/6281281640680" onClick={handleWa}>
+              <a href={company.whatsappUrl} onClick={handleWa}>
                 {t('footer.supportWhatsapp')}
               </a>
             </li>

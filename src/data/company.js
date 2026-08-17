@@ -1,8 +1,8 @@
 export const company = {
   name: 'Baba Solution Information Technology',
   brand: 'BabaSolution',
-  phone: '6281281640680',
-  phoneDisplay: '+62 812-8164-0680',
+  phone: '6285894650948',
+  phoneDisplay: '0858-9465-0948',
   email: 'info@babasolution.com',
   address:
     'Jalan Raya Tanjung Kait No.13 Kp.Kebon Baru, Marga Mulya, Kec. Mauk, Kabupaten Tangerang, Banten 15530, Indonesia',
@@ -14,7 +14,7 @@ export const company = {
     instagram: '#',
     linkedin: '#',
   },
-  whatsappUrl: 'https://wa.me/6281281640680',
+  whatsappUrl: 'https://wa.me/6285894650948',
 }
 
 export default company

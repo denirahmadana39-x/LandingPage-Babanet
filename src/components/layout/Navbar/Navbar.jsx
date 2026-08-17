@@ -39,7 +39,7 @@ function Navbar() {
       <nav className={clsx(styles.navbar, 'container')} aria-label={t('aria.nav')}>
         <NavLink to="/" className={styles.brand} aria-label={t('aria.brand')} onClick={closeMenu}>
           <span className={styles.brandIcon} aria-hidden="true">
-            B
+            <img className={styles.brandLogo} src="/images/babasolution-logo.jpg" alt="" />
           </span>
           <span className={styles.brandText} translate="no">
             Baba<strong>Solution</strong>
